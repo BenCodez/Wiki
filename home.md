@@ -12,6 +12,6 @@ Welcome
 
 This wiki is still a WIP in progress.
 
-It will eventaully be put on github where changes can easily be made by pull requests
+You can request changes on github https://github.com/BenCodez/Wiki
 
 [VotingPlugin](/VotingPlugin)
