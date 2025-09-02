@@ -2,7 +2,7 @@
 title: Reward System
 description: 
 published: true
-date: 2025-09-02T01:44:24.647Z
+date: 2025-09-02T01:46:26.860Z
 tags: 
 editor: markdown
 dateCreated: 2025-09-02T01:43:37.375Z
@@ -80,7 +80,37 @@ Rewards:
   - 'VotePartyBonus'
 ```
 
-⚠️ Important: Example reward files provided by the plugin or wiki cannot be used directly. You must create your own .yml files.
+⚠️ Important: Example reward files provided by the plugin or wiki cannot be used directly. You must create your own .yml files. This is because example files are generic and may not fit your server's specific needs. 
+  
+To create a custom reward file:
+
+Navigate to plugins/VotingPlugin/Rewards/.
+
+Create a new file named MyCustomReward.yml.
+
+Define your reward structure within this file, such as:
+
+```yaml
+Items:
+  Diamond:
+    Material: 'DIAMOND'
+    Amount: 1
+Money: 5
+EXP: 100
+Commands:
+  Console:
+    - 'say %player% was lucky'
+```
+
+Reference this file in your VoteSites.yml:
+
+```yaml
+VoteSites:
+  ExampleSite:
+    Rewards: 'MyCustomReward'
+```
+
+This approach ensures that your rewards are tailored to your server's configuration and needs.
 
   
 Example Reward File
