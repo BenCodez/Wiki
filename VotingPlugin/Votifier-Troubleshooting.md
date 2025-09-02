@@ -2,13 +2,14 @@
 title: Votifier Troubleshooting
 description: 
 published: true
-date: 2025-09-01T02:39:14.963Z
+date: 2025-09-02T00:53:08.993Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:29.993Z
 ---
 
-> In order to verify votifier is working you should get this in console [VotingPlugin] Received a vote from service site 'SERVICESITEHERE' by player 'BenCodez'!
+> In order to verify votifier is working you should get this in console: 
+[VotingPlugin] Received a vote from service site 'SERVICESITEHERE' by player 'BenCodez'!
 This message will appear regardless of VotingPlugin configuration if votifier is working
 {.is-info}
 
