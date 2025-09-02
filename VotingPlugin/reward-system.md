@@ -2,7 +2,7 @@
 title: Reward System
 description: 
 published: true
-date: 2025-09-02T01:43:37.375Z
+date: 2025-09-02T01:44:24.647Z
 tags: 
 editor: markdown
 dateCreated: 2025-09-02T01:43:37.375Z
@@ -10,7 +10,7 @@ dateCreated: 2025-09-02T01:43:37.375Z
 
 # VotingPlugin Reward System
 
-**VotingPlugin** uses a flexible reward system for Minecraft servers. Rewards can be **defined directly in the config** (called inline or directly defined) or **referenced from separate YAML reward files**. This page explains how to configure both methods for server administrators.
+**VotingPlugin** uses a flexible reward system for Minecraft servers. Rewards can be **defined directly in the config** or **referenced from separate YAML reward files**. This page explains how to configure both methods for server administrators.
 
 ---
 
