@@ -2,7 +2,7 @@
 title: Setup
 description: 
 published: true
-date: 2025-08-31T03:20:40.070Z
+date: 2025-09-02T01:48:13.194Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-31T03:20:39.536Z
@@ -21,7 +21,7 @@ dateCreated: 2025-08-31T03:20:39.536Z
     * Add manually to VoteSites.yml, just  (See the examples in the file)
 
    Note: The service site must be correct, otherwise there will be no rewards given. Service site will be said in console on every vote, /av servicesites will list all known service sites received from votifier   
-4. Setup [Rewards](https://github.com/BenCodez/AdvancedCore/wiki/Rewards)    
+4. Setup [Rewards](https://wiki.bencodez.com/en/VotingPlugin/reward-system)    
 Anything in the example rewards files can be put under Rewards anywhere in the plugin where applicable, works the same everywhere. Some Specific examples on the side bar. This can also now be fully done ingame with /av gui  
 5. Setup Permissions (By default, players will get the permission VotingPlugin.Player (You may need to give it manually on some permissions plugins), which gives them the main player commands)  
 Note: Some permissions on commands may have 2 permissions (Shown on wiki for commands/permissions on the side), use /av perms ingame, use /av permsplayer (player) for checking what a player can access  
