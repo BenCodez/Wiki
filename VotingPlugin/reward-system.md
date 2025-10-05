@@ -2,7 +2,7 @@
 title: Reward System
 description: 
 published: true
-date: 2025-09-02T01:47:05.275Z
+date: 2025-10-05T02:53:46.106Z
 tags: 
 editor: markdown
 dateCreated: 2025-09-02T01:43:37.375Z
@@ -37,8 +37,7 @@ VoteSites:
       Money: 5
       EXP: 100
       Commands:
-        Console:
-          - 'say %player% was lucky'
+      - 'say %player% was lucky'
           
 ```
           
@@ -98,8 +97,7 @@ Items:
 Money: 5
 EXP: 100
 Commands:
-  Console:
-    - 'say %player% was lucky'
+- 'say %player% was lucky'
 ```
 
 Reference this file in your VoteSites.yml:
@@ -124,8 +122,7 @@ Items:
 Money: 5
 EXP: 100
 Commands:
-  Console:
-    - 'say %player% was lucky'
+- 'say %player% was lucky'
 ```
 
 ## 3. When Rewards Are Triggered
