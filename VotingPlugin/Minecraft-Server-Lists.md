@@ -2,7 +2,7 @@
 title: Minecraft Server Lists
 description: 
 published: true
-date: 2025-08-31T03:42:25.358Z
+date: 2025-10-26T01:06:28.481Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:13.937Z
@@ -37,3 +37,4 @@ Domain - Service site
 * minecraft.menu - Minecraft Menu
 * minecraft-serverlist.com - minecraft-serverlist-com
 * play-minecraft-servers.com - play-minecraft-servers.com
+* minecraftservers.blog - minecraftservers.blog
