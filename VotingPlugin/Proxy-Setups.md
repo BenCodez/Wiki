@@ -2,7 +2,7 @@
 title: Proxy-Setups
 description: Details of proxy setups
 published: true
-date: 2025-11-06T02:24:05.144Z
+date: 2025-11-06T02:26:59.944Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:02.764Z
@@ -52,12 +52,12 @@ Each method provides the same core functionality — sending votes from the prox
 When a player votes:
 
 1. The **proxy** receives the vote from **Votifier**.  
-2. **VotingPlugin (Proxy)** records the vote in the database and updates totals.  
+2. **VotingPlugin (Proxy)** records the vote in the database and updates totals (if enabled).  
 3. The proxy then **forwards** the vote to backend servers using the configured method.  
-4. Each backend’s **VotingPlugin** instance gives rewards and handles player-specific logic such as milestones and streaks.
+4. Each backend’s **VotingPlugin** instance handles rewards, milestones, and streaks locally.
 
 > The **proxy** acts as the **central controller** for vote tracking and forwarding.  
-> Backend servers are responsible for **executing rewards**, **tracking streaks**, and managing local features.
+> Backend servers focus on **reward delivery and gameplay logic**.
 
 ---
 
@@ -85,62 +85,37 @@ For networks with multiple proxies, VotingPlugin supports **PLUGINMESSAGING** or
 
 ---
 
-## More Technical Details
+## More Technical Details (Summary)
 
-The proxy handles incoming votes and forwards them to backend servers. Below is a deeper look at what happens internally.
+The proxy receives and manages votes from Votifier before forwarding them to backend servers.
 
-### Responsibilities (Proxy)
-- **Receive vote** from Votifier on the proxy.
-- **Time-change handling** (`GlobalData`):
-  - If a time change is detected and `timeQueue` is true, the vote is cached in the **time-change queue** and processed later.
-- **Player & UUID resolution:**
-  - Detects Bedrock players and adjusts name if missing prefix.
-  - Skips votes for unjoined players when `AllowUnJoined: false`.
-  - Performs UUID lookups if `UUIDLookup` and `OnlineMode` allow.
-- **Totals management** (`BungeeManageTotals: true`):
-  - Requires MySQL connection; if missing, vote processing stops.
-  - Inserts player record if new and enforces per-site vote delay (If set).
-  - Retrieves current totals (AllTime, Month, Week, Day, Points, MilestoneCount, and optional Date-based totals).
-  - Applies limits (`MaxAmountOfVotesPerDay`, `LimitVotePoints`) if configured.
-  - Updates player totals and generates a `BungeeMessageData` packet for forwarding.
-- **Vote party counters:**  
-  - Updates proxy vote party total and includes vote party progress in `VoteUpdate` messages.
-- **Forwarding & caching:**  
-  - If `SendVotesToAllServers: true`, sends or caches votes for each server based on player presence and config.
-  - Otherwise, sends `VoteOnline` to the player’s current server or caches if offline.
-- **Broadcasts:**  
-  - Sends `VoteBroadcast` and `VoteUpdate` across servers when `Broadcast: true`.
-- **Multi-proxy support:**
-  - Shares votes with other proxies through `MultiProxySupport`.
-  - Respects `MultiProxyOneGlobalReward` and `PrimaryServer` to prevent duplicate rewards.
+### Proxy Responsibilities
+- 📨 **Receives votes** from Votifier on the proxy.  
+- 🕓 **Handles time-change conditions** when `GlobalData` is enabled (queues votes safely).  
+- 🧩 **Resolves UUIDs** and supports Bedrock players (prefix detection).  
+- 💾 **Manages totals** when `BungeeManageTotals: true` — updates MySQL totals (daily, weekly, monthly, all-time, and points).  
+- 🎉 **Updates vote party progress** and broadcasts `VoteUpdate` / `VoteBroadcast`.  
+- 🔁 **Forwards or caches votes** for backend servers depending on player presence and configuration.  
+- 🌐 **Supports multi-proxy setups**, syncing votes across proxies and preventing duplicate rewards.
 
-### Handled by Backend Servers
-- Executing rewards (commands, items, messages)
-- Handling milestones
-- Managing streaks and local reward tracking
+### Backend Responsibilities
+- Executes rewards, milestones, and streak tracking.  
+- Handles all in-game logic and GUI-related features.  
 
 ---
 
-### Key Config Options Referenced
-| Key | Purpose |
-|-----|----------|
+### Common Config Keys
+| Key | Description |
+|-----|--------------|
 | `BungeeManageTotals` | Enables proxy-managed totals. |
-| `SendVotesToAllServers` | Sends votes to all servers or just target player’s server. |
-| `WaitForUserOnline` | Forces votes to cache until player is online. |
-| `AllowUnJoined` | Whether players must have joined before. |
-| `UUIDLookup` | Allows online UUID fetching. |
-| `OnlineMode` | Controls whether to use online UUID lookup. |
-| `GlobalData` | Enables global time-change handling and synchronization. |
-| `StoreMonthTotalsWithDate` | Stores monthly totals using date-based column names. |
-| `UseMonthDateTotalsAsPrimaryTotal` | Uses date-based totals as main totals. |
-| `LimitVotePoints` | Caps total points a player can earn. |
-| `MaxAmountOfVotesPerDay` | Caps daily votes per player. |
-| `Broadcast` | Enables global broadcast messages. |
-| `BlockedServers` | Prevents forwarding to specific servers. |
-| `MultiProxySupport` | Enables cross-proxy vote forwarding. |
-| `MultiProxyOneGlobalReward` | Prevents duplicate rewards when multiple proxies handle votes. |
-| `PrimaryServer` | Marks one proxy as the primary vote processor. |
+| `SendVotesToAllServers` | Sends votes to all servers or only player’s current server. |
+| `AllowUnJoined` | Ignores votes from players who never joined if false. |
+| `WaitForUserOnline` | Queues votes until player logs in. |
+| `GlobalData` | Enables global data/time sync and vote queueing. |
+| `MultiProxySupport` | Allows votes to sync between multiple proxies. |
+| `PrimaryServer` | Marks the main proxy handling totals. |
 
 ---
 
-*Based on core logic in [`VotingPluginProxy.java`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/proxy/VotingPluginProxy.java)*
+*For a deeper technical breakdown, see the implementation in  
+[`VotingPluginProxy.java`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/proxy/VotingPluginProxy.java).*
