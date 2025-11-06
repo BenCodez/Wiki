@@ -2,7 +2,7 @@
 title: VotingPlugin
 description: 
 published: true
-date: 2025-11-06T01:54:48.406Z
+date: 2025-11-06T02:02:04.736Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-31T02:55:49.572Z
@@ -100,7 +100,7 @@ Path: `/plugins/VotingPlugin/Rewards/`
 - **`VotingPlugin.Player`** – Main permission for normal player commands.  
   Granted by default (can be disabled in `Config.yml`).
 
-> See the [Commands and Permissions](./Admin/Commands-and-Permissions) page for all available nodes and usage.
+> See the [Commands and Permissions](./VotingPlugin/Commands-&-Permissions) page for all available nodes and usage.
 
 ---
 
