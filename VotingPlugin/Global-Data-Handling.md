@@ -2,115 +2,150 @@
 title: Global Data Handling
 description: Sync time changes between multiple servers
 published: true
-date: 2025-08-31T03:39:51.007Z
+date: 2025-11-06T02:31:25.255Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:11.336Z
 ---
 
-## This is a work in progress feature. Contact BenCodez if you run into problems
+# Global Data Handling (Work in Progress)
 
-Global data handling will make proxy server be primary server to handle time changes instead of every server for itself. This allows all servers to finishing processing time changes and store top voters before resetting totals.
+> ⚠️ **Work in Progress Feature**
+>
+> This feature is still being developed, but is stable.  
+> Contact **BenCodez** if you encounter any problems or unexpected behavior.
+{.is-warning}
 
-In order for this feature to work MySQL needs to be used to create another table to handle server communication. This can use the existing mysql settings (and without opening another connection) or use different settings altogether.
+---
 
-Intended for PLUGINMESSAGING and SOCKETS. May eventually work for MYSQL setup in the future.
+## Overview
 
-Benefits:
-- Bungee will cache votes during time changes
-  - Stores time of vote
-- TopVoter rewards should all be given out on each server
-- TopVoter information will all be stored correctly if enabled
-- All servers finish there time handling before totals are reset
-- No one server randomly resetting all totals if it was offline during time change
-- Supports TimeHourOffSet
+**Global Data Handling** makes the **proxy** (Bungee/Velocity) act as the **primary server** for processing time changes and resetting totals.  
+Instead of each backend handling its own time change independently, the proxy coordinates the process — ensuring all servers finish updating before any totals reset.
 
-Cons:
-- Slightly longer delay on time change, by only 5-10 seconds though (If a player is online on each server then there is almost no delay)
-- If a server is offline or error occurs during time change then it will take 30 minutes to 2 hours before the time change is skipped on that server
-  - Votes are cached with times during this, so they should all process afterword
-  - This time delay may change in the future
-  - There won't be a major delay if server has been offline for atleast 12 hours
-- Requires another mysql table to use (but can avoid using another connection)
-- Still a work in progress, issues could appear
-- Server name must be set properly in BungeeSettings.yml
+This feature improves reliability when using **TopVoter** or **VoteParty** resets across multiple servers.
 
-Related commands:
-- /votingpluginbungee forcetimechange (TimeType)
+---
 
-bungeeconfig.yml settings:
+## How It Works
 
-    # Global mysql data handle for between server commmunications
-    # This is NOT required for bungee voting to work
-    # This is still a WIP, use with caution
-    # This will create a different table then from users storing server info to process
-    #
-    # If you use this you need to enable this on BungeeSettings.yml on each server with votingplugin
-    # Make sure server name is set correctly in BungeeSettings.yml or this will not work correctly
-    # 
-    # Please use PLUGINMESSAGING for this, SOCKETS should work as well, but not fully tested
-    #
-    # This will make votes cache until time change has finished processing
-    # In the event a server is offline or time change fails, the time change process
-    # will continue after a set amount of time (in essense skipping a specific server)
-    # This will also respect blocked servers
-    GlobalData:
-      Enabled: false
-      # Use existing connection above
-      UseMainMySQL: true
-      # Mysql settings only used if above is false
-      Host: ''
-      # Default port is 3306
-      Port: 3306 
-      Database: ''
-      Username: ''
-      Password: ''
-      # Max number of connections
-      MaxConnections: 1
-      # Must be the same on all servers
-      Prefix: ''
-      #UseSSL: true
-      #PublicKeyRetrieval: false
-      #Attempt to use mariadb driver
-      #UseMariaDB: false
-      
-    # Time offset for time changes
-    # Must match on all servers
-    TimeHourOffSet: 0
+When enabled, the proxy manages the timing of vote resets (daily, weekly, monthly).  
+During a time change:
+- The proxy signals all connected servers to pause vote processing.
+- Votes received during this time are **cached** (with timestamps).
+- Once all servers report completion, totals reset and cached votes are re-applied.
 
+If a server is offline, the process will automatically skip that server after a set period — preventing the network from stalling indefinitely.
 
-BungeeSettings.yml settings:
+---
 
-    # Global mysql data handle for between server commmunications
-    # This is NOT required for bungee voting to work
-    # This is still a WIP, use with caution
-    # This will create a different table then from users storing server info to process
-    #
-    # If you use this you need to enable this on BungeeSettings.yml on each server with votingplugin
-    # Make sure server name is set correctly in BungeeSettings.yml or this will not work correctly
-    # 
-    # Please use PLUGINMESSAGING for this, SOCKETS should work as well, but not fully tested
-    #
-    # This will make votes cache until time change has finished processing
-    # In the event a server is offline or time change fails, the time change process
-    # will continue after a set amount of time (in essense skipping a specific server)
-    # This will also respect blocked servers in bungeeconfig.yml
-    GlobalData:
-      Enabled: false
-      # Use existing mysql connection from config.yml
-      UseMainMySQL: true
-      # Mysql settings only used if above is false
-      Host: ''
-      # Default port is 3306
-      Port: 3306 
-      Database: ''
-      Username: ''
-      Password: ''
-      # Max number of connections
-      MaxConnections: 1
-      # Must be the same on all servers
-      Prefix: ''
-      #UseSSL: true
-      #PublicKeyRetrieval: false
-      #Attempt to use mariadb driver
-      #UseMariaDB: false
+## Requirements
+
+- 🗄️ **MySQL required**  
+  Global data uses an additional MySQL table for inter-server coordination.  
+  It can use the **same MySQL connection** defined in your config or a separate one.
+
+- 🔌 **Proxy Support**  
+  Intended for **PLUGINMESSAGING** and **SOCKETS** setups.  
+  Support for **MySQL method** may be added later.
+
+- ⚙️ **Proper Server Naming**  
+  Each backend must have a **unique server name** set in `BungeeSettings.yml`.
+
+---
+
+## Benefits
+
+✅ Bungee will **cache votes** safely during time changes (stores timestamps)  
+✅ **TopVoter rewards** distribute correctly across all servers  
+✅ Ensures **consistent TopVoter data** when enabled  
+✅ All servers **finish processing time changes together**  
+✅ Prevents random resets if a server was offline  
+✅ Supports **TimeHourOffSet** configuration for time alignment
+
+---
+
+## Drawbacks
+
+⚠️ **Slight delay** (usually 5–10 seconds) during time changes.  
+⚠️ If a server is offline or fails during a time change, it may take **30 min – 2 hours** before that server is skipped.  
+ • Votes received during this time are cached (with timestamps) and processed afterward.  
+ • Delay only applies if the server went offline *recently* — if it’s been offline for a long period (≈ 12 hours +), it will **not** slow down the process.  
+ • This delay behavior may be adjusted in future updates.  
+⚠️ Requires an extra MySQL table (but not an extra connection if `UseMainMySQL: true`).  
+⚠️ Still experimental — unexpected issues may occur.
+
+---
+
+## Related Command
+
+| Command | Description |
+|----------|-------------|
+| `/votingpluginbungee forcetimechange (TimeType)` | Forces a manual time change event (daily/weekly/monthly). |
+
+---
+
+## Example Configuration
+
+### bungeeconfig.yml
+```yaml
+# Global MySQL data handling between server communications
+GlobalData:
+  Enabled: false
+  # Use existing connection from config.yml
+  UseMainMySQL: true
+  # Custom MySQL settings (if not using main)
+  Host: ''
+  Port: 3306
+  Database: ''
+  Username: ''
+  Password: ''
+  MaxConnections: 1
+  # Must be identical on all servers
+  Prefix: ''
+  #UseSSL: true
+  #PublicKeyRetrieval: false
+  #UseMariaDB: false
+
+# Time offset for time changes (must match across servers)
+TimeHourOffSet: 0
+```
+---
+
+### BungeeSettings.yml
+```yaml
+# Global MySQL data handling between server communications
+GlobalData:
+  Enabled: false
+  # Use existing MySQL connection from config.yml
+  UseMainMySQL: true
+  # Custom MySQL settings (if not using main)
+  Host: ''
+  Port: 3306
+  Database: ''
+  Username: ''
+  Password: ''
+  MaxConnections: 1
+  # Must be identical on all servers
+  Prefix: ''
+  #UseSSL: true
+  #PublicKeyRetrieval: false
+  #UseMariaDB: false
+```
+---
+
+## Notes
+
+- Ensure **GlobalData.Enabled** is set to `true` in both **bungeeconfig.yml** and **BungeeSettings.yml**.  
+- All servers must share the same `Prefix` and MySQL configuration if using `UseMainMySQL: true`.  
+- This system will respect **BlockedServers** settings in `bungeeconfig.yml`.  
+- Time synchronization and resets must occur with consistent `TimeHourOffSet` across all servers.
+
+---
+
+🧩 **Intended Use:**  
+This feature is ideal for large networks where accurate **TopVoter synchronization** is important, and where time changes need to be coordinated globally instead of per-server.
+
+---
+
+*Still under development — feedback is welcome.*
