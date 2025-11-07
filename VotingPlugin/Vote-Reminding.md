@@ -2,65 +2,106 @@
 title: Vote Reminding
 description: 
 published: true
-date: 2025-09-01T02:59:31.350Z
+date: 2025-11-07T02:27:40.177Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:29.070Z
 ---
 
-Vote reminding applies to players with permission "VotingPlugin.Player" (Given by default) or "VotingPlugin.Login.RemindVotes"  
+# 🗳️ Vote Reminding
 
-The vote reminding won't apply if player has permission "VotingPlugin.NoRemind"  
+VotingPlugin includes a **vote reminding** system to notify players when they can vote again on one or more sites.  
+This helps increase player participation without needing manual announcements or automation tools.
 
-By default players will be reminded if they can vote on any website (This changed from requiring allsites in 6.5+)  
+---
 
-If player has the permissison "VotingPlugin.Login.RemindVotes.All" then the reminding only runs if they can vote on all vote sites  
+## ⚙️ How It Works
 
-You can also remind players to vote when cool down ends for each site in VoteSites.yml under each site, CoolDownEndRewards.
+Vote reminding checks a player’s **vote cooldowns** and notifies them when a site becomes available.
 
-Full default config options (Config.yml):
+- Requires vote delays to be correctly set up in `VoteSites.yml`
+- Works automatically on player login or at set intervals
+- Messages, titles, and action bars can be customized
+- Fully configurable via `/av gui`
 
-    # ------------------------------------------------
-    # VoteReminding
-    # ------------------------------------------------
+---
 
-    # Configuration for VoteReminding
-    # By default this should be all setup to work
-    # as long as vote delays are done properly in votesites.yml
-    VoteReminding:
-      # Enable vote reminding
-      # This will remind player when he can vote on all sites
-      # Requires VoteDelays to be setup properly
-      # Use /vote next to see when you can be reminded
-      # Players require the perm "VotingPlugin.Login.RemindVotes" or "VotingPlugin.Player"
-      # To remind if all votesites are available (rather than any) use the permission "VotingPlugin.Login.RemindVotes.All"
-      Enabled: true
+## 🧾 Permissions
 
-      # Will remind player on login if he can vote
-      RemindOnLogin: true
-      
-      # Whether or not to remind only once when the player can vote
-      # Does not apply to login reminds.
-      RemindOnlyOnce: true
+| Permission | Description |
+|-------------|--------------|
+| `VotingPlugin.Player` | Default permission (required for vote reminding) |
+| `VotingPlugin.Login.RemindVotes` | Enables standard vote reminders |
+| `VotingPlugin.NoRemind` | Disables vote reminders for a player |
+| `VotingPlugin.Login.RemindVotes.All` | Only reminds if **all** vote sites are available (instead of any) |
 
-      # Delay to remind votes in minutes
-      # Set to -1 to disable
-      RemindDelay: 30
+> 🧠 **Note:**  
+> Since **v6.5+**, vote reminders now trigger if **any site** is available (previously required all sites).  
+> Use the `RemindVotes.All` permission if you want to keep the old behavior.
+{.is-info}
 
-      # Run rewards
-      # and have the default message
-      # Can add titles and more in the reward
-      # This can also be edited via /av gui
-      Rewards:
-        Messages:
-          Player: '&aYou have %sitesavailable% to vote on still!'
-        Title:
-          Enabled: false
-          Title: '&cRemember to vote!'
-          SubTitle: '&aType /vote'
-          FadeIn: 10
-          ShowTime: 50
-          FadeOut: 10
-        ActionBar:
-          Message: '&cRemember to vote'
-          Delay: 30
+---
+
+## ⏰ Cooldown End Reminders
+
+You can also notify players **when a site cooldown ends** — per site.  
+Add this inside each vote site section in `VoteSites.yml`:
+
+CoolDownEndRewards:
+  Messages:
+    Player: "&aYou can vote again on %SiteName%!"
+
+This works alongside the global VoteReminding system.
+
+---
+
+## 🧩 Example Configuration (`Config.yml`)
+
+```yaml
+# ------------------------------------------------
+# VoteReminding
+# ------------------------------------------------
+VoteReminding:
+  # Enable vote reminding system
+  Enabled: true
+
+  # Remind players on login if they can vote
+  RemindOnLogin: true
+
+  # Remind only once per available vote period (doesn't affect login)
+  RemindOnlyOnce: true
+
+  # Delay between reminders (in minutes)
+  # Set to -1 to disable
+  RemindDelay: 30
+
+  # Reward section runs when a reminder is triggered
+  Rewards:
+    Messages:
+      Player: '&aYou have %sitesavailable% sites to vote on!'
+    Title:
+      Enabled: false
+      Title: '&cRemember to vote!'
+      SubTitle: '&aType /vote'
+      FadeIn: 10
+      ShowTime: 50
+      FadeOut: 10
+    ActionBar:
+      Message: '&cRemember to vote'
+      Delay: 30
+```
+
+---
+
+## ✅ Summary
+
+| Feature | Description |
+|----------|--------------|
+| **RemindOnLogin** | Sends reminder when player joins |
+| **RemindOnlyOnce** | Prevents repeating reminders |
+| **RemindDelay** | Sets time interval for checking reminders |
+| **Rewards** | Defines reminder messages, titles, and visuals |
+| **CoolDownEndRewards** | Sends reminder when specific site cooldown expires |
+| **Permissions** | Control who receives reminders and when |
+
+> 💡 Tip: You can edit all VoteReminding messages and rewards using `/av gui` for easier setup.
