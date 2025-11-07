@@ -2,26 +2,97 @@
 title: Time Changes
 description: 
 published: true
-date: 2025-09-01T02:59:48.487Z
+date: 2025-11-07T02:25:15.002Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:26.884Z
 ---
 
-VotingPlugin has events to detect time changes which are based on server time. 
+# ⏰ Time Change Handling
 
-This can be offset with `TimeHourOffSet: 0` in Config.yml, just change the number.
+VotingPlugin uses **Java’s LocalDateTime** with **ZoneId.of()** to handle time-based features — like daily, weekly, and monthly resets.
 
-With 6.13+ you can now set timezone with `TimeZone: 'UTC"`
+---
 
-You can view current plugin time with `/av CurrentPluginTime`.
+## ⚙️ Configuration Options
 
-To force time changes use `/av forcetimechange (TimeType)`. Must also be done from console.
+### 🕐 Time Offset
 
-TimeTypes:
-- DAY
-- WEEK
-- MONTH
+You can shift the plugin’s internal time relative to your system clock:
 
-If you want the plugin to bypass time changes on startup you can set `IgnoreTime: true` in ServerData.yml. You might need to add this. You could also edit the day/week/month in ServerData.yml as well.
+    TimeHourOffSet: 0
 
+Examples:
+- `TimeHourOffSet: -6` → Runs 6 hours **behind** system time  
+- `TimeHourOffSet: 2` → Runs 2 hours **ahead** of system time  
+
+---
+
+### 🌍 Time Zone (6.13+)
+
+You can define a specific time zone in `Config.yml` using standard Java zone IDs.  
+VotingPlugin validates these using `ZoneId.of("YourZoneHere")`.
+
+    TimeZone: 'UTC'
+
+#### ✅ Common Working Examples
+
+| Example | Description |
+|:--|:--|
+| `'UTC'` | Universal Coordinated Time |
+| `'America/Regina'` | Central Canada (no daylight savings) |
+| `'America/New_York'` | Eastern Time (auto daylight savings) |
+| `'America/Los_Angeles'` | Pacific Time |
+| `'Europe/London'` | United Kingdom |
+| `'Australia/Sydney'` | Eastern Australia |
+| `'Asia/Tokyo'` | Japan |
+
+> Use one of the above examples or check the [IANA timezone list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for your region.  
+> If invalid, Java will throw an error when loading.
+
+---
+
+### 🧭 Checking Plugin Time
+
+You can view the time VotingPlugin is currently using:
+
+    /av CurrentPluginTime
+
+---
+
+### 🧨 Forcing Time Changes
+
+To manually trigger a time change (for testing):
+
+    /av forcetimechange (TimeType)
+
+Valid types:
+- `DAY`
+- `WEEK`
+- `MONTH`
+
+Example:
+> `/av forcetimechange MONTH`
+
+Must be run from **console**.
+
+---
+
+### 🚫 Skipping Time Changes on Startup
+
+If you need to skip automatic time changes when the server starts,  
+set this in `ServerData.yml`:
+
+    IgnoreTime: true
+
+---
+
+## ✅ Summary
+
+| Setting | Description |
+|----------|-------------|
+| `TimeHourOffSet` | Adjusts time by a set number of hours. |
+| `TimeZone` | Uses a valid Java Zone ID to define your region. |
+| `IgnoreTime` | Skips time-change events on startup. |
+| `/av CurrentPluginTime` | Displays plugin time. |
+| `/av forcetimechange` | Forces daily/weekly/monthly reset. |
