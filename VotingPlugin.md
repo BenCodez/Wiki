@@ -2,7 +2,7 @@
 title: VotingPlugin
 description: 
 published: true
-date: 2025-11-06T02:02:04.736Z
+date: 2025-11-07T01:46:59.760Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-31T02:55:49.572Z
@@ -150,8 +150,10 @@ Examples:
 VotingPlugin supports all major proxy methods:
 
 - **PLUGINMESSAGING** – Easiest for most setups.  
-- **SOCKET** – Encrypted communication between proxy and servers (requires `secretkey.key`).  
-- **MYSQL** – Shared database synchronization across servers.  
+- **REDIS** – Easiest behind PLUGINMESSAGING
+- **MQTT** – Uses an mqtt broker
+- **SOCKET** – Encrypted communication between proxy and servers (requires `secretkey.key` and open ports).  
+- **MYSQL** – Uses mysql to forward votes.  
 
 Detailed instructions and examples:  
 [https://wiki.bencodez.com/en/VotingPlugin/Proxy-Setups](https://wiki.bencodez.com/en/VotingPlugin/Proxy-Setups)
