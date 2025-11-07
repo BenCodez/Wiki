@@ -2,174 +2,155 @@
 title: PlaceHolderAPI placeholders
 description: 
 published: true
-date: 2025-09-01T02:56:18.667Z
+date: 2025-11-07T02:34:23.168Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:20.126Z
 ---
 
-#### There is a placeholderapi expansion available to be downloaded on the expansion cloud of the plugin [PlaceHolderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/), this is only required before 6.14. List of placeholders below. These can be used in other plugins that have placeholderapi support.
+# 🧩 PlaceholderAPI Support
 
-"No player" - Using a player placeholder without a player to reference  
-".." - Using a placeholder that is not cached, should return a value once pulled again from cache (if enabled)  
-"." or "..." - Using a placeholder that is not cached for the specific player, should almost never happen  
+VotingPlugin provides full **PlaceholderAPI** integration for use in other plugins (scoreboards, menus, holograms, etc.).  
+You can download the official expansion from the [PlaceholderAPI Expansion Cloud](https://www.spigotmc.org/resources/placeholderapi.6245/).  
+*(Required only for versions before 6.14 — included automatically in newer builds.)*
 
-### Placeholder controls
-- Add _process to end of placeholder to force a return value rather than . or .. if no cached value is ready, best option if you always need a value returned, do not use on main thread
-- Add _nocache to end of placeholder to skip cache and retrive a live value, uses a direct mysql connection, do not use on main thread
+---
 
-### 
-    # ---------------------------------------
-    # Placeholderapi placeholders settings
-    # ---------------------------------------
+## ℹ️ Placeholder Behavior
 
-    # When enabled the command /vote setprimaryaccount (playername)
-    # will be shown (after restart)
-    # Primary account will be used instead of the players account to get
-    # placeholder and other data such as vote reminding
-    # Mainly to be used for alts and such
-    UsePrimaryAccountForPlaceholders: false
+| Symbol | Meaning |
+|---------|----------|
+| **"No player"** | Placeholder was used without a valid player context |
+| **".."** | Value not cached yet — should return once cache updates |
+| **"." or "..."** | Placeholder not cached for specific player (rare) |
 
-    # Valid Options:
-    # AUTO - Auto cache after they have been used (Recommended)
-    # SPECIFIC - Only cache certain placeholders 
-    # NONE - Don't cache any placeholders
-    PlaceholderCacheLevel: AUTO
+---
 
-    # Placeholder controls
-    # Add _process to end of placeholder to force a return value rather than . or .. if no cached value is ready
-    # Add _nocache to end of placeholder to skip cache and retrive a live value, uses a direct mysql connection, do not use on main thread
-    #
+## ⚙️ Placeholder Controls
 
-    # Set which placeholders to cache at all times
-    # Use for placeholders to are pulled constantly or on the main thread
-    # Mainly aimed for scoreboards that pull placeholders often
-    # Placeholders may auto cache in certain conditions (if enabled above)
-    # Will use additional memory, but not a lot
-    # Still in early stages, please report bugs
-    # Please remove VotingPlugin_ from the placeholder listed here
-    CachedPlaceholders: []
-    #- Total_AllTime
+You can modify placeholder behavior using suffixes:
 
-    # Custom placeholder returns
-    # For the example below use %votingplugin_custom_enoughpoints_5%
-    # DO NOT USE ON MAIN THREAD IF POSSIBLE
-    # Keep everything lowercase
-    #CustomPlaceholderReturns:
-    #  'enoughpoints_5':
-    #    'true': 'User has enough points'
-    #    'false': 'User does not have enough points'
+| Suffix | Effect |
+|---------|---------|
+| `_process` | Forces the placeholder to process live and return a value instead of `.` or `..`. *(Avoid on main thread.)* |
+| `_nocache` | Skips cache and retrieves a live value directly from MySQL. *(Avoid on main thread.)* |
 
-#### View up to date placeholders in game with /av placeholders and /av placeholdersplayer (player) to get the list with all values.
+---
 
-#### PlaceHolders:  
-    votingplugin_total - Month total
-    votingplugin_alltimetotal - Alltime total
-    votingplugin_lastmonthtotal - Last month total
-    votingplugin_disablebroadcast - Returns true/false if user has broadcast disabled
-    votingplugin_disablereminders - Returns true/false if user has reminders disabled
-    votingplugin_milestonecount - User milestonecount
-    votingplugin_milestone_numberofvotesuntil_20 - Get number of votes until milestone
-    votingplugin_milestone_numberofvotesuntil_1 - Get number of votes until milestone
-    votingplugin_nextmilestone_votes_required - Get number of votes required for next available milestone
-    votingplugin_nextmilestone_votes_until - Get number of votes until next available milestone
-    votingplugin_lastmilestone_votes_since - Get number of votes since last milestone
-    votingplugin_total_alltime - User total for AllTime
-    votingplugin_total_monthly - User total for Monthly
-    votingplugin_total_weekly - User total for Weekly
-    votingplugin_total_daily - User total for Daily
-    votingplugin_bestdailytotal - Best daily total
-    votingplugin_bestweeklytotal - Best weekly total
-    votingplugin_bestmonthlytotal - Best monthly total
-    votingplugin_dailyvotestreak - Current daily votestreak
-    votingplugin_weeklyvotestreak - Current weekly votestreak
-    votingplugin_monthvotestreak - Current month votestreak
-    votingplugin_bestdailyvotestreak - Best daily votestreak
-    votingplugin_bestweeklyvotestreak - Best weekly votestreak
-    votingplugin_bestmonthvotestreak - Best month votestreak
-    votingplugin_points - User points
-    votingplugin_points_format - User points
-    votingplugin_canvote - Return true/false if player can vote on all sites
-    votingplugin_canvotesites - Return number of votesites available
-    votingplugin_next_anysite - How long until user can vote on anysite
-    votingplugin_sitesavailable - Get number of sites available to be voted on
-    votingplugin_sitesavailabletotal - Get total number of sites available to be voted on
-    votingplugin_next_anysite - How long until user can vote on anysite
-    VotingPlugin_Next_VOTESITE - How long until user can vote on VOTESITE
-    VotingPlugin_Last_VOTESITE - How long ago user voted on VOTESITE
-    VotingPlugin_CanVote_VOTESITE - Whether or not player can vote on VOTESITE
-    votingplugin_top_all_position - Get user top voter position
-    votingplugin_enoughpoints_# - Return true/false if player has said points
-    votingplugin_top_month_position - Get user top voter position
-    votingplugin_top_lastmonth_position - Get user top voter position for lastmonth
-    votingplugin_top_week_position - Get user top voter position
-    votingplugin_top_daily_position - Get user top voter position
-    votingplugin_votepartycontributedvotes - See vote party placeholders contributed
-    votingplugin_top_allvotes_# - Get user votes at position in top voter
-    votingplugin_top_all_# - Get username at postion in top voter
-    votingplugin_top_lastmonth_# - Get user at position in last month top voter
-    votingplugin_top_lastmonthvotes_# - Get user votes at position in last month top voter
-    votingplugin_top_month_# - Get username at position in top voter
-    votingplugin_top_monthvotes_# - Get user votes at position in top voter
-    votingplugin_top_week_# - Get username at postion in top voter
-    votingplugin_top_weekvotes_# - Get user votes at position in top voter
-    votingplugin_top_daily_# - Get username at postion in top voter
-    votingplugin_top_dailyvotes_# - Get user votes at position in top voter
-    votingplugin_votepartyvotescurrent - Current amount of voteparty votes
-    votingplugin_votepartyvotesneeded - Voteparty votes needed
-    votingplugin_votepartyvotesrequired - Amount of votes needed for voteparty
-    votingplugin_bungeevotepartyvotescurrent - Current amount of bungee voteparty votes
-    votingplugin_bungeevotepartyvotesneeded - Voteparty bungee votes needed
-    votingplugin_bungeevotepartyvotesrequired - Amount of votes needed for bungee  voteparty
-    votingplugin_globalmonthtotal - Global month total
-    votingplugin_globalalltimetotal - Global alltime total
-    votingplugin_globalweeklytotal - Global weekly total
-    votingplugin_globaldailytotal - Global daily total
-    votingplugin_timeuntildayreset - Time until plugin time day changes
-    votingplugin_timeuntilweekreset - Time until plugin time week changes
-    votingplugin_timeuntilmonthreset - Time until plugin time month changes
+## 🧩 Configuration Example (`Config.yml`)
 
-## 6.11.3 and below
+```yaml
+# ---------------------------------------
+# PlaceholderAPI Placeholder Settings
+# ---------------------------------------
 
-#### Placeholder return codes:  
-"No player" - Using a player placeholder without a player to reference  
-".." - Using a placeholder on the main thread that isn't cached and AlwaysWaitForCache set to false  
-"...." - Using a placeholder that isn't just cached yet and with AlwaysProcessPlaceholders set to false  
+# When enabled, the command /vote setprimaryaccount (playername)
+# will appear after restart.
+# The primary account is used instead of the player’s account
+# to fetch placeholders and vote reminders (useful for alts).
+UsePrimaryAccountForPlaceholders: false
 
-#### Default cache options:
-Note: These are most performance efficient settings (without using cache), however placeholders can sometimes return values like the ones above instead of the intended value. If you get the other values as shown above set AlwaysWaitForCache and AlwaysProcessPlaceholders to true, that will always return a value. Just note it can crash the server if using with scoreboards.
+# Cache levels:
+# AUTO - Auto cache after use (recommended)
+# SPECIFIC - Cache only listed placeholders
+# NONE - Disable caching entirely
+PlaceholderCacheLevel: AUTO
 
-        # ---------------------------------------
-        # Placeholderapi placeholders settings
-        # ---------------------------------------
+# Placeholders to always cache
+# Use for placeholders that appear frequently (like on scoreboards)
+# Remove "VotingPlugin_" prefix from listed placeholders
+CachedPlaceholders: []
+#- Total_AllTime
 
-        # When enabled the command /vote setprimaryaccount (playername)
-        # will be shown (after restart)
-        # Primary account will be used instead of the players account to get
-        # placeholder and other data such as vote reminding
-        # Mainly to be used for alts and such
-        UsePrimaryAccountForPlaceholders: false
+# Custom placeholder returns
+# Example: %votingplugin_custom_enoughpoints_5%
+# DO NOT USE ON MAIN THREAD
+#CustomPlaceholderReturns:
+#  'enoughpoints_5':
+#    'true': 'User has enough points'
+#    'false': 'User does not have enough points'
+```
 
-        # Always force placeholders to return value if the value isn't cached
-        # This should prevent server from crashing when pulling placeholders on main thread
-        # Only affects placeholderapi placeholders
-        AlwaysWaitForCachePlaceholders: false
+---
 
-        # Always force placeholders to be processed and return a proper value
-        # This has small chance of crashing the server (mainly with mysql and using placeholders on main thread)
-        AlwaysProcessPlaceholders: false
+## 🔍 View Placeholders In-Game
 
-        # Enable auto caching placeholders
-        # Generally this works well, but if you need to cache placeholders manually set them below
-        AutoCachePlaceholders: false
+- `/av placeholders` — shows all available placeholders  
+- `/av placeholdersplayer (player)` — shows live values for a player
 
-        # Set which placeholders to cache at all times
-        # Use for placeholders to are pulled constantly or on the main thread
-        # Mainly aimed for scoreboards
-        # Placeholders may auto cache in certain conditions
-        # Will use additional memory, but not a lot
-        # Still in early stages, please report bugs
-        # Please remove VotingPlugin_ from the placeholder listed here
-        CachedPlaceholders: []
-        #- Total_AllTime
+---
 
+## 📜 Full Placeholder List
+
+| Placeholder | Description |
+|--------------|--------------|
+| `%votingplugin_total%` | Month total |
+| `%votingplugin_alltimetotal%` | All-time total |
+| `%votingplugin_lastmonthtotal%` | Last month total |
+| `%votingplugin_disablebroadcast%` | Returns true/false if broadcast disabled |
+| `%votingplugin_disablereminders%` | Returns true/false if reminders disabled |
+| `%votingplugin_milestonecount%` | Milestone count |
+| `%votingplugin_milestone_numberofvotesuntil_20%` | Votes until milestone 20 |
+| `%votingplugin_milestone_numberofvotesuntil_1%` | Votes until milestone 1 |
+| `%votingplugin_nextmilestone_votes_required%` | Votes required for next milestone |
+| `%votingplugin_nextmilestone_votes_until%` | Votes until next milestone |
+| `%votingplugin_lastmilestone_votes_since%` | Votes since last milestone |
+| `%votingplugin_total_alltime%` | Total all-time votes |
+| `%votingplugin_total_monthly%` | Total monthly votes |
+| `%votingplugin_total_weekly%` | Total weekly votes |
+| `%votingplugin_total_daily%` | Total daily votes |
+| `%votingplugin_bestdailytotal%` | Highest daily total |
+| `%votingplugin_bestweeklytotal%` | Highest weekly total |
+| `%votingplugin_bestmonthlytotal%` | Highest monthly total |
+| `%votingplugin_dailyvotestreak%` | Current daily vote streak |
+| `%votingplugin_weeklyvotestreak%` | Current weekly vote streak |
+| `%votingplugin_monthvotestreak%` | Current monthly vote streak |
+| `%votingplugin_bestdailyvotestreak%` | Best daily streak |
+| `%votingplugin_bestweeklyvotestreak%` | Best weekly streak |
+| `%votingplugin_bestmonthvotestreak%` | Best monthly streak |
+| `%votingplugin_points%` | Player points |
+| `%votingplugin_points_format%` | Formatted points value |
+| `%votingplugin_canvote%` | True/false if can vote on all sites |
+| `%votingplugin_canvotesites%` | Number of available vote sites |
+| `%votingplugin_next_anysite%` | Time until next available vote site |
+| `%votingplugin_sitesavailable%` | Number of sites player can vote on |
+| `%votingplugin_sitesavailabletotal%` | Total sites that can be voted on |
+| `%VotingPlugin_Next_VOTESITE%` | Time until player can vote again on site |
+| `%VotingPlugin_Last_VOTESITE%` | How long ago the player voted on the site |
+| `%VotingPlugin_CanVote_VOTESITE%` | True/false if can vote on the specific site |
+| `%votingplugin_top_all_position%` | Player’s all-time top voter position |
+| `%votingplugin_top_month_position%` | Player’s monthly top voter position |
+| `%votingplugin_top_lastmonth_position%` | Player’s last-month top voter position |
+| `%votingplugin_top_week_position%` | Player’s weekly top voter position |
+| `%votingplugin_top_daily_position%` | Player’s daily top voter position |
+| `%votingplugin_enoughpoints_#%` | True/false if player has enough points |
+| `%votingplugin_votepartycontributedvotes%` | Votes contributed to VoteParty |
+| `%votingplugin_top_allvotes_#%` | Votes of player at top position (all-time) |
+| `%votingplugin_top_all_#%` | Username at position in all-time top voter list |
+| `%votingplugin_top_lastmonth_#%` | Username at position in last-month top voter list |
+| `%votingplugin_top_lastmonthvotes_#%` | Votes at position in last-month top voter list |
+| `%votingplugin_top_month_#%` | Username at position in current-month top voter list |
+| `%votingplugin_top_monthvotes_#%` | Votes at position in current-month top voter list |
+| `%votingplugin_top_week_#%` | Username at position in weekly top voter list |
+| `%votingplugin_top_weekvotes_#%` | Votes at position in weekly top voter list |
+| `%votingplugin_top_daily_#%` | Username at position in daily top voter list |
+| `%votingplugin_top_dailyvotes_#%` | Votes at position in daily top voter list |
+| `%votingplugin_votepartyvotescurrent%` | Current VoteParty vote count |
+| `%votingplugin_votepartyvotesneeded%` | Votes remaining until VoteParty triggers |
+| `%votingplugin_votepartyvotesrequired%` | Total votes required for VoteParty |
+| `%votingplugin_bungeevotepartyvotescurrent%` | Current proxy-wide VoteParty votes |
+| `%votingplugin_bungeevotepartyvotesneeded%` | Votes needed for proxy VoteParty |
+| `%votingplugin_bungeevotepartyvotesrequired%` | Total votes required for proxy VoteParty |
+| `%votingplugin_globalmonthtotal%` | Global monthly total votes |
+| `%votingplugin_globalalltimetotal%` | Global all-time total votes |
+| `%votingplugin_globalweeklytotal%` | Global weekly total votes |
+| `%votingplugin_globaldailytotal%` | Global daily total votes |
+| `%votingplugin_timeuntildayreset%` | Time remaining until daily reset |
+| `%votingplugin_timeuntilweekreset%` | Time remaining until weekly reset |
+| `%votingplugin_timeuntilmonthreset%` | Time remaining until monthly reset |
+
+---
+
+> 🧠 **Performance Tip:**  
+> Use caching (`AUTO` or `SPECIFIC`) for placeholders displayed frequently (like on scoreboards).  
+> The `_process` or `_nocache` suffixes should only be used on async operations.
