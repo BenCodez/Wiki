@@ -2,43 +2,75 @@
 title: Month Date Totals
 description: 
 published: true
-date: 2025-08-31T03:44:23.945Z
+date: 2025-11-07T02:19:25.651Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:14.680Z
 ---
 
-# Month Date Totals
-## This feature is still a WIP, but stable
+# 📅 Month Date Totals
 
-By defaut VotingPlugin uses MonthTotal to store month totals, and has to reset that each month.
+## 🧪 Feature Overview
 
-Using month date totals solves a few issues with that. When enabled the format is MonthTotal-MONTH-YEAR, e.g. Month-DECEMBER-2024. This will ensure month totals reset instantly and keep a history of month totals.
+This feature is **still a WIP**, but is considered **stable for general use**.
 
-MonthTotal will still stay in sync and reset as it should as if this feature is disabled.
+By default, **VotingPlugin** stores monthly totals under the key `MonthTotal`, which resets automatically each month.  
+However, this default system doesn’t preserve previous months’ totals after a reset.
 
-When enabled /vote previousmonthtotals will show all previous months (that there is data for)
+The **Month Date Totals** system introduces a new format:  
+**`MonthTotal-MONTH-YEAR`**, for example:  
+`MonthTotal-DECEMBER-2024`
 
-More details to come
+This allows VotingPlugin to:
 
+- ✅ Automatically reset monthly totals instantly on the first of each month  
+- 📊 Keep a full history of past months’ totals (viewable anytime)  
+- 🔄 Keep the standard `MonthTotal` value in sync for legacy features  
 
+---
 
+## 📘 Example Behavior
+
+| Setting | Behavior |
+|----------|-----------|
+| **Disabled (default)** | Uses a single `MonthTotal` key, resets each month, overwriting prior data. |
+| **Enabled** | Stores month totals in the format `MonthTotal-MONTH-YEAR` and automatically updates `MonthTotal`. |
+
+---
+
+## 🧾 Command
+
+Use `/vote previousmonthtotals`  
+→ Lists all previous months with available vote total data.
+
+---
+
+## ⚙️ Configuration Example
+
+```yaml
     ###########################################
     # Month Date Totals
     # Experimental feature
-    # Same options for proxy
+    # Same options apply for proxy servers
     ###########################################
 
-    # Experimental
-    # Stores month votes with date formatting
-    # MonthTotal-MONTH-YEAR
-    # This setting only enables setting totals, not using them
-    # Enabling this is pretty safe and harmless with just this setting
-    # Essentially will just copy MonthTotal to MonthTotal-MONTH-YEAR
+    # Copies MonthTotal into a new format (MonthTotal-MONTH-YEAR)
+    # Safe to enable; keeps MonthTotal synced
     StoreMonthTotalsWithDate: false
 
-    # Experimental
-    # This setting uses month votes with date formatting
-    # If using this StoreMonthTotalsWithDate must be enabled
-    # This setting may be very buggy as it's in early stages
+    # Uses MonthTotal-MONTH-YEAR as the active total tracker
+    # Requires StoreMonthTotalsWithDate enabled
+    # Early-stage feature; may still have minor bugs
     UseMonthDateTotalsAsPrimaryTotal: false
+```
+
+---
+
+## 🔍 Notes
+
+- Enabling `StoreMonthTotalsWithDate` is safe and recommended for networks wanting monthly tracking history.  
+- Enabling `UseMonthDateTotalsAsPrimaryTotal` switches **all total tracking** to this new date-based format — only enable this if you understand the implications.  
+- Both options support proxy setups and automatically synchronize across servers when `GlobalData` is enabled.
+
+> 🧠 **Tip:** Keep `StoreMonthTotalsWithDate` enabled even if you don’t use the new system yet — it future-proofs your data with no downside.
+{.is-info}
