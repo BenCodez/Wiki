@@ -2,7 +2,7 @@
 title: Time Changes
 description: 
 published: true
-date: 2025-11-07T02:25:15.002Z
+date: 2025-11-10T01:11:56.600Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:26.884Z
@@ -27,6 +27,19 @@ Examples:
 - `TimeHourOffSet: 2` → Runs 2 hours **ahead** of system time  
 
 ---
+    
+📅 Weekly Offset (6.19.1+)
+
+You can shift the weekly reset by a number of days using:
+
+
+    TimeWeekOffSet: 0
+
+Examples:
+- `TimeWeekOffSet: 1` → Moves the weekly reset 1 day later
+- `TimeWeekOffSet: -2` → Moves the weekly reset 2 days earlier
+
+---
 
 ### 🌍 Time Zone (6.13+)
 
@@ -34,6 +47,14 @@ You can define a specific time zone in `Config.yml` using standard Java zone IDs
 VotingPlugin validates these using `ZoneId.of("YourZoneHere")`.
 
     TimeZone: 'UTC'
+    
+
+
+This is useful when you want weekly resets to start on a different weekday than the default (Monday).
+The offset is applied after timezone and hour offset adjustments.
+
+For example, if your server’s week normally resets Monday at midnight and TimeWeekOffSet: 2,
+the weekly reset will now occur Wednesday at midnight instead.
 
 #### ✅ Common Working Examples
 
