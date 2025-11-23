@@ -2,7 +2,7 @@
 title: Setup
 description: 
 published: true
-date: 2025-11-23T20:03:03.560Z
+date: 2025-11-23T20:05:39.646Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-31T03:20:39.536Z
@@ -31,7 +31,7 @@ If you run a network, you’ll still need to configure VotingPlugin on **each** 
 Choose one of the available proxy setup methods here:  
 👉 [Proxy Setups](https://wiki.bencodez.com/en/VotingPlugin/Proxy-Setups)
 
-Make sure your chosen method (**PLUGINMESSAGING**, **SOCKET**, or **MYSQL**) is consistent across all connected servers.
+Make sure your chosen method (**PLUGINMESSAGING**, **SOCKET**, **MQTT**, **REDIS**, or **MYSQL**) is consistent across all connected servers.
 
 ---
 
