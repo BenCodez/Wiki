@@ -2,7 +2,7 @@
 title: Setup
 description: 
 published: true
-date: 2025-11-06T02:10:29.862Z
+date: 2025-11-23T20:03:03.560Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-31T03:20:39.536Z
@@ -21,7 +21,7 @@ Make sure your vote listener plugin is correctly installed and working:
 - **Alternative:** [NuVotifier](https://github.com/NuVotifier/NuVotifier)
 
 If you’re not receiving votes, check this guide:  
-➡️ [Votifier Troubleshooting](https://github.com/BenCodez/VotingPlugin/wiki/Votifier-Troubleshooting)
+➡️ [Votifier Troubleshooting](https://wiki.bencodez.com/en/VotingPlugin/Votifier-Troubleshooting)
 
 ---
 
