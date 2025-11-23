@@ -2,91 +2,223 @@
 title: API
 description: 
 published: true
-date: 2025-08-30T22:17:54.801Z
+date: 2025-11-23T19:39:23.432Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:17:53.911Z
 ---
 
-Want to hook into my plugin? Here's a basic overview on the API. This is useful if you want to make a addon or an extend the features of my plugin. More API to come! Feel free to request API if needed.
+# 🧩 VotingPlugin Developer API
 
-JavaDoc available [here](http://bencodez.github.io/VotingPlugin/)
+Want to hook into VotingPlugin for your own plugin or addon?  
+This guide provides an overview of the public API, available events, and examples for extending or integrating with VotingPlugin.
 
-### [VotingPluginHooks](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/VotingPluginHooks.html) - Class to make getting into the api a bit easier
-- VotingPluginHooks.getInstance()
-- Method to get main class
-- Method to get user manager
-- Method to inject into reward api
+**JavaDocs**  
+- VotingPlugin: https://bencodez.github.io/VotingPlugin/  
+- AdvancedCore: https://bencodez.github.io/AdvancedCore/
 
-#### User object:
-- [User object](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/user/VotingPluginUser.html)
-- Creating object (plugin is main class):  
-  - `plugin.getVotingPluginUserManager().getVotingPluginUser(playerName);`
-  - `plugin.getVotingPluginUserManager().getVotingPluginUser(player);`
-  - `plugin.getVotingPluginUserManager().getVotingPluginUser(uuid);`
-  - [VotingPluginUserManager](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/user/UserManager.html)
-- Using Examples:  
-  - Get user points: `user.getPoints();`  
-  - Set user points: `user.setPoints(int);`  
+---
 
-#### VoteSite object:
-- [Object to handle vote sites](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/objects/VoteSite.html)
-- The class ConfigVoteSites that handles the file reading/editing
-- Create object:   
-    `plugin.getVoteSite(name);`
-- Using object:
-  - Give vote site rewards: `voteSite.giveRewards(user); // user is user object`
+## ⚙️ Getting Started with the API
 
-#### Adding commands into /vote or /adminvvote
-- With my command system, you can add your own custom commands in /vote or /adminvote, with tab complete support
-- Define what arguments to add ("(player)","(sitename)","(string)","(number)","(reward)","(list)","(boolean)" are ones the plugin will add tab support and for example, check if argument is a number)
-- Also use & to define multiple possible args (E.g. "Help&?")
-- Examples (plugin is my Main plugin class, either add a CommandHandler to voteCommand or adminVoteCommand):  
+### 🔗 VotingPluginHooks  
+Helper class to access core API functions.
 
-        plugin.voteCommand.add(new CommandHandler(new String[] { "Next",
-				"(player)" }, "Permission", "Help message for /vote help or /av help") {
-			@Override
-			public void execute(CommandSender sender, String[] args) {
-                            // code to run when command is executed, if player has perms and
-                            // args like number is met, plugin will check if it should be a number and check if args match
-                            // no need to add it here
-			}
-		});
-- See my [CommandLoader](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/com/bencodez/votingplugin/commands/CommandLoader.java) class for more examples
+Class: VotingPluginHooks  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/VotingPluginHooks.html
 
-#### [PlayerVoteEvent](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerVoteEvent.html):
-- When a player votes, it will trigger a PlayerVoteEvent
-- You can use this to cancel a vote, or whatever you want to do with it
+Example usage (pseudo-code):
 
-#### [PlayerPostVotEvent](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerPostVoteEvent.html):
-- Triggered after a vote has processed
+- `VotingPluginHooks hooks = VotingPluginHooks.getInstance()`  
+- `hooks.getPlugin()`  
+- `hooks.getUserManager()`  
+- `hooks.injectRewardAPI()`
+- '`VotingPluginMain plugin =
+        (VotingPluginMain) Bukkit.getPluginManager().getPlugin("VotingPlugin");`
 
-#### [PlayerReceivePointsEvent](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerReceivePointsEvent.html):
-- Trigger everytime player received vote points
+---
 
-#### [PlayerSpecialRewardEvent](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerSpecialRewardEvent.html):
-- Trigger via any special reward
-- [SpecialRewardType](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/SpecialRewardType.html)
+## 👤 User Object
 
-#### [PlayerVoteCoolDownEndEvent](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerVoteCoolDownEndEvent.html):
-- Trigger when player vote cool down ends on allsites
+Class: VotingPluginUser  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/user/VotingPluginUser.html
 
-#### [PlayerVoteSiteCoolDownEndEvent](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerVoteSiteCoolDownEndEvent.html):
-- Trigger when player vote cool down ends on a votesite
+Manager: VotingPluginUserManager  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/user/UserManager.html
 
-#### [VotePartyEvent](https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/VotePartyEvent.html): 
-- Triggered when a voteparty happens
+### Creating a user
+- `plugin.getVotingPluginUserManager().getVotingPluginUser(player)`  
+- `plugin.getVotingPluginUserManager().getVotingPluginUser("BenCodez")`  
+- `plugin.getVotingPluginUserManager().getVotingPluginUser(uuid)`
 
-#### [PlayerRewardEvent](https://bencodez.github.io/AdvancedCore/com/bencodez/advancedcore/listeners/PlayerRewardEvent.html):
-- When a player is given a reward, it will trigger a PlayerRewardEvent
-- You can use this to cancel a reward, or whatever you want to do with it
+### Using a user
+- `user.getPoints()`  
+- `user.setPoints(100)`  
+- `user.addPoints(10)`  
+- `user.removePoints(5)`
 
-#### [PluginUpdateVersionEvent](https://bencodez.github.io/AdvancedCore/com/bencodez/advancedcore/listeners/PluginUpdateVersionEvent.html):
-- Triggerd when plugin version changes
+---
 
-#### [AdvancedCoreLoginEvent](https://bencodez.github.io/AdvancedCore/com/bencodez/advancedcore/listeners/AdvancedCoreLoginEvent.html): 
-- Triggerd on login, this includes any delay from login plugins like AuthMe
-- Also accounts for vanished logins (if enabled)
+## 🌐 VoteSite Object
 
+Class: VoteSite  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/objects/VoteSite.html
 
+### Example usage
+- `VoteSite site = plugin.getVoteSite("ExampleSite")`  
+- `site.giveRewards(user)`
 
+---
+
+## 🧰 Adding Custom Commands
+
+VotingPlugin supports registering custom sub-commands under:
+
+- `/vote`
+- `/adminvote` (alias: `/av`)
+
+Supported argument types include:
+
+`(player)`, `(sitename)`, `(string)`, `(number)`, `(reward)`, `(list)`, `(boolean)`
+
+Use `Help&?` to add multiple aliases.
+
+Example (pseudo-code):
+```
+plugin.getVoteCommand().add(new CommandHandler(
+        new String[] { "Next", "(player)" },
+        "Permission",
+        "Help message"
+) {
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        // your code
+    }
+});
+
+```
+
+More examples:  
+https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/commands/CommandLoader.java
+
+---
+
+# 🧱 VotingPlugin Events
+
+All events use Bukkit’s normal event system (`@EventHandler`).  
+Below is the **complete list of VotingPlugin + AdvancedCore events**.
+
+---
+
+## 🗳️ PlayerVoteEvent  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerVoteEvent.html
+
+Triggered when a vote is received (before processing).  
+Can be cancelled.
+
+---
+
+## 🎉 PlayerPostVoteEvent  
+https://bencodez.github.io/VotingPlugin/src/main/java/com/bencodez/votingplugin/events/PlayerPostVoteEvent.html
+
+Triggered after the vote is fully processed and rewards are applied.
+
+---
+
+## 💰 PlayerReceivePointsEvent  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerReceivePointsEvent.html
+
+Triggered whenever a player receives vote points.
+
+---
+
+## ⭐ PlayerSpecialRewardEvent  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerSpecialRewardEvent.html
+
+Triggers on:
+
+- Milestones  
+- Streak rewards  
+- VoteParty rewards  
+- Top voter rewards  
+- AllSites / AlmostAllSites rewards  
+
+SpecialRewardType:  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/SpecialRewardType.html
+
+---
+
+## ⏰ PlayerVoteCoolDownEndEvent  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerVoteCoolDownEndEvent.html
+
+Triggered when cooldown ends for **all sites**.
+
+---
+
+## 🕓 PlayerVoteSiteCoolDownEndEvent  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerVoteSiteCoolDownEndEvent.html
+
+Triggered when cooldown ends for **one specific votesite**.
+
+---
+
+## 🎊 VotePartyEvent  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/VotePartyEvent.html
+
+Triggered when:
+
+- The vote party threshold is reached  
+- A vote party reward is fired  
+
+Supports cross-server vote party logic.
+
+---
+
+## 🎁 PlayerRewardEvent (AdvancedCore)  
+https://bencodez.github.io/AdvancedCore/com/bencodez/advancedcore/listeners/PlayerRewardEvent.html
+
+Triggered whenever **any reward file** executes, not just voting rewards.
+
+You can:
+
+- Cancel the reward  
+- Log rewards  
+- Modify reward execution  
+
+---
+
+## 🔄 PluginUpdateVersionEvent (AdvancedCore)  
+https://bencodez.github.io/AdvancedCore/com/bencodez/advancedcore/listeners/PluginUpdateVersionEvent.html
+
+Triggered when plugin version changes.
+
+---
+
+## 👥 AdvancedCoreLoginEvent (AdvancedCore)  
+https://bencodez.github.io/AdvancedCore/com/bencodez/advancedcore/listeners/AdvancedCoreLoginEvent.html
+
+Triggered when a player logs in *after AuthMe / Vanish / LoginSecurity delays*.
+
+Useful for:
+
+- vote reminding  
+- delivering queued rewards  
+- placeholder recalculation  
+
+---
+
+## 🧮 PlayerPointsUpdateEvent  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/PlayerPointsUpdateEvent.html
+
+Triggered whenever:
+
+- Points are added  
+- Points are removed  
+- Points are set to a new value  
+
+---
+
+## 🗓️ TimeChangeEvent  
+https://bencodez.github.io/VotingPlugin/com/bencodez/votingplugin/events/TimeChangeEvent.html
+
+Triggered when the plugin detects a **DAY**, **WEEK**, or **MONTH** rollover.
