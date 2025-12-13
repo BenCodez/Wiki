@@ -2,11 +2,14 @@
 title: Multi Proxy Setup
 description: 
 published: true
-date: 2025-09-01T15:45:59.969Z
+date: 2025-12-13T23:23:09.763Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:15.618Z
 ---
+
+> This should only be used if each proxy has different backend servers, otherwise votes will duplicate
+{.is-warning}
 
 > Setup each proxy as it's own proxy network for VotingPlugin before setting multi-proxy up, each proxy can use a different proxy method
 {.is-info}
