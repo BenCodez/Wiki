@@ -2,19 +2,10 @@ site_name: BenCodez Wiki
 theme:
   name: material
 
-# Treat repo root as docs so /en/* stays /en/*
-docs_dir: .
+docs_dir: docs
+site_dir: site
 
-# Don’t treat build/config folders as docs pages
-exclude_docs: |
-  ^\.github/
-  ^site/
-  ^mkdocs\.yml$
-  ^README\.md$
-
-# This is what makes /en/VotingPlugin/ map to a nice directory URL
 use_directory_urls: true
 
-# Optional (nice)
 repo_url: https://github.com/BenCodez/Wiki
 repo_name: BenCodez/Wiki
