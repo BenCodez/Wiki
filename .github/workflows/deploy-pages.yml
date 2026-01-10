@@ -31,8 +31,36 @@ jobs:
           python -m pip install --upgrade pip
           pip install mkdocs mkdocs-material
 
-      - name: Build site
-        run: mkdocs build --strict --site-dir site
+      - name: Stage content and build
+        run: |
+          set -euxo pipefail
+
+          # Always start clean
+          rm -rf docs site
+          mkdir -p docs
+
+          # Copy repo content into docs/, excluding build/config folders
+          rsync -a --delete \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'site/' \
+            --exclude 'docs/' \
+            --exclude 'mkdocs.yml' \
+            --exclude 'README.md' \
+            ./ docs/
+
+          # Ensure docs/ exists and has something at top
+          if [ ! -f docs/index.md ]; then
+            echo "# BenCodez Wiki" > docs/index.md
+            echo "" >> docs/index.md
+            echo "Backup site for wiki.bencodez.com" >> docs/index.md
+          fi
+
+          # Prove it exists (helps debugging if it ever fails again)
+          ls -la docs | head -n 50
+
+          # Build
+          mkdocs build --strict
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -46,6 +74,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
