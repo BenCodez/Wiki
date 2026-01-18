@@ -1,11 +1,14 @@
 site_name: BenCodez Wiki
+
 theme:
   name: material
 
 docs_dir: docs
 site_dir: site
-
 use_directory_urls: true
 
 repo_url: https://github.com/BenCodez/Wiki
 repo_name: BenCodez/Wiki
+
+plugins:
+  - search
