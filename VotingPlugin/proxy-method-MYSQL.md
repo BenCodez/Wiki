@@ -2,7 +2,7 @@
 title: Proxy method MYSQL
 description: Details of MYSQL setup
 published: true
-date: 2025-08-31T00:28:19.861Z
+date: 2026-01-24T17:37:32.925Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-31T00:27:03.022Z
@@ -30,6 +30,7 @@ dateCreated: 2025-08-31T00:27:03.022Z
 ### Proxy (bungeeconfig.yml):
 - `BungeeMethod: MYSQL`
 - MySQL database information
+- Increase MaxConnections by atleast one for best performance
 
 ### Backend Servers:
 BungeeSettings.yml:
