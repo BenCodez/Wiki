@@ -63,35 +63,49 @@ jobs:
           fi
 
           # ------------------------------------------------------------
-          # 1) Strip Wiki.js metadata headers from ALL markdown files
-          # (these are the "title: ... / published: true / date: ..." lines)
-          # Stops at the first blank line.
+          # Robust cleanup for ALL markdown files:
+          # 1) Remove ANY leading YAML front-matter block(s) at the top:
+          #    ---
+          #    ...anything...
+          #    ---
+          #    (repeat if multiple)
+          #
+          # 2) Remove leading Wiki.js metadata key lines (even if not in --- ---):
+          #    title:, description:, published:, date:, tags:, editor:, dateCreated:
+          #
+          # 3) Trim extra leading blank lines
           # ------------------------------------------------------------
           find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
-            sed -i -E '
-              1,/^[[:space:]]*$/{
-                /^[[:space:]]*(title|description|published|date|tags|editor|dateCreated):[[:space:]]*.*$/d
+            perl -0777 -i -pe '
+              # Remove UTF-8 BOM if present
+              s/\A\x{FEFF}//;
+
+              # Repeatedly remove YAML front-matter blocks at file start
+              # Allows leading whitespace/blank lines before the first ---
+              while (s/\A[ \t\r\n]*---[ \t]*\R.*?\R---[ \t]*\R?//s) {}
+
+              # Now remove leading Wiki.js metadata lines (known keys) and leading blanks
+              my @lines = split(/\R/, $_, -1);
+              my $i = 0;
+
+              while ($i < @lines) {
+                my $l = $lines[$i];
+
+                # drop leading blank lines
+                if ($l =~ /^[ \t]*$/) { $i++; next; }
+
+                # drop known metadata lines
+                if ($l =~ /^[ \t]*(title|description|published|date|tags|editor|dateCreated):/i) { $i++; next; }
+
+                last;
               }
+
+              $_ = join("\n", @lines[$i .. $#lines]);
             ' "$f"
           done
 
           # ------------------------------------------------------------
-          # 2) Remove YAML front-matter blocks at the very top of the file
-          # Removes ANY leading:
-          # ---
-          # (anything)
-          # ---
-          #
-          # This will also catch the leftover empty:
-          # ---
-          # ---
-          # ------------------------------------------------------------
-          find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
-            perl -0777 -i -pe 's/\A(?:\x{FEFF})?[ \t\r\n]*---[ \t]*\R.*?\R---[ \t]*\R?//s' "$f"
-          done
-
-          # ------------------------------------------------------------
-          # 3) Remove markdown-it / Wiki.js attribute-only lines
+          # Remove markdown-it / Wiki.js attribute-only lines
           # Example: "{.is-warning}"
           # ------------------------------------------------------------
           find "$DST" -type f -name "*.md" -print0 | xargs -0 sed -i -E \
