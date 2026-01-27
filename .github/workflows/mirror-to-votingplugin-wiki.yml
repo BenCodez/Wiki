@@ -15,6 +15,7 @@ concurrency:
 jobs:
   mirror:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout BenCodez/Wiki (source)
         uses: actions/checkout@v4
@@ -34,7 +35,7 @@ jobs:
           rm -rf /tmp/vp-wiki
           git clone "https://x-access-token:${WIKI_PUSH_TOKEN}@github.com/BenCodez/VotingPlugin.wiki.git" /tmp/vp-wiki
 
-      - name: Mirror files into the Wiki repo (with GitHub-safe transforms)
+      - name: Mirror files into the Wiki repo (with Wiki.js cleanup)
         run: |
           set -euo pipefail
 
@@ -44,27 +45,49 @@ jobs:
           # Clean destination (keep .git)
           find "$DST" -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
 
-          # Copy content from source repo into wiki repo (excluding CI files)
+          # Copy source content
           rsync -a --delete \
             --exclude ".git/" \
             --exclude ".github/" \
             --exclude ".gitignore" \
             "$SRC/" "$DST/"
 
-          # GitHub Wiki front page must be Home.md
+          # GitHub Wiki front page
           if [ -f "$DST/home.md" ]; then
             mv "$DST/home.md" "$DST/Home.md"
           fi
 
-          # Sidebar mapping (Option 2)
+          # GitHub Wiki sidebar
           if [ -f "$DST/sidebar.md" ]; then
             mv "$DST/sidebar.md" "$DST/_Sidebar.md"
           fi
 
-          # ---- Transform: strip Wiki.js/markdown-it attribute lines GitHub doesn't support ----
-          # Example removed line: "{.is-warning}"
-          # This removes lines that consist ONLY of "{ ... }" where the content is one or more
-          # dot-classes like ".is-warning .foo-bar"
+          # ------------------------------------------------------------
+          # Strip Wiki.js metadata headers from ALL markdown files
+          #
+          # Removes leading lines like:
+          # title:
+          # description:
+          # published:
+          # date:
+          # tags:
+          # editor:
+          # dateCreated:
+          #
+          # Stops at the first blank line.
+          # ------------------------------------------------------------
+          find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
+            sed -i -E '
+              1,/^[[:space:]]*$/{
+                /^[[:space:]]*(title|description|published|date|tags|editor|dateCreated):[[:space:]]*.*$/d
+              }
+            ' "$f"
+          done
+
+          # ------------------------------------------------------------
+          # Remove markdown-it / Wiki.js attribute-only lines
+          # Example: "{.is-warning}"
+          # ------------------------------------------------------------
           find "$DST" -type f -name "*.md" -print0 | xargs -0 sed -i -E \
             '/^[[:space:]]*\{[[:space:]]*(\.[A-Za-z0-9_-]+)([[:space:]]+\.[A-Za-z0-9_-]+)*[[:space:]]*\}[[:space:]]*$/d'
 
@@ -74,10 +97,11 @@ jobs:
           cd /tmp/vp-wiki
 
           git add -A
+
           if git diff --cached --quiet; then
             echo "No changes to push."
             exit 0
           fi
 
-          git commit -m "Mirror from BenCodez/Wiki (main)"
+          git commit -m "Mirror from BenCodez/Wiki (cleaned for GitHub Wiki)"
           git push
