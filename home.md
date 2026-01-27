@@ -2,18 +2,21 @@
 title: Welcome
 description: 
 published: true
-date: 2026-01-10T22:45:21.544Z
+date: 2026-01-27T01:00:43.907Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:20:27.063Z
 ---
 
-Welcome
+# Welcome
 
-This wiki is still a WIP in progress.
+**wiki.bencodez.com is the primary (source-of-truth) wiki.**
 
-You can request changes on github https://github.com/BenCodez/Wiki
+This site is still a work in progress.
 
-Backup site is also available at https://wiki-backup.bencodez.com (Auto redirected if this page goes down)
+## Other synced copies
+- **GitHub mirror:** https://github.com/BenCodez/VotingPlugin/wiki  
+- **Backup site:** https://wiki-backup.bencodez.com *(used automatically if this site is down)*
 
-[VotingPlugin](/VotingPlugin)
+## Request changes
+Please request changes on GitHub: https://github.com/BenCodez/Wiki
