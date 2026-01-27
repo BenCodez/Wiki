@@ -1,0 +1,83 @@
+name: Mirror to VotingPlugin GitHub Wiki
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mirror-votingplugin-wiki
+  cancel-in-progress: true
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout BenCodez/Wiki (source)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Clone VotingPlugin GitHub Wiki repo (destination)
+        env:
+          WIKI_PUSH_TOKEN: ${{ secrets.WIKI_PUSH_TOKEN }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/vp-wiki
+          git clone "https://x-access-token:${WIKI_PUSH_TOKEN}@github.com/BenCodez/VotingPlugin.wiki.git" /tmp/vp-wiki
+
+      - name: Mirror files into the Wiki repo (with GitHub-safe transforms)
+        run: |
+          set -euo pipefail
+
+          SRC="$GITHUB_WORKSPACE"
+          DST="/tmp/vp-wiki"
+
+          # Clean destination (keep .git)
+          find "$DST" -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
+
+          # Copy content from source repo into wiki repo (excluding CI files)
+          rsync -a --delete \
+            --exclude ".git/" \
+            --exclude ".github/" \
+            --exclude ".gitignore" \
+            "$SRC/" "$DST/"
+
+          # GitHub Wiki front page must be Home.md
+          if [ -f "$DST/home.md" ]; then
+            mv "$DST/home.md" "$DST/Home.md"
+          fi
+
+          # Sidebar mapping (Option 2)
+          if [ -f "$DST/sidebar.md" ]; then
+            mv "$DST/sidebar.md" "$DST/_Sidebar.md"
+          fi
+
+          # ---- Transform: strip Wiki.js/markdown-it attribute lines GitHub doesn't support ----
+          # Example removed line: "{.is-warning}"
+          # This removes lines that consist ONLY of "{ ... }" where the content is one or more
+          # dot-classes like ".is-warning .foo-bar"
+          find "$DST" -type f -name "*.md" -print0 | xargs -0 sed -i -E \
+            '/^[[:space:]]*\{[[:space:]]*(\.[A-Za-z0-9_-]+)([[:space:]]+\.[A-Za-z0-9_-]+)*[[:space:]]*\}[[:space:]]*$/d'
+
+      - name: Commit & push if changed
+        run: |
+          set -euo pipefail
+          cd /tmp/vp-wiki
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to push."
+            exit 0
+          fi
+
+          git commit -m "Mirror from BenCodez/Wiki (main)"
+          git push
