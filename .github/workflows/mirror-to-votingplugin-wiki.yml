@@ -63,19 +63,17 @@ jobs:
           fi
 
           # ------------------------------------------------------------
-          # Remove empty YAML front-matter blocks:
+          # Remove empty YAML front-matter blocks at the very top:
           # ---
           # ---
+          #
+          # Handles:
+          # - optional blank lines between the --- lines
+          # - CRLF vs LF
+          # - optional UTF-8 BOM
           # ------------------------------------------------------------
           find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
-            sed -i -E '
-              1{
-                /^[[:space:]]*---[[:space:]]*$/{
-                  N
-                  /^[[:space:]]*---[[:space:]]*\n[[:space:]]*---[[:space:]]*$/d
-                }
-              }
-            ' "$f"
+            perl -0777 -i -pe 's/\A(?:\x{FEFF})?[ \t\r\n]*---[ \t]*\R(?:[ \t]*\R)*---[ \t]*\R?//s' "$f"
           done
 
           # ------------------------------------------------------------
