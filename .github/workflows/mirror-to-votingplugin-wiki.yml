@@ -63,23 +63,8 @@ jobs:
           fi
 
           # ------------------------------------------------------------
-          # Remove empty YAML front-matter blocks at the very top:
-          # ---
-          # ---
-          #
-          # Handles:
-          # - optional blank lines between the --- lines
-          # - CRLF vs LF
-          # - optional UTF-8 BOM
-          # ------------------------------------------------------------
-          find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
-            perl -0777 -i -pe 's/\A(?:\x{FEFF})?[ \t\r\n]*---[ \t]*\R(?:[ \t]*\R)*---[ \t]*\R?//s' "$f"
-          done
-
-          # ------------------------------------------------------------
-          # Strip Wiki.js metadata headers from ALL markdown files
-          # Removes leading lines like:
-          # title:, description:, published:, date:, tags:, editor:, dateCreated:
+          # 1) Strip Wiki.js metadata headers from ALL markdown files
+          # (these are the "title: ... / published: true / date: ..." lines)
           # Stops at the first blank line.
           # ------------------------------------------------------------
           find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
@@ -91,7 +76,22 @@ jobs:
           done
 
           # ------------------------------------------------------------
-          # Remove markdown-it / Wiki.js attribute-only lines
+          # 2) Remove YAML front-matter blocks at the very top of the file
+          # Removes ANY leading:
+          # ---
+          # (anything)
+          # ---
+          #
+          # This will also catch the leftover empty:
+          # ---
+          # ---
+          # ------------------------------------------------------------
+          find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
+            perl -0777 -i -pe 's/\A(?:\x{FEFF})?[ \t\r\n]*---[ \t]*\R.*?\R---[ \t]*\R?//s' "$f"
+          done
+
+          # ------------------------------------------------------------
+          # 3) Remove markdown-it / Wiki.js attribute-only lines
           # Example: "{.is-warning}"
           # ------------------------------------------------------------
           find "$DST" -type f -name "*.md" -print0 | xargs -0 sed -i -E \
