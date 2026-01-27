@@ -35,7 +35,7 @@ jobs:
           rm -rf /tmp/vp-wiki
           git clone "https://x-access-token:${WIKI_PUSH_TOKEN}@github.com/BenCodez/VotingPlugin.wiki.git" /tmp/vp-wiki
 
-      - name: Mirror files into the Wiki repo (with Wiki.js cleanup)
+      - name: Mirror files into the Wiki repo (Wiki.js cleanup)
         run: |
           set -euo pipefail
 
@@ -63,17 +63,25 @@ jobs:
           fi
 
           # ------------------------------------------------------------
+          # Remove empty YAML front-matter blocks:
+          # ---
+          # ---
+          # ------------------------------------------------------------
+          find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
+            sed -i -E '
+              1{
+                /^[[:space:]]*---[[:space:]]*$/{
+                  N
+                  /^[[:space:]]*---[[:space:]]*\n[[:space:]]*---[[:space:]]*$/d
+                }
+              }
+            ' "$f"
+          done
+
+          # ------------------------------------------------------------
           # Strip Wiki.js metadata headers from ALL markdown files
-          #
           # Removes leading lines like:
-          # title:
-          # description:
-          # published:
-          # date:
-          # tags:
-          # editor:
-          # dateCreated:
-          #
+          # title:, description:, published:, date:, tags:, editor:, dateCreated:
           # Stops at the first blank line.
           # ------------------------------------------------------------
           find "$DST" -type f -name "*.md" -print0 | while IFS= read -r -d '' f; do
