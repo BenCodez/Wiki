@@ -2,7 +2,7 @@
 title: Sidebar
 description: sidebar for github wiki
 published: true
-date: 2026-01-27T00:46:01.933Z
+date: 2026-01-27T01:01:07.734Z
 tags: 
 editor: markdown
 dateCreated: 2026-01-27T00:14:29.606Z
@@ -11,6 +11,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 [New wiki](https://wiki.bencodez.com)
 
 - [Home](https://github.com/BenCodez/VotingPlugin/wiki/Home)
+- [Overview](https://github.com/BenCodez/VotingPlugin/wiki/VotingPlugin)
 
 ## Setup / Configuration
 - [Setup](https://github.com/BenCodez/VotingPlugin/wiki/setup)
@@ -66,4 +67,3 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ## Misc
 - [Web Support](https://github.com/BenCodez/VotingPlugin/wiki/Web-Support)
-- [VotingPlugin](https://github.com/BenCodez/VotingPlugin/wiki/VotingPlugin)
