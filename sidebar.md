@@ -2,7 +2,7 @@
 title: Sidebar
 description: sidebar for github wiki
 published: true
-date: 2026-01-27T00:14:29.606Z
+date: 2026-01-27T00:44:21.985Z
 tags: 
 editor: markdown
 dateCreated: 2026-01-27T00:14:29.606Z
@@ -14,17 +14,16 @@ dateCreated: 2026-01-27T00:14:29.606Z
 [Home](https://github.com/BenCodez/VotingPlugin/wiki)  
 
 **Setup/Configuration:**
-- [Setup](https://github.com/BenCodez/VotingPlugin/wiki/Setting-Up)  
-- [Adding VoteSites](https://github.com/BenCodez/VotingPlugin/wiki/Adding-VoteSites)  
+- [Setup](https://github.com/BenCodez/VotingPlugin/wiki/setup)  
 - [Items](https://github.com/BenCodez/VotingPlugin/wiki/Item-Configuration)
 
 **BungeeCord/Velocity Setups:**
-- [Proxy Setups](https://github.com/BenCodez/VotingPlugin/wiki/Bungeecord-Setups)  
-  - [PLUGINMESSAGING](https://github.com/BenCodez/VotingPlugin/wiki/Bungee-Setup-PLUGINMESSAGING) (Best method)  
-  - [REDIS](https://github.com/BenCodez/VotingPlugin/wiki/Bungee-Setup-REDIS) (Second best)  
-  - [MQTT](https://github.com/BenCodez/VotingPlugin/wiki/Bungee-Setup-MQTT)  
-  - [SOCKETS](https://github.com/BenCodez/VotingPlugin/wiki/Bungee-Setup-SOCKETS)  
-  - [MYSQL](https://github.com/BenCodez/VotingPlugin/wiki/Bungee-Setup-MYSQL)  
+- [Proxy Setups](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-Setups)  
+  - [PLUGINMESSAGING](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-Method-PLUGINMESSAGING) (Best method)  
+  - [REDIS](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-Method-REDIS) (Second best)  
+  - [MQTT](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-Method-MQTT)  
+  - [SOCKETS](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-Method-SOCKETS)  
+  - [MYSQL](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-Method-MYSQL)  
 - [Global Data Handling](https://github.com/BenCodez/VotingPlugin/wiki/Global-Data-Handling)  
 - [Multi-Proxy Setups](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-Setup)  
   - [Multi-Proxy Redis](https://github.com/BenCodez/VotingPlugin/wiki/Multi%E2%80%90Proxy-REDIS)  
