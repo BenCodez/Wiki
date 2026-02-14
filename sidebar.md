@@ -2,7 +2,7 @@
 title: Sidebar
 description: sidebar for github wiki
 published: true
-date: 2026-02-14T20:55:32.316Z
+date: 2026-02-14T21:18:03.879Z
 tags: 
 editor: markdown
 dateCreated: 2026-01-27T00:14:29.606Z
@@ -26,6 +26,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ## 🌐 Proxy & Network Setups
 - [Proxy Setups](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-Setups)
+- [Global Data Handling](https://github.com/BenCodez/VotingPlugin/wiki/Global-Data-Handling)
 
 ### Proxy Methods
 - [PLUGINMESSAGING](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-method-PLUGINMESSAGING)
@@ -39,11 +40,10 @@ dateCreated: 2026-01-27T00:14:29.606Z
 - [Multi-Proxy REDIS](https://github.com/BenCodez/VotingPlugin/wiki/Multi‐Proxy-REDIS)
 - [Multi-Proxy SOCKETS](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-Sockets)
 
-- [Global Data Handling](https://github.com/BenCodez/VotingPlugin/wiki/Global-Data-Handling)
 
 ---
 
-## 🗳 Voting Systems (7.0+)
+## 🗳 Voting Systems
 
 - [VoteMilestones](https://github.com/BenCodez/VotingPlugin/wiki/VoteMilestones)
 - [Vote Streak System](https://github.com/BenCodez/VotingPlugin/wiki/VoteStreak-System)
