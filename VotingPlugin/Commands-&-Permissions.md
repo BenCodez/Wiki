@@ -2,7 +2,7 @@
 title: Commands & Permissions
 description: 
 published: true
-date: 2026-02-14T20:48:15.801Z
+date: 2026-02-14T20:52:46.119Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:03.502Z
@@ -22,9 +22,6 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /vote Help/? (number)
       VotingPlugin.Commands.Vote.Help|VotingPlugin.Player
       View help page
-    /vote ToggleReminders
-      VotingPlugin.Commands.Vote.ToggleReminders
-      Enable/disable vote reminders
     /vote Shop
       VotingPlugin.Commands.Vote.Shop|VotingPlugin.Player
       Open VoteShop GUI
@@ -67,6 +64,9 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /vote LastMonthTop
       VotingPlugin.Commands.Vote.LastMonthTop|VotingPlugin.Player
       Open list of Top Voters from last month
+    /vote PreviousMonthsTotals
+      VotingPlugin.Commands.Vote.PreviousMonthsTotals
+      Open list of Top Voters from all known previous months
     /vote Top
       VotingPlugin.Commands.Vote.Top|VotingPlugin.Player
       Open list of Top Voters
@@ -151,24 +151,18 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av ResyncMilestones
       VotingPlugin.Commands.AdminVote.ResyncMilestones|VotingPlugin.Admin
       Resync Milestones to all time total
+    /av TopPoints
+      VotingPlugin.Commands.AdminVote.TopPoints|VotingPlugin.Admin
+      Open the top points GUI
     /av PauseRewards
       VotingPlugin.Commands.AdminVote.PauseRewards|VotingPlugin.Admin
       Pause rewards globally
     /av ResumeRewards
       VotingPlugin.Commands.AdminVote.ResumeRewards|VotingPlugin.Admin
       Resume rewards globally
-    /av ResetMilestoneCount
-      VotingPlugin.Commands.AdminVote.ResetMilestoneCount|VotingPlugin.Admin
-      Resets milestone count to 0
-    /av ResyncMilestonesAlreadyGiven
-      VotingPlugin.Commands.AdminVote.ResyncMilestonesGiven|VotingPlugin.Admin
-      Resync Milestones already given
     /av ResetPoints
       VotingPlugin.Commands.AdminVote.ResetPoints|VotingPlugin.Admin
       Clears all points of all players
-    /av ResyncMilestones (player)
-      VotingPlugin.Commands.AdminVote.SetResyncMilestones|VotingPlugin.Admin
-      Resync Milestones to alltimetotal for player
     /av User (player) AddPoints (number)
       VotingPlugin.Commands.AdminVote.AddPoints|VotingPlugin.Admin
       Add to players voting points
@@ -193,12 +187,9 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av Edit VoteShop
       VotingPlugin.Commands.AdminVote.Edit.VoteShop
       Edit VoteShop
-    /av Edit MileStones
-      VotingPlugin.Commands.AdminVote.Edit.MileStones
-      Edit milestones rewards
-    /av Edit Cumulative
-      VotingPlugin.Commands.AdminVote.Edit.Cumulative
-      Edit cumulative rewards
+    /av Edit VoteMilestones
+      VotingPlugin.Commands.AdminVote.Edit.VoteMilestones
+      Edit VoteMilestones rewards
     /av Edit VoteParty
       VotingPlugin.Commands.AdminVote.Edit.VoteParty
       Edit voteparty
@@ -238,9 +229,6 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av Sites (sitename)
       VotingPlugin.Commands.AdminVote.Sites.Site|VotingPlugin.Admin
       View Site Info
-    /av TopPoints
-      VotingPlugin.Commands.AdminVote.TopPoints|VotingPlugin.Admin
-      Open the top points GUI
     /av UUID (player)
       VotingPlugin.Commands.AdminVote.UUID|VotingPlugin.Admin
       View UUID of player
@@ -298,15 +286,6 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av User (player) ResetVotedSite (Sitename)
       VotingPlugin.Commands.AdminVote.ResetVotedSite|VotingPlugin.Admin
       Resets last voted for specific site
-    /av User (player) AddMilestoneCount (number)
-      VotingPlugin.Commands.AdminVote.AddMilestoneCount|VotingPlugin.Admin
-      Add milestonecount
-    /av User (player) SetMilestoneCount (number)
-      VotingPlugin.Commands.AdminVote.SetMilestoneCount|VotingPlugin.Admin
-      Set milestonecount
-    /av User (player) ClearGottenMilestones
-      VotingPlugin.Commands.AdminVote.ClearGottenMilestones|VotingPlugin.Admin
-      Clears received milestones
     /av Vote (player) All
       VotingPlugin.Commands.AdminVote.Vote|VotingPlugin.Admin
       Trigger manual vote
@@ -352,7 +331,7 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av VoteSite (sitename) SetPriority (number)
       VotingPlugin.Commands.AdminVote.VoteSite.Edit|VotingPlugin.Admin
       Set VoteSite Priority
-    /av VoteSite (sitename) SetVoteDelay (number)
+    /av VoteSite (sitename) SetVoteDelay (TEXT)
       VotingPlugin.Commands.AdminVote.VoteSite.Edit|VotingPlugin.Admin
       Set VoteSite VoteDelay
     /av UpdateCheck
@@ -397,54 +376,90 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av User (player) ForceVoteShop (VoteShop)
       VotingPlugin.Commands.AdminVote.ForceVoteShop|VotingPlugin.Admin
       Force a voteshop reward
-    /av User (player) ForceMilestone (Number)
-      VotingPlugin.Commands.AdminVote.ForceMilestone|VotingPlugin.Admin
-      Force a milestone
     /av User (player) ForceTopVoter Daily (Number)
       VotingPlugin.Commands.AdminVote.ForceTopVoter.Daily|VotingPlugin.Admin
       Force a top voter reward
-    /av User (player) ForceVoteStreak Day (Number)
+    /av User (player) ForceVoteStreak Day (Text)
       VotingPlugin.Commands.AdminVote.ForceVoteStreak|VotingPlugin.Admin
       Force a votestreak reward for Day
     /av User (player) ForceTopVoter Weekly (Number)
       VotingPlugin.Commands.AdminVote.ForceTopVoter.Weekly|VotingPlugin.Admin
       Force a top voter reward
-    /av User (player) ForceVoteStreak Week (Number)
+    /av User (player) ForceVoteStreak Week (Text)
       VotingPlugin.Commands.AdminVote.ForceVoteStreak|VotingPlugin.Admin
       Force a votestreak reward for Week
     /av User (player) ForceTopVoter Monthly (Number)
       VotingPlugin.Commands.AdminVote.ForceTopVoter.Monthly|VotingPlugin.Admin
       Force a top voter reward
-    /av User (player) ForceVoteStreak Month (Number)
+    /av User (player) ForceVoteStreak Month (Text)
       VotingPlugin.Commands.AdminVote.ForceVoteStreak|VotingPlugin.Admin
       Force a votestreak reward for Month
-    /av User (player) ForceCumulative (Number)
-      VotingPlugin.Commands.AdminVote.ForceCumulative|VotingPlugin.Admin
-      Force a cumulative reward
-    /av User (player) ForceAllSites
-      VotingPlugin.Commands.AdminVote.ForceAllSites|VotingPlugin.Admin
-      Force a allsites reward
-    /av User (player) ForceAlmostAllSites
-      VotingPlugin.Commands.AdminVote.ForceAllSites|VotingPlugin.Admin
-      Force a almostallsites reward
-    /av User (player) ForceFirstVote
-      VotingPlugin.Commands.AdminVote.ForceFirstVote|VotingPlugin.Admin
-      Force a firstvote reward
-    /av User (player) ForceFirstVoteToday
-      VotingPlugin.Commands.AdminVote.ForceFirstVoteToday|VotingPlugin.Admin
-      Force a firstvotetoday reward
+    /av VoteMilestone/VM ForceGroup (player) (milestonegroup)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.ForceGroup|VotingPlugin.Admin
+      Force execute VoteMilestones for a group (skips totals, respects limits)
+    /av VoteMilestone/VM ForceGroupNoLimits (player) (milestonegroup)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.ForceGroupNoLimits|VotingPlugin.Admin
+      Force execute VoteMilestones for a group (skips totals, bypasses limits)
+    /av VoteMilestone/VM Force (player) (milestone)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.Force|VotingPlugin.Admin
+      Force execute a specific VoteMilestone (skips totals, respects limits)
+    /av VoteMilestone/VM ForceNoLimits (player) (milestone)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.ForceNoLimits|VotingPlugin.Admin
+      Force execute a specific VoteMilestone (skips totals, bypasses limits)
+    /av VoteMilestone/VM PreviewMilestone (player) (milestone)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.PreviewMilestone|VotingPlugin.Admin
+      Preview a specific VoteMilestone (shows total/match/limit; does not execute)
+    /av VoteMilestone/VM StatusMilestone (player) (milestone)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.StatusMilestone|VotingPlugin.Admin
+      Show status for a specific VoteMilestone (given/missing/due/pending; does not execute)
+    /av User (player) ForceVoteMilestone (milestone)
+      VotingPlugin.Commands.AdminVote.User.ForceVoteMilestone|VotingPlugin.Admin
+      Force execute a specific VoteMilestone (skips totals, respects limits)
+    /av User (player) ForceVoteMilestoneNoLimits (milestone)
+      VotingPlugin.Commands.AdminVote.User.ForceVoteMilestoneNoLimits|VotingPlugin.Admin
+      Force execute a specific VoteMilestone (skips totals, bypasses limits)
+    /av User (player) ResetVoteMilestoneLimits (milestonegroup)
+      VotingPlugin.Commands.AdminVote.User.ResetVoteMilestoneLimits|VotingPlugin.Admin
+      Reset VoteMilestone limits for a player (group)
+    /av User (player) ResetVoteMilestoneLimits
+      VotingPlugin.Commands.AdminVote.User.ResetVoteMilestoneLimits|VotingPlugin.Admin
+      Reset ALL VoteMilestone limits for a player
+    /av VoteMilestone/VM Preview (player) (milestonegroup)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.Preview|VotingPlugin.Admin
+      Preview VoteMilestones for a group (shows totals/matches; does not execute)
+    /av VoteMilestone/VM Status (player) (milestonegroup)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.Status|VotingPlugin.Admin
+      Show VoteMilestone status for a group (current total; does not execute)
+    /av VoteMilestone/VM List (milestonegroup)
+      VotingPlugin.Commands.AdminVote.VoteMilestone.List|VotingPlugin.Admin
+      List VoteMilestones in a group
     /av PurgeNoData
       VotingPlugin.PurgeNoData
       Purge players from database with no data and haven't been online for a number of days (Set in Config.yml)
     /av RemoveOfflineUUIDs
       VotingPlugin.Commands.AdminVote.RemoveOfflineUUIDs|VotingPlugin.Admin
       Purges database of offline UUIDs, keeps online UUIDs
+    /av RemoveOnlineUUIDs
+      VotingPlugin.Commands.AdminVote.RemoveOnlineUUIDs|VotingPlugin.Admin
+      Purges database of online UUIDs, keeps proper offline UUIDs
     /av Placeholders (player)
       VotingPlugin.Commands.AdminVote.Placeholders.Players|VotingPlugin.Admin
       See possible placeholderapi placeholders with player values
+    /av MergeOfflineUUIDs (Boolean)
+      VotingPlugin.Commands.AdminVote.MergeOfflineUUIDs|VotingPlugin.Admin
+      Offline-mode data repair: fixes incorrect UUIDs for names, merges duplicates, and normalizes PlayerName casing. Use /av MergeOfflineUUIDs true to apply.
     /av MergeDataFrom (UserStorage)
       VotingPlugin.Commands.AdminVote.MergeDataFrom|VotingPlugin.Admin
       Merge player totals from other storage type
+    /av ClearDiscordMessageID (topvoter)
+      VotingPlugin.Commands.AdminVote.ClearDiscordMessageID
+      Clear discord message ID for top voter
+    /av VoteLog
+      VotingPlugin.Commands.AdminVote.VoteLog|VotingPlugin.Admin
+      See vote logs
+    /av VoteLog (Number)
+      VotingPlugin.Commands.AdminVote.VoteLog|VotingPlugin.Admin
+      See vote logs
     /av
       VotingPlugin.Commands.AdminVote|VotingPlugin.Admin
       Base command
@@ -523,15 +538,9 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av Purge
       VotingPlugin.Purge|VotingPlugin.Admin
       Purge Data
-    /av DownloadJenkins
-      VotingPlugin.Download|VotingPlugin.Admin
-      Download from jenkins. Please use at your own risk
     /av ForceTimeChange (TimeType)
       VotingPlugin.ForceTimeChange|VotingPlugin.Admin
       Force time change, use at your own risk!
-    /av Javascript (List)
-      VotingPlugin.Javascript|VotingPlugin.Admin
-      Execute javascript
     /av SetRequestMethod (RequestMethod)
       VotingPlugin.SetRequestMethod|VotingPlugin.Admin
       SetRequestMethod
@@ -568,7 +577,6 @@ dateCreated: 2025-08-30T22:18:03.502Z
     VotingPlugin.Player : Allows basic access player commands
     VotingPlugin.Mod : Allows mod commands
     VotingPlugin.Admin : Allows admincommands
-    VotingPlugin.Admin.Debug : Permission to view debug info ingame
     VotingPlugin.TopVoter.Ignore : Allows you to be exempt from top voter
     VotingPlugin.NoRemind : Ignore vote reminding
     VotingPlugin.BypassWaitUntilVoteDelay : Bypass WaitUntilVoteDelay
