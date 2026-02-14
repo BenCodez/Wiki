@@ -2,7 +2,7 @@
 title: Vote Logging
 description: 
 published: true
-date: 2026-02-14T19:12:02.555Z
+date: 2026-02-14T19:12:57.372Z
 tags: 
 editor: markdown
 dateCreated: 2026-02-14T19:12:02.555Z
@@ -36,11 +36,8 @@ VoteLogging currently logs the following (MySQL only):
 
 - Votes
 - Vote shop purchases
-- **AllSite** rewards
-- **Almost AllSite** rewards
 - **Top Voter** rewards
-- **Milestone** rewards
-- **Cumulative** rewards
+- **VoteMilestone** rewards
 - **VoteStreaks** (new system; not the legacy/old version)
 
 ---
@@ -61,7 +58,7 @@ VoteLogging can be configured on both backend servers and proxies.
 # - Votes
 # - Vote shop purchases
 # - Top voter rewards
-# - Milestone rewards
+# - VoteMilestones rewards
 # - VoteStreaks (not the old version)
 
 VoteLogging:
