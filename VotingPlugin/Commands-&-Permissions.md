@@ -2,7 +2,7 @@
 title: Commands & Permissions
 description: 
 published: true
-date: 2025-08-31T03:29:15.212Z
+date: 2026-02-14T20:48:15.801Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:03.502Z
@@ -579,12 +579,12 @@ dateCreated: 2025-08-30T22:18:03.502Z
 
 ## BungeeCord/Velocity:
 
-    /votingpluginbungee vote (player) (site)
-    /votingpluginbungee status
-    /votingpluginbungee help
-    /votingpluginbungee forcetimechange (DAY/WEEK/MONTH)
-    /votingpluginbungee reload
-    /votingpluginbungee reloadmysql
-    /votingpluginbungee voteparty force - Force a vote party
-    /votingpluginbungee voteparty setvotecount (number) - Set current vote party votes
-    /votingpluginbungee multiproxystatus
+    /votingpluginproxy vote (player) (site)
+    /votingpluginproxy status
+    /votingpluginproxy help
+    /votingpluginproxy forcetimechange (DAY/WEEK/MONTH)
+    /votingpluginproxy reload
+    /votingpluginproxy reloadall
+    /votingpluginproxy voteparty force - Force a vote party
+    /votingpluginproxy voteparty setvotecount (number) - Set current vote party votes
+    /votingpluginproxy multiproxystatus
