@@ -2,7 +2,7 @@
 title: VoteStreak System
 description: 
 published: true
-date: 2026-02-12T02:13:10.098Z
+date: 2026-03-02T02:04:44.030Z
 tags: 
 editor: markdown
 dateCreated: 2026-02-12T02:13:10.098Z
@@ -40,7 +40,7 @@ VoteStreaks:
     Enabled: true
     Requirements:
       Amount: 3
-      VotesRequired: 3
+      VotesRequired: 3 # votes required in specific time peroid to count (3 votes in one day in this exammple)
     AllowMissedAmount: 1
     AllowMissedPeriod: 7
     Rewards:
