@@ -2,7 +2,7 @@
 title: Sidebar
 description: sidebar for github wiki
 published: true
-date: 2026-02-14T21:18:03.879Z
+date: 2026-03-08T01:23:55.801Z
 tags: 
 editor: markdown
 dateCreated: 2026-01-27T00:14:29.606Z
@@ -53,6 +53,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 - [Webhooks](https://github.com/BenCodez/VotingPlugin/wiki/webhooks)
 - [Time Changes](https://github.com/BenCodez/VotingPlugin/wiki/Time-Changes)
 - [Month Date Totals](https://github.com/BenCodez/VotingPlugin/wiki/Month-Date-Totals)
+- [VoteShop](https://github.com/BenCodez/VotingPlugin/wiki/voteshop)  
 
 ---
 
