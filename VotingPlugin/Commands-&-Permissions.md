@@ -2,7 +2,7 @@
 title: Commands & Permissions
 description: 
 published: true
-date: 2026-02-14T20:52:46.119Z
+date: 2026-06-07T22:16:56.648Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:03.502Z
@@ -12,7 +12,8 @@ dateCreated: 2025-08-30T22:18:03.502Z
 
 | splits permissions up, meaning it can be either one before/after the |
 
-    Command
+```
+     Command
       Permissions (seperated by |
       Help messasge
       
@@ -244,15 +245,42 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av ClearOfflineVoteRewards
       VotingPlugin.Commands.AdminVote.ClearOfflineVoteRewards|VotingPlugin.Admin
       Reset offline votes/rewards
-    /av User (player) SetVoteStreak DAY (number)
-      VotingPlugin.Commands.AdminVote.SetVoteStreak.Day|VotingPlugin.Admin
-      Set votestreak for player
-    /av User (player) SetVoteStreak WEEK (number)
-      VotingPlugin.Commands.AdminVote.SetVoteStreak.Week|VotingPlugin.Admin
-      Set votestreak for player
-    /av User (player) SetVoteStreak MONTH (number)
-      VotingPlugin.Commands.AdminVote.SetVoteStreak.Month|VotingPlugin.Admin
-      Set votestreak for player
+    /av User (player) VoteStreaks SetLegacy DAY (number)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.SetLegacy|VotingPlugin.Admin
+      Set the legacy daily vote streak amount
+    /av User (player) VoteStreaks SetLegacy WEEK (number)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.SetLegacy|VotingPlugin.Admin
+      Set the legacy weekly vote streak amount
+    /av User (player) VoteStreaks SetLegacy MONTH (number)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.SetLegacy|VotingPlugin.Admin
+      Set the legacy monthly vote streak amount
+    /av User (player) VoteStreaks Advance (votestreakstate)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.Advance|VotingPlugin.Admin
+      Advance a configured VoteStreak by one and give crossed rewards
+    /av User (player) VoteStreaks Advance (votestreakstate) (number)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.Advance|VotingPlugin.Admin
+      Advance a configured VoteStreak and give crossed rewards
+    /av User (player) VoteStreaks SetAmount (votestreakstate) (number)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.SetAmount|VotingPlugin.Admin
+      Set a configured VoteStreak amount without giving rewards
+    /av User (player) VoteStreaks AddAmount (votestreakstate) (number)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.AddAmount|VotingPlugin.Admin
+      Add to a configured VoteStreak amount without giving rewards
+    /av User (player) VoteStreaks SetLastUpdate (votestreakstate) (text)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.SetLastUpdate|VotingPlugin.Admin
+      Set the last update date for a configured VoteStreak using yyyy-MM-dd
+    /av User (player) VoteStreaks SetVotes (votestreakstate) (number)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.SetVotes|VotingPlugin.Admin
+      Set votes recorded in the current VoteStreak period
+    /av User (player) VoteStreaks SetSatisfied (votestreakstate) (boolean)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.SetSatisfied|VotingPlugin.Admin
+      Set whether the current VoteStreak period is satisfied
+    /av User (player) VoteStreaks Status (votestreakstate)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.Status|VotingPlugin.Admin
+      Show the stored state for a configured VoteStreak
+    /av User (player) VoteStreaks Reset (votestreakreset)
+      VotingPlugin.Commands.AdminVote.VoteStreaks.Reset|VotingPlugin.Admin
+      Reset VoteStreak state by id, progress group, type, or ALL
     /av User (player) SetTotal AllTime (number)
       VotingPlugin.Commands.AdminVote.SetTotal.AllTime|VotingPlugin.Admin
       Set AllTime totals for player
@@ -379,19 +407,19 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av User (player) ForceTopVoter Daily (Number)
       VotingPlugin.Commands.AdminVote.ForceTopVoter.Daily|VotingPlugin.Admin
       Force a top voter reward
-    /av User (player) ForceVoteStreak Day (Text)
+    /av User (player) VoteStreaks ForceLegacy Day (Text)
       VotingPlugin.Commands.AdminVote.ForceVoteStreak|VotingPlugin.Admin
       Force a votestreak reward for Day
     /av User (player) ForceTopVoter Weekly (Number)
       VotingPlugin.Commands.AdminVote.ForceTopVoter.Weekly|VotingPlugin.Admin
       Force a top voter reward
-    /av User (player) ForceVoteStreak Week (Text)
+    /av User (player) VoteStreaks ForceLegacy Week (Text)
       VotingPlugin.Commands.AdminVote.ForceVoteStreak|VotingPlugin.Admin
       Force a votestreak reward for Week
     /av User (player) ForceTopVoter Monthly (Number)
       VotingPlugin.Commands.AdminVote.ForceTopVoter.Monthly|VotingPlugin.Admin
       Force a top voter reward
-    /av User (player) ForceVoteStreak Month (Text)
+    /av User (player) VoteStreaks ForceLegacy Month (Text)
       VotingPlugin.Commands.AdminVote.ForceVoteStreak|VotingPlugin.Admin
       Force a votestreak reward for Month
     /av VoteMilestone/VM ForceGroup (player) (milestonegroup)
@@ -451,12 +479,27 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av MergeDataFrom (UserStorage)
       VotingPlugin.Commands.AdminVote.MergeDataFrom|VotingPlugin.Admin
       Merge player totals from other storage type
+    /av MigrateVoteStreaks
+      VotingPlugin.Commands.AdminVote.MigrateVoteStreaks|VotingPlugin.Admin
+      Migrate legacy VoteStreak config to VoteStreaks
     /av ClearDiscordMessageID (topvoter)
       VotingPlugin.Commands.AdminVote.ClearDiscordMessageID
       Clear discord message ID for top voter
     /av VoteLog
       VotingPlugin.Commands.AdminVote.VoteLog|VotingPlugin.Admin
       See vote logs
+    /av VotePresets
+      VotingPlugin.Commands.AdminVote.VotePresets|VotingPlugin.Admin
+      Open vote presets menu
+    /av VotePresets (Text)
+      VotingPlugin.Commands.AdminVote.VotePresets|VotingPlugin.Admin
+      Find vote preset from url
+    /av User (player) VoteStreaks Force (votestreak)
+      VotingPlugin.Commands.AdminVote.ForceVoteStreak|VotingPlugin.Admin
+      Force a configured VoteStreaks reward by id
+    /av User (player) VoteStreaks Force (votestreak) (number)
+      VotingPlugin.Commands.AdminVote.ForceVoteStreak|VotingPlugin.Admin
+      Force a configured VoteStreaks reward by id with a streak amount
     /av VoteLog (Number)
       VotingPlugin.Commands.AdminVote.VoteLog|VotingPlugin.Admin
       See vote logs
@@ -541,12 +584,9 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /av ForceTimeChange (TimeType)
       VotingPlugin.ForceTimeChange|VotingPlugin.Admin
       Force time change, use at your own risk!
-    /av SetRequestMethod (RequestMethod)
-      VotingPlugin.SetRequestMethod|VotingPlugin.Admin
-      SetRequestMethod
-    /av SetRequestMethod
-      VotingPlugin.SetRequestMethod|VotingPlugin.Admin
-      SetRequestMethod
+    /av Javascript (List)
+      VotingPlugin.Javascript|VotingPlugin.Admin
+      Execute javascript
     /av User All SetData (text) (text)
       VotingPlugin.SetAllData|VotingPlugin.Admin
       Set all users data
@@ -584,9 +624,11 @@ dateCreated: 2025-08-30T22:18:03.502Z
     VotingPlugin.Admin.GenerateServiceSite : Permission for generating votesite message
     VotingPlugin.Login.RemindVotes : Permission to allow timed reminders
     VotingPlugin.Login.RemindVotes.All : Remind if player can vote on all votesites, rather than any
+```
 
 ## BungeeCord/Velocity:
 
+```
     /votingpluginproxy vote (player) (site)
     /votingpluginproxy status
     /votingpluginproxy help
@@ -596,3 +638,4 @@ dateCreated: 2025-08-30T22:18:03.502Z
     /votingpluginproxy voteparty force - Force a vote party
     /votingpluginproxy voteparty setvotecount (number) - Set current vote party votes
     /votingpluginproxy multiproxystatus
+```
