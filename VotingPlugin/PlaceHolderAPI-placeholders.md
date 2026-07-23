@@ -2,7 +2,7 @@
 title: PlaceHolderAPI placeholders
 description: 
 published: true
-date: 2026-02-22T01:44:23.986Z
+date: 2026-07-23T01:57:17.601Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:20.126Z
@@ -88,6 +88,7 @@ Some placeholders take a dynamic segment:
 | `%votingplugin_alltimetotal%` | All-time total |
 | `%votingplugin_lastmonthtotal%` | Last month total |
 | `%votingplugin_disablebroadcast%` | Returns true/false if user has broadcast disabled |
+| `%votingplugin_canlike_namemc%` | Returns `Complete` if the player has claimed the NameMC like reward; otherwise returns `Incomplete` |
 | `%votingplugin_total_alltime%` | User total for AllTime |
 | `%votingplugin_total_monthly%` | User total for Monthly |
 | `%votingplugin_total_weekly%` | User total for Weekly |
