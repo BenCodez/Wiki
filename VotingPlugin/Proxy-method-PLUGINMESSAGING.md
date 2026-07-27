@@ -1,79 +1,76 @@
 ---
 title: Proxy method PLUGINMESSAGING
-description: Details of PLUGINMESSAGING setup
+description: Details of the PLUGINMESSAGING setup
 published: true
-date: 2025-08-31T00:11:00.080Z
-tags: 
+date: 2026-07-26T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:00.302Z
 ---
 
-> Votifier+VotingPlugin on proxy server, and only VotingPlugin is required on backend servers
-{.is-info}
-
-> All servers use the same mysql table
-{.is-info}
-
-> Running on velocity requires a mysql driver to be installed, one available as a plugin here if needed http://bencodez.com/job/MySQLDriver/
-{.is-info}
-
-
-
 # Method PLUGINMESSAGING
-- Uses PLUGINMESSAGING to communicate between servers (Requires online players to send messages, does not effect offline votes)
-- Nearly a drop and play method, not recommended for large networks
 
+> In the standard layout, VotifierPlus and VotingPlugin run on the proxy, while VotingPlugin runs on each backend server. Custom vote-routing layouts may differ.
+{.is-info}
 
+All servers must use the same MySQL database for shared player data.
 
-## Required Settings
-### Proxy (bungeeconfig.yml):
-- `BungeeMethod: PLUGINMESSAGING`
-- MySQL database information
+PLUGINMESSAGING is the recommended method for most networks. It uses the proxy messaging channel and requires at least one online player to transmit a plugin message, but offline votes can still be cached and delivered later.
 
-### Backend Servers:
-BungeeSettings.yml:
-- `BungeeMethod: PLUGINMESSAGING`
-- `UseBungeecord: true`
-- 'Server: SERVERNAMEHERE` (Set server name on each server, matching names from proxy server)
+## Required settings
 
-Config.yml:
-- MySQL database information
-- `AllowUnjoined: true` (Proxy handles this)
+### Proxy: `bungeeconfig.yml`
 
----
+```yaml
+BungeeMethod: PLUGINMESSAGING
+```
 
-See default config files for every setting, as this is very customizable. 
+Also configure the shared MySQL connection.
 
-If you want one reward per vote across the entire network then disable SendVotesToAllServers
+### Backend servers: `BungeeSettings.yml`
 
+```yaml
+UseBungeecord: true
+BungeeMethod: PLUGINMESSAGING
+Server: SERVERNAMEHERE
+```
 
-## Troubleshooting:
-Testing communication:
-- Check status & working condition with /votingpluginbungee status (Requires players to be online to test)
-- See console for results
+Each backend must have a unique `Server` value that matches the name known by the proxy.
 
-Test voting:
-- Run bungee test vote with /votingpluginbungee vote (player) (site)
+### Backend servers: `Config.yml`
 
-Double/Extra Rewards:
-- Ensure server names in BungeeSettings.yml differ and match names in proxy server
-- NuVotifier forwarding method set to none (And no votifier plugins on spigot servers)
+Configure the same MySQL database used by the rest of the network.
 
-Not working:
-- Restart all servers
-- Ensure required settings are working
-- Test communication and run test votes (if that works check votiifer)
+`AllowUnJoined` is a proxy-side option in `bungeeconfig.yml`; do not add the incorrectly capitalized `AllowUnjoined` key to backend `Config.yml`.
 
+## Reward behavior
 
-### Prevent Exploits (A bit overkill):
-- These options are extra failsafes to prevent possible exploits
-- These 2 settings must match on all servers
-- Please ensure plugin messaging is working before enabling
-- PluginMessageChannel:
-  - Defaults to vp:vp
-  - Channel used to send messages
-- PluginMessageEncryption:
-  - Defaults to false
-  - When enabled secretkey.key must match on all servers (Generates when enabled)
-  - Encrypts all messaging data and prevents someone trying to force votes
+Disable `SendVotesToAllServers` when the network should give only one server reward per vote. Leave it enabled when each applicable backend should process the forwarded vote.
 
+## Testing
+
+```text
+/votingpluginbungee status
+/votingpluginbungee vote <player> <site>
+```
+
+The status command needs an online player for PLUGINMESSAGING communication.
+
+## Duplicate or extra rewards
+
+- Ensure every backend has a unique and correct `Server` value.
+- Disable NuVotifier forwarding when VotingPlugin is handling forwarding.
+- Avoid running a separate vote listener on backend servers unless the custom topology intentionally requires it.
+
+## Optional message security
+
+These settings must match on all connected servers:
+
+```yaml
+PluginMessageChannel: 'vp:vp'
+PluginMessageEncryption: false
+```
+
+When encryption is enabled, copy the same `secretkey.key` to every connected server.
+
+> **AI disclosure:** This documentation update was written with assistance from ChatGPT.
