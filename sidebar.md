@@ -37,7 +37,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ### Multi-Proxy
 - [Multi-Proxy Setup](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-Setup)
-- [Multi-Proxy REDIS](https://github.com/BenCodez/VotingPlugin/wiki/Multi‐Proxy-REDIS)
+- [Multi-Proxy REDIS](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-REDIS)
 - [Multi-Proxy SOCKETS](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-Sockets)
 
 ---

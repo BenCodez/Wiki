@@ -1,68 +1,70 @@
 ---
 title: Proxy method MYSQL
-description: Details of MYSQL setup
+description: Details of the MYSQL proxy setup
 published: true
-date: 2026-01-24T17:37:32.925Z
-tags: 
+date: 2026-07-26T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-31T00:27:03.022Z
 ---
 
-> Votifier+VotingPlugin on proxy server, and only VotingPlugin is required on backend servers
-{.is-info}
-
-> All servers use the same mysql table
-{.is-info}
-
-> Running on velocity requires a mysql driver to be installed, one available as a plugin here if needed http://bencodez.com/job/MySQLDriver/
-{.is-info}
-
-
-
 # Method MYSQL
-- Uses MYSQL to communicate between servers
-- This may not work with all mysql databases
-- This will create a table called VotingPlugin_message_queue for sending messages
-- Set MaxConnections to atleast 5 for mysql across all servers
 
+> In the standard layout, VotifierPlus and VotingPlugin run on the proxy, while VotingPlugin runs on each backend server. Custom vote-routing layouts may differ.
+{.is-info}
 
-## Required Settings
-### Proxy (bungeeconfig.yml):
-- `BungeeMethod: MYSQL`
-- MySQL database information
-- Increase MaxConnections by atleast one for best performance
+The `MYSQL` method uses a shared MySQL-backed message queue. It creates the `VotingPlugin_message_queue` table and may not be compatible with every MySQL-compatible service.
 
-### Backend Servers:
-BungeeSettings.yml:
-- `BungeeMethod: MYSQL`
-- `UseBungeecord: true`
-- 'Server: SERVERNAMEHERE` (Set server name on each server, matching names from proxy server)
+## Required settings
 
-Config.yml:
-- MySQL database information
-- `AllowUnjoined: true` (Proxy handles this)
+### Proxy: `bungeeconfig.yml`
 
----
+```yaml
+BungeeMethod: MYSQL
+```
 
-See default config files for every setting, as this is very customizable. 
+Configure the shared MySQL connection and provide enough connections for the proxy and backend workload. The current documentation recommendation is at least five total connections across a small network, with additional headroom for larger installations.
 
-If you want one reward per vote across the entire network then disable SendVotesToAllServers
+### Backend servers: `BungeeSettings.yml`
 
+```yaml
+UseBungeecord: true
+BungeeMethod: MYSQL
+Server: SERVERNAMEHERE
+```
 
-## Troubleshooting:
-Testing communication:
-- Check status & working condition with /votingpluginbungee status
-- See console for results
+Each backend must have a unique `Server` value that matches the name known by the proxy.
 
-Test voting:
-- Run bungee test vote with /votingpluginbungee vote (player) (site)
+### Backend servers: `Config.yml`
 
-Double/Extra Rewards:
-- Ensure server names in BungeeSettings.yml differ and match names in proxy server
-- NuVotifier forwarding method set to none (And no votifier plugins on spigot servers)
+Configure the same MySQL database used by the rest of the network.
 
-Not working:
-- Restart all servers
-- Ensure required settings are working
-- Test communication and run test votes (if that works check votiifer)
+`AllowUnJoined` is a proxy-side option in `bungeeconfig.yml`; do not add the incorrectly capitalized `AllowUnjoined` key to backend `Config.yml`.
 
+## Reward behavior
+
+Disable `SendVotesToAllServers` when the network should give only one server reward per vote. Leave it enabled when each applicable backend should process the forwarded vote.
+
+## Testing
+
+```text
+/votingpluginbungee status
+/votingpluginbungee vote <player> <site>
+```
+
+Check the proxy and backend consoles for status results and queue-processing errors.
+
+## Duplicate or extra rewards
+
+- Ensure every backend has a unique and correct `Server` value.
+- Disable NuVotifier forwarding when VotingPlugin is handling forwarding.
+- Avoid running a separate vote listener on backend servers unless the custom topology intentionally requires it.
+
+## Troubleshooting
+
+- Restart the proxy and all backend servers after configuration changes.
+- Verify the shared database credentials and permissions.
+- Confirm that `VotingPlugin_message_queue` can be created and updated.
+- Check `/votingpluginbungee status` before testing vote rewards.
+
+> **AI disclosure:** This documentation update was written with assistance from ChatGPT.

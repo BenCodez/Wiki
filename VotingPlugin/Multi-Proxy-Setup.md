@@ -23,6 +23,7 @@ dateCreated: 2025-08-30T22:18:15.618Z
 
 
 ## 2 Methods available:
-- [REDIS](/VotingPlugin/Multi‐Proxy-REDIS) (Recommeneded)
+- [REDIS](/VotingPlugin/Multi-Proxy-REDIS) (Recommended)
 - [Sockets](/VotingPlugin/Multi-Proxy-Sockets)
 
+> **AI disclosure:** This documentation update was written with assistance from ChatGPT.
