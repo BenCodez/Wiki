@@ -47,7 +47,10 @@ Each method provides the same core functionality — sending votes from the prox
 
 ## How It Works
 
-![Proxy Flow Diagram](/untitled_diagram___mermaid_chart-2025-08-30-234204.png)
+![VotingPlugin proxy architecture showing vote websites, VotifierPlus, proxy communication methods, backend servers, and shared MySQL storage](/assets/VotingPlugin/votingplugin-proxy-architecture.svg)
+
+> This diagram shows the typical single-proxy network layout. Multi-proxy setups and custom Votifier routing may use a different topology.
+{.is-info}
 
 When a player votes:
 
