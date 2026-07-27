@@ -87,6 +87,17 @@ Path: `/plugins/VotingPlugin/Rewards/`
 
 ---
 
+## How a Vote Is Processed
+
+The exact path depends on whether the server is standalone or part of a proxy network, but the following diagram shows a typical complete proxy-network lifecycle:
+
+![Complete VotingPlugin vote lifecycle, from clicking a vote link through validation, processing, storage, rewards, streaks, milestones, and vote-party progress](/assets/VotingPlugin/complete-vote-lifecycle.svg)
+
+> On a standalone server, the proxy-forwarding stage is skipped and VotingPlugin processes the vote locally. Configuration can also change when totals, vote parties, and rewards are processed.
+{.is-info}
+
+---
+
 ## Commands and Permissions
 
 | Command | Description |
