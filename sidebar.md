@@ -1,14 +1,14 @@
 ---
 title: Sidebar
-description: sidebar for github wiki
+description: Sidebar for the GitHub wiki mirror
 published: true
-date: 2026-03-08T01:23:55.801Z
-tags: 
+date: 2026-07-26T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2026-01-27T00:14:29.606Z
 ---
 
-[New Wiki](https://wiki.bencodez.com)
+[Primary Wiki](https://wiki.bencodez.com)
 
 - [Home](https://github.com/BenCodez/VotingPlugin/wiki/Home)
 - [Overview](https://github.com/BenCodez/VotingPlugin/wiki/VotingPlugin)
@@ -37,43 +37,42 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ### Multi-Proxy
 - [Multi-Proxy Setup](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-Setup)
-- [Multi-Proxy REDIS](https://github.com/BenCodez/VotingPlugin/wiki/Multi‐Proxy-REDIS)
+- [Multi-Proxy REDIS](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-REDIS)
 - [Multi-Proxy SOCKETS](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-Sockets)
-
 
 ---
 
 ## 🗳 Voting Systems
-
-- [VoteMilestones](https://github.com/BenCodez/VotingPlugin/wiki/VoteMilestones)
+- [Vote Milestones](https://github.com/BenCodez/VotingPlugin/wiki/VoteMilestones)
 - [Vote Streak System](https://github.com/BenCodez/VotingPlugin/wiki/VoteStreak-System)
-- [VoteReminders](https://github.com/BenCodez/VotingPlugin/wiki/VoteReminders)
+- [Vote Reminders — Current System](https://github.com/BenCodez/VotingPlugin/wiki/VoteReminders)
+- [Legacy Vote Reminding](https://github.com/BenCodez/VotingPlugin/wiki/Vote-Reminding-Legacy)
 - [Vote Broadcast System](https://github.com/BenCodez/VotingPlugin/wiki/Vote-Broadcast-System)
 - [Vote Logging](https://github.com/BenCodez/VotingPlugin/wiki/VoteLogging)
 - [Webhooks](https://github.com/BenCodez/VotingPlugin/wiki/webhooks)
 - [Time Changes](https://github.com/BenCodez/VotingPlugin/wiki/Time-Changes)
 - [Month Date Totals](https://github.com/BenCodez/VotingPlugin/wiki/Month-Date-Totals)
-- [VoteShop](https://github.com/BenCodez/VotingPlugin/wiki/voteshop)  
+- [VoteShop](https://github.com/BenCodez/VotingPlugin/wiki/voteshop)
 
 ---
 
 ## 🎁 Rewards
-- [Rewards Overview](https://github.com/BenCodez/VotingPlugin/wiki/Rewards)
-- [Reward System](https://github.com/BenCodez/VotingPlugin/wiki/reward-system)
-- [Reward File](https://github.com/BenCodez/VotingPlugin/wiki/Reward-File)
+- [Rewards Overview — Start Here](https://github.com/BenCodez/VotingPlugin/wiki/Rewards)
+- [Reward System Concepts](https://github.com/BenCodez/VotingPlugin/wiki/reward-system)
+- [Reward File Format](https://github.com/BenCodez/VotingPlugin/wiki/Reward-File)
 - [Where to Set Rewards](https://github.com/BenCodez/VotingPlugin/wiki/Where-to-set-rewards)
 - [All Reward Possibilities](https://github.com/BenCodez/VotingPlugin/wiki/All-Reward-Possibilities)
 - [Reward Examples](https://github.com/BenCodez/VotingPlugin/wiki/Reward-Examples)
 - [Delayed Reward Command](https://github.com/BenCodez/VotingPlugin/wiki/Delayed-reward-command)
 - [World Example](https://github.com/BenCodez/VotingPlugin/wiki/World-Example)
-- [VotingPlugin Specific Rewards](https://github.com/BenCodez/VotingPlugin/wiki/VotingPlugin-Specific-Rewards)
+- [VotingPlugin-Specific Rewards](https://github.com/BenCodez/VotingPlugin/wiki/VotingPlugin-Specific-Rewards)
 
 ---
 
 ## 📚 Knowledge Base
 - [Commands & Permissions](https://github.com/BenCodez/VotingPlugin/wiki/Commands-&-Permissions)
 - [API](https://github.com/BenCodez/VotingPlugin/wiki/API)
-- [PlaceHolderAPI Placeholders](https://github.com/BenCodez/VotingPlugin/wiki/PlaceHolderAPI-placeholders)
+- [PlaceholderAPI Placeholders](https://github.com/BenCodez/VotingPlugin/wiki/PlaceHolderAPI-placeholders)
 - [Minecraft Server Lists](https://github.com/BenCodez/VotingPlugin/wiki/Minecraft-Server-Lists)
 - [Bedrock Player Support](https://github.com/BenCodez/VotingPlugin/wiki/Bedrock-Player-Support)
 - [Transferring Data Storage](https://github.com/BenCodez/VotingPlugin/wiki/Transferring-data-storage-within-plugin)
