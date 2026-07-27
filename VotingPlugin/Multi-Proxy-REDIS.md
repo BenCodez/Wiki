@@ -58,7 +58,14 @@ ProxyServers:
   - proxy3
 ```
 
-When `MultiProxyOneGlobalReward` is enabled, enable it consistently on all proxies and review `SendVotesToAllServers` so the configured reward behavior matches the intended topology.
+For one global reward across the entire multi-proxy network, configure both options as follows on every proxy:
+
+```yaml
+MultiProxyOneGlobalReward: true
+SendVotesToAllServers: false
+```
+
+Leaving `SendVotesToAllServers` enabled can forward the same vote to multiple backend servers and allow more than one reward.
 
 > Multi-proxy support is advanced. Test vote forwarding, duplicate prevention, reconnect behavior, and reward delivery before using it in production.
 {.is-warning}
