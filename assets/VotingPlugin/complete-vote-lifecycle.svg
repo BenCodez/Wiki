@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Complete Vote Lifecycle</title>
+<desc id="desc">Typical proxy-network vote lifecycle from player click to vote-site validation, VotifierPlus and VotingPlugin processing, backend rewards, storage, streaks, milestones, and vote-party progress.</desc>
+<defs>
+  <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-opacity=".13"/></filter>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1f2937"/></marker>
+  <style>text{font-family:Arial,Helvetica,sans-serif;fill:#111827}.title{font-size:54px;font-weight:700}.num{font-size:24px;font-weight:700;fill:#fff}.step{font-size:17px;font-weight:700}.chip{font-size:20px;font-weight:700}.small{font-size:16px}.arrow{stroke:#1f2937;stroke-width:4;fill:none;marker-end:url(#arrow)}</style>
+</defs>
+<rect width="1600" height="900" fill="#f8fafc"/>
+<text x="800" y="75" text-anchor="middle" class="title">Complete Vote Lifecycle</text>
+
+<g filter="url(#shadow)">
+<rect x="45" y="175" width="175" height="315" rx="20" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+<rect x="235" y="175" width="175" height="315" rx="20" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+<rect x="425" y="175" width="175" height="315" rx="20" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+<rect x="615" y="175" width="175" height="315" rx="20" fill="#faf5ff" stroke="#7e22ce" stroke-width="3"/>
+<rect x="805" y="175" width="175" height="315" rx="20" fill="#faf5ff" stroke="#7e22ce" stroke-width="3"/>
+<rect x="995" y="175" width="175" height="315" rx="20" fill="#faf5ff" stroke="#7e22ce" stroke-width="3"/>
+<rect x="1185" y="175" width="175" height="315" rx="20" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+<rect x="1375" y="175" width="180" height="315" rx="20" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+</g>
+
+<!-- connectors are painted after cards and end in the gaps -->
+<g class="arrow"><path d="M220 330H230"/><path d="M410 330H420"/><path d="M600 330H610"/><path d="M790 330H800"/><path d="M980 330H990"/><path d="M1170 330H1180"/><path d="M1360 330H1370"/></g>
+
+<g><circle cx="65" cy="180" r="25" fill="#16a34a"/><circle cx="255" cy="180" r="25" fill="#16a34a"/><circle cx="445" cy="180" r="25" fill="#16a34a"/><circle cx="635" cy="180" r="25" fill="#7e22ce"/><circle cx="825" cy="180" r="25" fill="#7e22ce"/><circle cx="1015" cy="180" r="25" fill="#7e22ce"/><circle cx="1205" cy="180" r="25" fill="#2563eb"/><circle cx="1395" cy="180" r="25" fill="#2563eb"/></g>
+<g text-anchor="middle" class="num"><text x="65" y="188">1</text><text x="255" y="188">2</text><text x="445" y="188">3</text><text x="635" y="188">4</text><text x="825" y="188">5</text><text x="1015" y="188">6</text><text x="1205" y="188">7</text><text x="1395" y="188">8</text></g>
+
+<g fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="#16a34a"><circle cx="132" cy="260" r="28"/><path d="M82 335c10-43 90-43 100 0M170 275l22 22M192 275l-22 22"/><path d="M300 270l25 25 45-55"/><path d="M285 225h75l30 30v55c0 45-35 69-67 82-32-13-68-37-68-82v-55z"/><circle cx="512" cy="270" r="55"/><path d="M457 270h110M512 215c-35 35-35 75 0 110M512 215c35 35 35 75 0 110"/></g>
+<g stroke="#7e22ce"><rect x="660" y="230" width="85" height="25" rx="5"/><rect x="660" y="270" width="85" height="25" rx="5"/><rect x="660" y="310" width="85" height="25" rx="5"/><ellipse cx="892" cy="245" rx="50" ry="18"/><path d="M842 245v95c0 10 22 18 50 18s50-8 50-18v-95M1045 265h40M1085 265l25-25M1085 265l25 25M1045 265v80M1045 345h40M1085 345l25-25M1085 345l25 25"/></g>
+<g stroke="#2563eb"><path d="M1230 255l45-30 45 30v65l-45 30-45-30zM1230 255l45 30 45-30M1275 285v65"/><rect x="1420" y="270" width="90" height="75" rx="8"/><path d="M1465 270v75M1420 300h90M1450 270c-35-35-45 10 15 30M1480 270c35-35 45 10-15 30"/></g>
+</g>
+
+<g text-anchor="middle" class="step">
+<text x="132" y="395"><tspan x="132">Player clicks</tspan><tspan x="132" dy="24">vote link</tspan></text>
+<text x="322" y="395"><tspan x="322">Vote site</tspan><tspan x="322" dy="24">validates vote</tspan></text>
+<text x="512" y="382"><tspan x="512">Vote site</tspan><tspan x="512" dy="24">contacts</tspan><tspan x="512" dy="24">VotifierPlus</tspan></text>
+<text x="702" y="382"><tspan x="702">VotifierPlus</tspan><tspan x="702" dy="24">creates vote</tspan><tspan x="702" dy="24">event</tspan></text>
+<text x="892" y="382"><tspan x="892">VotingPlugin</tspan><tspan x="892" dy="24">records the</tspan><tspan x="892" dy="24">vote</tspan></text>
+<text x="1082" y="382"><tspan x="1082">Proxy forwards</tspan><tspan x="1082" dy="24">vote to</tspan><tspan x="1082" dy="24">backend</tspan></text>
+<text x="1272" y="395"><tspan x="1272">Backend selects</tspan><tspan x="1272" dy="24">rewards</tspan></text>
+<text x="1465" y="382"><tspan x="1465">Player receives</tspan><tspan x="1465" dy="24">rewards, messages,</tspan><tspan x="1465" dy="24">and progress</tspan></text>
+</g>
+
+<rect x="45" y="570" width="1510" height="180" rx="22" fill="#fff" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="8 7"/>
+<line x1="420" y1="600" x2="420" y2="720" stroke="#cbd5e1" stroke-width="2"/><line x1="790" y1="600" x2="790" y2="720" stroke="#cbd5e1" stroke-width="2"/><line x1="1170" y1="600" x2="1170" y2="720" stroke="#cbd5e1" stroke-width="2"/>
+<g text-anchor="middle"><text x="230" y="630" class="chip" fill="#c2410c">Stored in MySQL</text><text x="230" y="665" class="small">Vote data is retained for reliability</text><text x="230" y="690" class="small">and network-wide tracking.</text><text x="605" y="630" class="chip" fill="#15803d">Updates Vote Streaks</text><text x="605" y="665" class="small">Maintains and increments the</text><text x="605" y="690" class="small">player’s configured streaks.</text><text x="980" y="630" class="chip" fill="#6b21a8">Checks Milestones</text><text x="980" y="665" class="small">Evaluates milestone conditions</text><text x="980" y="690" class="small">and awards reached rewards.</text><text x="1360" y="630" class="chip" fill="#1d4ed8">Can Advance Vote Party</text><text x="1360" y="665" class="small">Adds progress toward the server</text><text x="1360" y="690" class="small">or network vote-party goal.</text></g>
+<rect x="170" y="790" width="1260" height="65" rx="17" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/>
+<text x="800" y="832" text-anchor="middle" class="chip" fill="#1e3a8a">A single vote can trigger rewards, streak progress, milestones, and vote-party progress.</text>
+</svg>
