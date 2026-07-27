@@ -1,58 +1,50 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
 <title id="title">VotingPlugin Proxy Architecture</title>
-<desc id="desc">Typical proxy network flow from voting websites through VotifierPlus and VotingPlugin Proxy to backend servers, shared MySQL storage, and reward systems.</desc>
+<desc id="desc">Typical single-proxy flow where one configured communication method forwards votes to the shared backend-server tier, while all servers access one MySQL database.</desc>
 <defs>
-  <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-opacity=".14"/></filter>
-  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#17233b"/></marker>
-  <marker id="dashArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#6b7280"/></marker>
-  <style>
-    text{font-family:Arial,Helvetica,sans-serif;fill:#111827}.title{font-size:52px;font-weight:700}.h{font-size:30px;font-weight:700}.m{font-size:23px;font-weight:700}.s{font-size:18px}.tiny{font-size:15px}.box{filter:url(#shadow)}.solid{stroke:#17233b;stroke-width:4;fill:none;marker-end:url(#arrow)}.dash{stroke:#6b7280;stroke-width:3;stroke-dasharray:10 9;fill:none;marker-end:url(#dashArrow)}
-  </style>
+ <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity=".13"/></filter>
+ <marker id="purpleArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z" fill="#6d28d9"/></marker>
+ <marker id="orangeArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z" fill="#d95f02"/></marker>
+ <style>text{font-family:Arial,Helvetica,sans-serif;fill:#111827}.title{font-size:48px;font-weight:700}.h{font-size:28px;font-weight:700}.m{font-size:20px;font-weight:700}.s{font-size:16px}.tiny{font-size:14px}.box{filter:url(#shadow)}.vote{stroke:#6d28d9;stroke-width:4;fill:none;marker-end:url(#purpleArrow)}.forward{stroke:#d95f02;stroke-width:4;fill:none;marker-end:url(#orangeArrow)}.storage{stroke:#d95f02;stroke-width:3;stroke-dasharray:10 8;fill:none;marker-end:url(#orangeArrow)}</style>
 </defs>
 <rect width="1600" height="900" fill="#f8fafc"/>
-<text x="800" y="70" text-anchor="middle" class="title">VotingPlugin Proxy Architecture</text>
+<text x="840" y="58" text-anchor="middle" class="title">VotingPlugin Proxy Architecture</text>
 
-<!-- setup notes -->
-<g class="box"><rect x="35" y="125" width="310" height="365" rx="20" fill="#fff" stroke="#9ca3af" stroke-width="2"/></g>
-<text x="65" y="170" class="h" fill="#374151">Setup Notes</text>
-<g fill="#6d28d9"><circle cx="70" cy="220" r="14"/><circle cx="70" cy="285" r="14"/><circle cx="70" cy="350" r="14"/><circle cx="70" cy="425" r="14"/></g>
-<g fill="#fff" font-family="Arial" font-size="18" font-weight="700" text-anchor="middle"><text x="70" y="227">✓</text><text x="70" y="292">✓</text><text x="70" y="357">✓</text><text x="70" y="432">✓</text></g>
-<text x="100" y="215" class="s"><tspan x="100" dy="0">VotifierPlus normally</tspan><tspan x="100" dy="24">runs on the proxy</tspan></text>
-<text x="100" y="280" class="s"><tspan x="100" dy="0">Backends run</tspan><tspan x="100" dy="24">VotingPlugin</tspan></text>
-<text x="100" y="345" class="s"><tspan x="100" dy="0">All servers use the</tspan><tspan x="100" dy="24">same MySQL database</tspan></text>
-<text x="100" y="420" class="s"><tspan x="100" dy="0">Proxy receives and</tspan><tspan x="100" dy="24">forwards votes</tspan></text>
+<g class="box"><rect x="35" y="95" width="275" height="520" rx="18" fill="#fff" stroke="#6d28d9" stroke-width="2"/></g>
+<text x="65" y="138" class="h" fill="#5b21b6">Setup Notes</text>
+<g class="s"><text x="65" y="185">• Install VotifierPlus on the</text><text x="82" y="208">proxy to receive votes.</text><text x="65" y="250">• Install VotingPlugin on the</text><text x="82" y="273">proxy to route votes.</text><text x="65" y="315">• Install VotingPlugin on each</text><text x="82" y="338">backend server.</text><text x="65" y="380">• Configure one communication</text><text x="82" y="403">method on the proxy.</text><text x="65" y="445">• All servers use the same</text><text x="82" y="468">MySQL database.</text></g>
+<line x1="55" y1="500" x2="290" y2="500" stroke="#a78bfa" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="65" y="535" class="m" fill="#5b21b6">Note</text><text x="65" y="565" class="tiny">Typical single-proxy layout.</text><text x="65" y="588" class="tiny">Multi-proxy and custom routing</text><text x="65" y="611" class="tiny">topologies may differ.</text>
 
-<!-- main flow -->
-<g class="box"><rect x="460" y="115" width="690" height="90" rx="18" fill="#ecfdf3" stroke="#15803d" stroke-width="3"/></g>
-<text x="805" y="155" text-anchor="middle" class="h" fill="#166534">Voting Websites</text><text x="805" y="185" text-anchor="middle" class="s">PlanetMinecraft / Minecraft-MP / Other vote sites</text>
-<path d="M805 205V240" class="solid"/>
-<g class="box"><rect x="460" y="245" width="690" height="78" rx="18" fill="#f3e8ff" stroke="#7e22ce" stroke-width="3"/></g>
-<text x="805" y="294" text-anchor="middle" class="h" fill="#6b21a8">VotifierPlus on Proxy</text>
-<path d="M805 323V355" class="solid"/>
-<g class="box"><rect x="460" y="360" width="690" height="100" rx="18" fill="#f3e8ff" stroke="#7e22ce" stroke-width="3"/></g>
-<text x="805" y="402" text-anchor="middle" class="h" fill="#6b21a8">VotingPlugin Proxy</text><text x="805" y="436" text-anchor="middle" class="s">Receives votes and forwards them to backend servers</text>
+<g class="box"><rect x="520" y="90" width="600" height="75" rx="16" fill="#ecfdf3" stroke="#15803d" stroke-width="2"/></g>
+<text x="820" y="125" text-anchor="middle" class="h" fill="#166534">Voting Websites</text><text x="820" y="150" text-anchor="middle" class="s">Vote sites send votes to the proxy.</text>
+<path d="M820 165V193" class="vote"/>
+<g class="box"><rect x="505" y="200" width="630" height="75" rx="16" fill="#f3e8ff" stroke="#7e22ce" stroke-width="2"/></g>
+<text x="820" y="238" text-anchor="middle" class="h" fill="#6b21a8">VotifierPlus on Proxy</text><text x="820" y="263" text-anchor="middle" class="s">Receives votes from voting websites.</text>
+<path d="M820 275V303" class="vote"/>
+<g class="box"><rect x="445" y="310" width="750" height="90" rx="16" fill="#f3e8ff" stroke="#7e22ce" stroke-width="2"/></g>
+<text x="820" y="347" text-anchor="middle" class="h" fill="#6b21a8">VotingPlugin Proxy</text><text x="820" y="374" text-anchor="middle" class="s">Receives votes via VotifierPlus and forwards them using one configured method.</text>
 
-<!-- methods -->
-<g class="box" fill="#fff7ed" stroke="#ea580c" stroke-width="2"><rect x="390" y="520" width="175" height="68" rx="14"/><rect x="580" y="520" width="175" height="68" rx="14"/><rect x="770" y="520" width="150" height="68" rx="14"/><rect x="935" y="520" width="150" height="68" rx="14"/><rect x="1100" y="520" width="150" height="68" rx="14"/></g>
-<g text-anchor="middle" class="m" fill="#c2410c"><text x="477" y="562">MySQL</text><text x="667" y="550"><tspan x="667">Plugin</tspan><tspan x="667" dy="24">Messaging</tspan></text><text x="845" y="562">Redis</text><text x="1010" y="562">MQTT</text><text x="1175" y="562">Sockets</text></g>
-<path d="M805 460L477 518M805 460L667 518M805 460L845 518M805 460L1010 518M805 460L1175 518" class="solid"/>
+<g class="box" fill="#fff7ed" stroke="#ea580c" stroke-width="2"><rect x="350" y="440" width="170" height="105" rx="14"/><rect x="535" y="440" width="170" height="105" rx="14"/><rect x="720" y="440" width="170" height="105" rx="14"/><rect x="905" y="440" width="170" height="105" rx="14"/><rect x="1090" y="440" width="170" height="105" rx="14"/></g>
+<g text-anchor="middle"><text x="435" y="475" class="m" fill="#c2410c">MySQL</text><text x="435" y="505" class="tiny">Forward via queries</text><text x="620" y="466" class="m" fill="#c2410c"><tspan x="620">Plugin</tspan><tspan x="620" dy="23">Messaging</tspan></text><text x="620" y="520" class="tiny">Forward via messages</text><text x="805" y="475" class="m" fill="#c2410c">Redis</text><text x="805" y="505" class="tiny">Forward via pub/sub</text><text x="990" y="475" class="m" fill="#c2410c">MQTT</text><text x="990" y="505" class="tiny">Forward via broker</text><text x="1175" y="475" class="m" fill="#c2410c">Sockets</text><text x="1175" y="505" class="tiny">Forward via connection</text></g>
+<path d="M820 400V425H435V438M820 425H620V438M820 425H805V438M820 425H990V438M820 425H1175V438" class="vote"/>
 
-<!-- DB -->
-<g class="box"><ellipse cx="1400" cy="505" rx="105" ry="28" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/><path d="M1295 505v155c0 16 47 29 105 29s105-13 105-29V505" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/><ellipse cx="1400" cy="660" rx="105" ry="29" fill="#fed7aa" stroke="#ea580c" stroke-width="3"/></g>
-<text x="1400" y="565" text-anchor="middle" class="h" fill="#c2410c"><tspan x="1400">Shared</tspan><tspan x="1400" dy="36">MySQL</tspan><tspan x="1400" dy="36">Database</tspan></text>
-<path d="M1150 410H1400V475" class="dash"/>
+<path d="M435 545V575M620 545V575M805 545V575M990 545V575M1175 545V575" class="forward"/>
+<line x1="390" y1="580" x2="1220" y2="580" stroke="#d95f02" stroke-width="4"/>
+<text x="805" y="610" text-anchor="middle" class="m" fill="#c2410c">Configured forwarding path — choose one method</text><text x="805" y="635" text-anchor="middle" class="s">One configured communication method forwards votes to the backend-server tier.</text>
+<path d="M805 580V650H480V675M805 650V675M805 650H1130V675" class="forward"/>
 
-<!-- backends -->
-<g class="box" fill="#eff6ff" stroke="#2563eb" stroke-width="3"><rect x="380" y="650" width="280" height="95" rx="16"/><rect x="690" y="650" width="280" height="95" rx="16"/><rect x="1000" y="650" width="280" height="95" rx="16"/></g>
-<g text-anchor="middle"><text x="520" y="690" class="m" fill="#1d4ed8">Backend Server 1</text><text x="520" y="720" class="s">VotingPlugin</text><text x="830" y="690" class="m" fill="#1d4ed8">Backend Server 2</text><text x="830" y="720" class="s">VotingPlugin</text><text x="1140" y="690" class="m" fill="#1d4ed8">Backend Server 3</text><text x="1140" y="720" class="s">VotingPlugin</text></g>
-<path d="M477 588V648M845 588V648M1175 588V648" class="solid"/>
-<path d="M1280 695H1295M970 700H1295M660 705H1295" class="dash"/>
+<g class="box" fill="#eff6ff" stroke="#2563eb" stroke-width="2"><rect x="350" y="680" width="260" height="85" rx="15"/><rect x="675" y="680" width="260" height="85" rx="15"/><rect x="1000" y="680" width="260" height="85" rx="15"/></g>
+<g text-anchor="middle"><text x="480" y="718" class="m" fill="#1d4ed8">Backend Server 1</text><text x="480" y="746" class="s">VotingPlugin</text><text x="805" y="718" class="m" fill="#1d4ed8">Backend Server 2</text><text x="805" y="746" class="s">VotingPlugin</text><text x="1130" y="718" class="m" fill="#1d4ed8">Backend Server 3</text><text x="1130" y="746" class="s">VotingPlugin</text></g>
 
-<!-- outcomes -->
-<g class="box"><rect x="380" y="790" width="900" height="75" rx="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/></g>
-<text x="830" y="838" text-anchor="middle" class="m" fill="#1d4ed8">Rewards  •  Vote Streaks  •  Milestones  •  Vote Party</text>
-<path d="M520 745V788M830 745V788M1140 745V788" class="solid"/>
+<g class="box"><ellipse cx="1430" cy="350" rx="105" ry="28" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/><path d="M1325 350v145c0 16 47 29 105 29s105-13 105-29V350" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/><ellipse cx="1430" cy="495" rx="105" ry="29" fill="#fed7aa" stroke="#ea580c" stroke-width="3"/></g>
+<text x="1430" y="405" text-anchor="middle" class="h" fill="#c2410c"><tspan x="1430">Shared</tspan><tspan x="1430" dy="34">MySQL</tspan><tspan x="1430" dy="34">Database</tspan></text>
+<path d="M1195 355H1300V350H1320M1260 720H1300V495H1320" class="storage"/>
+<text x="1330" y="565" class="m" fill="#c2410c">Database / Storage Access</text><text x="1330" y="590" class="tiny">All servers share one database.</text>
 
-<!-- legend -->
-<g class="box"><rect x="35" y="570" width="280" height="220" rx="18" fill="#fff" stroke="#9ca3af" stroke-width="2"/></g><text x="65" y="615" class="h">Legend</text><path d="M65 660H145" class="solid"/><text x="165" y="667" class="s">Vote flow</text><path d="M65 720H145" class="dash"/><text x="165" y="715" class="s"><tspan x="165">Database /</tspan><tspan x="165" dy="24">storage access</tspan></text>
+<g class="box"><rect x="330" y="805" width="950" height="65" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/></g>
+<text x="805" y="846" text-anchor="middle" class="m" fill="#1d4ed8">Rewards  •  Vote Streaks  •  Milestones  •  Vote Party</text>
+<path d="M480 765V803M805 765V803M1130 765V803" class="vote"/>
+
+<g class="box"><rect x="35" y="655" width="275" height="205" rx="18" fill="#fff" stroke="#9ca3af" stroke-width="2"/></g><text x="65" y="695" class="h">Legend</text><path d="M65 735H145" class="vote"/><text x="165" y="742" class="s">Vote flow</text><path d="M65 795H145" class="storage"/><text x="165" y="790" class="s"><tspan x="165">Database /</tspan><tspan x="165" dy="22">storage access</tspan></text>
 </svg>
