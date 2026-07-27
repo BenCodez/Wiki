@@ -1,9 +1,9 @@
 ---
 title: FAQ
-description: 
+description: Quick answers to common VotingPlugin questions
 published: true
-date: 2025-11-07T02:39:25.597Z
-tags: 
+date: 2026-07-26T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:10.405Z
 ---
@@ -11,79 +11,113 @@ dateCreated: 2025-08-30T22:18:10.405Z
 # ❓ VotingPlugin — Quick FAQ
 
 ### 1) `/vote` says “vote here: www.votelinkhere.com”
-This is **VentureChat** intercepting the `/vote` command.  
-Remove or change VentureChat’s `/vote` alias so VotingPlugin handles it instead.
 
-- Check VentureChat’s config for command aliases and **remove `/vote`** there.
-- Restart/reload VentureChat and test `/vote` again.
+This is usually **VentureChat** intercepting `/vote`. Remove or change VentureChat's `/vote` alias, restart or reload VentureChat, and test again.
 
 ---
 
-### 2) How do I add rewards for **crate keys**?
-Put the crate plugin’s give-key command under a reward’s **Commands** list. Example:
+### 2) How do I add rewards for crate keys?
 
+Put the crate plugin's give-key command in the reward's `Commands` list:
+
+```yaml
 Rewards:
   Commands:
-  - "command here %player%"
+    - "command here %player%"
+```
 
-Examples (replace with your crate plugin’s command):
-- CrazyCrates:  `"cc give physical <CrateName> 1 %player%"`
-- CMI:          `"cmi give %player% key:<KeyName> 1"`
-- CratesPlus:   `"crate givekey %player% <CrateName> 1"`
+Examples, which must be adjusted to match the crate plugin's current command syntax:
 
-> Use your crate plugin’s exact syntax. `%player%` is replaced with the voter’s name.
+```yaml
+Rewards:
+  Commands:
+    - "cc give physical <CrateName> 1 %player%"
+    - "cmi give %player% key:<KeyName> 1"
+    - "crate givekey %player% <CrateName> 1"
+```
+
+`%player%` is replaced with the voter's name.
 
 ---
 
-### 3) How do I **test a vote**?
-Use:
-- `/av vote <player> <site>`
+### 3) How do I test a vote?
+
+```text
+/av vote <player> <site>
+```
 
 ---
 
-### 4) **YML error**
-Your file is formatted incorrectly. Validate it here:
-- https://yaml-online-parser.appspot.com/
+### 4) YAML error
 
-Tips:
-- Use **spaces**, not tabs.
-- Keep indentation consistent.
-- Quote strings with special characters (`'&aText'`).
+Validate the file with a YAML parser and check that:
+
+- spaces are used instead of tabs;
+- indentation is consistent;
+- strings containing special characters are quoted;
+- lists use the correct indentation.
+
+Example:
+
+```yaml
+Messages:
+  Player: '&aThanks for voting!'
+```
 
 ---
 
 ### 5) “No voting site with the service site: ‘SERVICE SITE HERE’”
-Either **Votifier isn’t working** or the **ServiceSite** value doesn’t match.
-- Run a test vote and check console.
-- Fix using this guide: https://wiki.bencodez.com/en/VotingPlugin/Votifier-Troubleshooting
+
+Either the vote listener is not receiving the vote or `ServiceSite` does not exactly match the value sent by the vote service.
+
+Run a test vote, check the console, and follow [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting).
 
 ---
 
-### 6) “No plugin.yml / failed to load”
-Redownload the jar. The file is likely **corrupted**.
+### 6) “No plugin.yml” or “failed to load”
+
+Redownload the jar. It is probably corrupted or is not the correct server plugin artifact.
 
 ---
 
-### 7) **Extreme troubleshooting / debugging**
-- In `Config.yml`: set `DebugLevel: EXTRA`
-- For proxy issues: enable `BungeeDebug` in `BungeeSettings.yml` **and** enable debug on the proxy.
+### 7) Extreme troubleshooting and debugging
+
+```yaml
+DebugLevel: EXTRA
+```
+
+For proxy issues, also enable `BungeeDebug` in `BungeeSettings.yml` and debug output on the proxy.
 
 ---
 
-### 8) **Hex color support?**
-Yes. Use the format:
-- `&#FF0000#`  (surround the hex with `&#` and `#`)
+### 8) Hex color support
+
+Use:
+
+```text
+&#FF0000#
+```
+
+The hexadecimal color is surrounded by `&#` and `#`.
 
 ---
 
-### 9) **Reload command**
-- `/av reload`
-- `/av reloadall`  *(also reloads user storage)*
+### 9) Reload commands
+
+```text
+/av reload
+/av reloadall
+```
+
+`/av reloadall` also reloads user storage.
 
 ---
 
-### 10) **Out of memory / resource limit reached (Pterodactyl)**
-If memory is fine, you may be hitting the **PID limit**. On the node:
-- Increase `"container_pid_limit"` to **1024** in `/etc/pterodactyl/config.yml` (default is 512), then restart the node services.
+### 10) Out of memory or resource limit reached in Pterodactyl
 
+First determine whether the failure is Java heap exhaustion or a container PID limit. A PID-limit problem is normally visible in Wings, Docker, or host logs and is different from insufficient Java memory.
 
+Only a Pterodactyl node administrator should change the host-wide setting. When logs confirm PID exhaustion, the node administrator can review `container_pid_limit` in `/etc/pterodactyl/config.yml` and restart the required node services after making an appropriate change.
+
+> Do not increase a node-wide process limit as a substitute for diagnosing Java heap usage, runaway processes, or plugin errors.
+{.is-warning}

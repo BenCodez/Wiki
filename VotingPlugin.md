@@ -1,204 +1,151 @@
 ---
 title: VotingPlugin
-description: 
+description: Overview and quick start for VotingPlugin
 published: true
-date: 2025-11-07T01:46:59.760Z
-tags: 
+date: 2026-07-26T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-31T02:55:49.572Z
 ---
 
 # VotingPlugin — Overview
 
-VotingPlugin is a highly configurable Minecraft voting and rewards system designed for **Spigot/Paper** servers, with optional **BungeeCord/Velocity** proxy support.  
-It focuses on **reliability, flexibility, and performance**, handling high vote volumes with ease.
-
----
+VotingPlugin is a highly configurable Minecraft voting and rewards system for **Spigot/Paper**, with optional **BungeeCord/Velocity** proxy support.
 
 ## Highlights
-- **Stable & Reliable** – Handles offline players, delayed callbacks, and high vote loads.
-- **Flexible Rewards** – Reward per site, per milestone, top voters, and more.
-- **Network Support** – Works on single servers or proxy networks (Bungee/Velocity).
-- **Integrated Placeholders** – Extensive PlaceholderAPI support for live stats.
-- **Simple Admin Tools** – Clear configuration files and easy-to-test rewards.
-- **SQL Storage** – Supports MySQL and SQLite (flatfile may be removed in future).
 
----
+- Reliable handling for online and offline votes
+- Flexible site, milestone, top-voter, streak, and vote-party rewards
+- Standalone-server and proxy-network support
+- PlaceholderAPI integration
+- In-game administration and configuration tools
+- SQLite and MySQL storage
 
 ## Supported Platforms
-- **Spigot/Paper:** 1.19+  
-- **Proxies:** BungeeCord, Waterfall, Velocity  
-- **Vote Listeners:** Works with **NuVotifier**, **VotifierPlus** (by BenCodez), and compatible alternatives.
 
----
+- **Spigot/Paper:** 1.19+
+- **Proxies:** BungeeCord, Waterfall, and Velocity
+- **Vote listeners:** VotifierPlus, NuVotifier, and compatible alternatives
 
 ## Default File Layout
 
-**Default configuration files:**  
-[https://github.com/BenCodez/VotingPlugin/tree/master/VotingPlugin/src/main/resources](https://github.com/BenCodez/VotingPlugin/tree/master/VotingPlugin/src/main/resources)
+The default resources are available in the [VotingPlugin repository](https://github.com/BenCodez/VotingPlugin/tree/master/VotingPlugin/src/main/resources).
 
-### Spigot Server Files
+### Backend server files
+
 Path: `/plugins/VotingPlugin/`
 
-| File / Folder | Description |
-|----------------|-------------|
-| **Rewards/** | Contains reward files (see examples below). |
-| **TopVoter/** | Stores previous TopVoter info (must be enabled). Monthly TopVoter is enabled by default. |
-| **BungeeSettings.yml** | Important Bungee-related settings. |
-| **Config.yml** | Main plugin settings: user storage, formatting, vote reminding, permissions, etc. |
-| **GUI.yml** | Configures GUI options (chest/book menus). Can disable GUIs if desired. |
-| **Shop.yml** | VoteShop configuration (available in version 6.17+). |
-| **ServerData.yml** | Internal plugin data for vote parties and top voter stats (do not edit). |
-| **SpecialRewards.yml** | Defines rewards for AllSites, FirstVote, TopVoter, VoteParty, Milestones, Cumulative totals, etc. |
-| **Users.db** | Player data when using SQLite. |
-| **VoteSites.yml** | Defines all vote sites, including URL/service name, delay, and rewards. |
+| File / folder | Description |
+|---|---|
+| `Rewards/` | Reward files and generated directly defined rewards |
+| `TopVoter/` | Previous top-voter data when enabled |
+| `BungeeSettings.yml` | Backend proxy-network settings |
+| `Config.yml` | Main plugin configuration |
+| `GUI.yml` | GUI configuration |
+| `Shop.yml` | VoteShop configuration |
+| `ServerData.yml` | Internal vote-party and top-voter data; do not edit |
+| `SpecialRewards.yml` | AllSites, VoteParty, milestone, cumulative, and other special rewards |
+| `Users.db` | SQLite player data |
+| `VoteSites.yml` | Vote-site definitions, delays, URLs, and rewards |
 
----
+### Proxy files
 
-### Rewards Folder
-Path: `/plugins/VotingPlugin/Rewards/`
-
-| File / Folder | Description |
-|----------------|-------------|
-| **DirectlyDefined/** | Auto-generated rewards linked to SpecialRewards or VoteSites (do not edit). |
-| **ExampleAdvanced.yml** | Example of advanced reward logic (conditions, random ranges, etc.) – [View on GitHub](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/ExampleAdvanced.yml) |
-| **ExampleBasic.yml** | Example of simple per-vote rewards – [View on GitHub](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/ExampleBasic.yml) |
-
----
-
-### Proxy Server Files
 | File | Description |
-|------|-------------|
-| **bungeeconfig.yml** | Contains proxy-side configuration (Bungee/Velocity). |
-| **nonvotedplayerscache.json** | Caches users who logged in within 5 days but haven’t voted (requires `AllowUnJoined: false`). |
-| **secretkey.key** | Encryption key for SOCKET communication. Must match Spigot servers if using SOCKET mode. |
-| **votecache.json** | Cache used for PLUGINMESSAGING mode. |
-
----
+|---|---|
+| `bungeeconfig.yml` | Proxy-side VotingPlugin configuration |
+| `nonvotedplayerscache.json` | Cache used with `AllowUnJoined: false` |
+| `secretkey.key` | Encryption key used by SOCKETS and optional plugin-message encryption |
+| `votecache.json` | Vote cache used by PLUGINMESSAGING |
 
 ## Quick Start
-1. **Install a vote listener plugin** – either **VotifierPlus** or **NuVotifier**.  
-2. **Place VotingPlugin** in your `/plugins/` directory.  
-3. **Configure** `/plugins/VotingPlugin/VoteSites.yml` with your vote sites and rewards.  
-4. **Edit** `Config.yml` to your preferences.  
-5. **Restart the server** and test a vote.
 
-> For proxies, also configure `bungeeconfig.yml` and set up the same MySQL database across servers.
+1. Install **VotifierPlus** or another compatible vote listener.
+2. Place VotingPlugin in the server's `/plugins/` directory.
+3. Configure `/plugins/VotingPlugin/VoteSites.yml`.
+4. Configure rewards and other preferences.
+5. Restart and send a test vote.
 
----
+> Proxy networks must also configure `bungeeconfig.yml`, `BungeeSettings.yml`, and a shared MySQL database.
+{.is-info}
 
 ## How a Vote Is Processed
 
-The exact path depends on whether the server is standalone or part of a proxy network, but the following diagram shows a typical complete proxy-network lifecycle:
+The exact path depends on whether the server is standalone or part of a proxy network, but this diagram shows a typical proxy-network lifecycle:
 
 ![Complete VotingPlugin vote lifecycle, from clicking a vote link through validation, processing, storage, rewards, streaks, milestones, and vote-party progress](/assets/VotingPlugin/complete-vote-lifecycle.svg)
 
-> On a standalone server, the proxy-forwarding stage is skipped and VotingPlugin processes the vote locally. Configuration can also change when totals, vote parties, and rewards are processed.
+> Standalone servers skip proxy forwarding and process the vote locally. Configuration can change where totals, vote parties, and rewards are processed.
 {.is-info}
-
----
 
 ## Commands and Permissions
 
 | Command | Description |
-|----------|-------------|
-| `/vote` | Shows vote sites and player totals. |
-| `/v` | Alias for `/vote`. |
-| `/adminvote` | Admin command root. |
-| `/av` | Alias for `/adminvote`. |
+|---|---|
+| `/vote` | Shows vote sites and player totals |
+| `/v` | Alias for `/vote` |
+| `/adminvote` | Administration command root |
+| `/av` | Alias for `/adminvote` |
 
-### Permissions
-- **`VotingPlugin.Player`** – Main permission for normal player commands.  
-  Granted by default (can be disabled in `Config.yml`).
+`VotingPlugin.Player` is the main permission for player commands and is granted by default unless changed in `Config.yml`.
 
-> See the [Commands and Permissions](./VotingPlugin/Commands-&-Permissions) page for all available nodes and usage.
-
----
+See [Commands and Permissions](/VotingPlugin/Commands-&-Permissions) for the full list.
 
 ## Storage
-VotingPlugin stores player and vote data in the backend defined in:
-- `Config.yml` (Spigot)
-- `bungeeconfig.yml` (Proxy)
 
-### Supported Backends
-- **SQLite** – Default local database (`Users.db`).
-- **MySQL** – Recommended for networks and multi-server setups.
+VotingPlugin supports:
 
-> Flatfile support may be removed in future versions.
-
----
+- **SQLite** — default local storage in `Users.db`
+- **MySQL** — recommended for proxy networks and multi-server installations
 
 ## Reward System
-VotingPlugin rewards players automatically after a vote.  
-If the player is offline, rewards are given on next login (no claim GUI).
 
-Reward types include:
-- Commands  
-- Messages  
-- Experience  
-- Points (internal or economy)  
-- Random ranges using `NumberCommand`
+Rewards can include commands, messages, experience, points, items, titles, action bars, random ranges, and more. Offline rewards are normally delivered when the player next joins.
 
-Examples:  
-- [ExampleBasic.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleBasic.yml)  
-- [ExampleAdvanced.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleAdvanced.yml)
-
----
+See [Rewards](/VotingPlugin/Rewards) and [Reward Examples](/VotingPlugin/Reward-Examples).
 
 ## Configuration Highlights
 
-| Option | Description |
-|---------|-------------|
-| **OnlineMode** | Controls whether votes are processed by online player name or all votes are accepted. ([See OnlineMode page](./OnlineMode)) |
-| **VoteReminding** | Periodically reminds players to vote. |
-| **TopVoter Settings** | Monthly/weekly tracking and resets. |
-| **BungeeSettings.yml** | Used for proxy setups. |
-| **SpecialRewards.yml** | AllSites, VoteParty, and milestone rewards. |
-
----
+| Option / file | Description |
+|---|---|
+| `OnlineMode` | Controls online/offline UUID handling; see [Online / Offline Mode](/VotingPlugin/Online-Offline-Mode) |
+| `VoteReminderOptions` and `VoteReminders` | Current configurable reminder system; see [Vote Reminders](/VotingPlugin/VoteReminders) |
+| Top-voter settings | Monthly and weekly tracking and resets |
+| `BungeeSettings.yml` | Backend proxy-network configuration |
+| `SpecialRewards.yml` | AllSites, VoteParty, milestone, cumulative, and other special rewards |
 
 ## Network / Proxy Setup
-VotingPlugin supports all major proxy methods:
 
-- **PLUGINMESSAGING** – Easiest for most setups.  
-- **REDIS** – Easiest behind PLUGINMESSAGING
-- **MQTT** – Uses an mqtt broker
-- **SOCKET** – Encrypted communication between proxy and servers (requires `secretkey.key` and open ports).  
-- **MYSQL** – Uses mysql to forward votes.  
+VotingPlugin supports these `BungeeMethod` values, matching the current default configuration:
 
-Detailed instructions and examples:  
-[https://wiki.bencodez.com/en/VotingPlugin/Proxy-Setups](https://wiki.bencodez.com/en/VotingPlugin/Proxy-Setups)
+- **PLUGINMESSAGING** — recommended for most networks
+- **REDIS** — Redis pub/sub communication
+- **MQTT** — MQTT broker communication
+- **MYSQL** — MySQL-backed message queue
+- **SOCKETS** — direct socket communication; advanced and not recommended for most networks
 
----
+See [Proxy Setups](/VotingPlugin/Proxy-Setups).
 
 ## Troubleshooting
-- Confirm your vote listener plugin (**VotifierPlus** or **NuVotifier**) is running and configured correctly.
-- Verify ports, tokens, and callback URLs on your vote sites.
-- Use `/adminvote` subcommands for testing (not `/av debug`).
-- Check your server logs for incoming votes and reward messages.
 
-> Common problems: incorrect service names, blocked ports, or outdated Votifier configurations.
-
----
-
-## Developer Tools
-- **VotingPluginEditor** – Desktop application for configuring VotingPlugin visually.  
-  [View on GitHub](https://github.com/BenCodez/VotingPluginEditor)
-
----
+- Confirm the vote listener is installed and receiving votes.
+- Verify vote-site ports, tokens, public keys, and service-site names.
+- Use `/adminvote` test commands.
+- Review server and proxy logs.
+- See [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting) and the [FAQ](/VotingPlugin/faq).
 
 ## Related Pages
-- [Installation](./Installation)  
-- [Configuration](./Configuration)  
-- [Vote Sites](./Vote-Sites)  
-- [Rewards](./Rewards)  
-- [Top Voter](./TopVoter)  
-- [Proxy Setups](https://wiki.bencodez.com/en/VotingPlugin/Proxy-Setups)  
-- [OnlineMode](./OnlineMode)
 
----
+- [Setup](/VotingPlugin/setup)
+- [File Layout](/VotingPlugin/File-Layout)
+- [Service Sites](/VotingPlugin/Service-sites)
+- [Rewards](/VotingPlugin/Rewards)
+- [Vote Reminders](/VotingPlugin/VoteReminders)
+- [Proxy Setups](/VotingPlugin/Proxy-Setups)
+- [Online / Offline Mode](/VotingPlugin/Online-Offline-Mode)
+- [Commands and Permissions](/VotingPlugin/Commands-&-Permissions)
 
-### Support
-For issues, report them on the [GitHub repository](https://github.com/BenCodez/VotingPlugin/issues) or on Discord.
+## Support
 
-> Keep both **VotifierPlus** and **VotingPlugin** updated for best reliability and feature compatibility.
+Report issues on the [VotingPlugin GitHub repository](https://github.com/BenCodez/VotingPlugin/issues) or ask in the support Discord.
+
+> Keep VotingPlugin and your vote-listener plugin updated for the best compatibility.
