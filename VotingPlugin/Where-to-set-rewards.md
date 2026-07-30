@@ -1,61 +1,61 @@
 ---
 title: Where to set rewards
-description: 
+description: Find the correct VotingPlugin file and section for each reward
 published: true
 date: 2025-11-06T02:44:14.351Z
-tags: 
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:32.400Z
 ---
 
-# Rewards Overview
+# Where to Set Rewards
 
-> 🧭 **Quick reference guide** to where rewards are defined throughout VotingPlugin.
-{.is-info}
+All VotingPlugin reward locations use the same AdvancedCore reward syntax, but
+the location determines when the reward runs.
 
----
+## `VoteSites.yml`
 
-## 🗳️ VoteSites.yml
+| Reward | Section | Trigger |
+|---|---|---|
+| Per-site reward | `VoteSites.<site>.Rewards` | A player votes on that site |
+| Site cooldown-end reward | `VoteSites.<site>.CoolDownEndRewards` | That site's cooldown becomes available |
+| Reward for every site vote | `EverySiteReward` | Any configured vote site is processed |
 
-| Reward Type | Location / Section | Description |
-|--------------|-------------------|--------------|
-| **Per-Site Reward** | `Rewards:` | Main reward for voting on a specific site. |
-| **Cooldown End Reward** | `CoolDownEndRewards:` | Triggered when a player’s vote cooldown ends for that site. |
-| **Global “Every Site” Reward** | `EverySiteReward:` | Given for voting on *any* site (applies to all VoteSites). |
+Rewards can be defined inline or reference reward files.
 
-> 💡 Tip: You can use reward files or define rewards inline in the YAML.
-{.is-info}
+## `SpecialRewards.yml`
 
----
+| Reward | Current section | Trigger |
+|---|---|---|
+| First vote | `VoteMilestones` with `Total: AllTime` and `At: 1` | Player's first recorded vote |
+| Vote totals and repeating rewards | `VoteMilestones` with `At` or `Every` | Configured total matches |
+| All sites today | `VoteMilestones` with `Total: ALLSITES_TODAY` | Player reaches the configured number of sites |
+| Vote streak | `VoteStreaks` | Configured period/progress requirement completes |
+| Vote party | `VoteParty.Rewards` | Shared vote-party target is reached |
+| NameMC server like | `NameMCLikeReward.Rewards` | NameMC like is confirmed |
+| Top voter | `MonthlyAwards`, `WeeklyAwards`, or `DailyAwards` | Matching top voter period completes |
 
-## 🎁 SpecialRewards.yml
+`VoteMilestonesOptions.Groups` controls how multiple matching milestones in one
+group are selected.
 
-| Reward Type | Path | Description |
-|--------------|------|--------------|
-| **All Sites Reward** | `AllSites:` | Given when the player votes on *all* configured sites. |
-| **Almost All Sites Reward** | `AlmostAllSites:` | Given when the player votes on all but one site. |
-| **First Vote Reward** | `FirstVote:` | Reward for the player’s *first ever* vote. |
-| **First Vote of the Day** | `FirstVoteToday:` | Daily first-vote reward. |
-| **Cumulative Rewards** | `Cumulative:` | Rewards for reaching specific total vote counts (supports daily/weekly). |
-| **Milestones** | `Milestones:` | One-time rewards for specific milestones (e.g., 10th, 25th vote). |
-| **Vote Streak Rewards** | `VoteStreak:` | Rewards for maintaining consecutive voting streaks. |
-| **Vote Party Rewards** | `VoteParty.Rewards:` | Player-specific rewards when a vote party triggers. |
-| **Top Voter Rewards** | `(TOPVOTER)Awards:` | Rewards for top voters (e.g., Monthly, Weekly, Daily). |
+The old `FirstVote`, `FirstVoteToday`, `AllSites`, `Cumulative`, `MileStones`,
+and `VoteStreak` sections are legacy. Use `VoteMilestones` and `VoteStreaks`
+for new configurations.
 
-> 🧩 Use placeholders and reward files here just like in VoteSites.yml — everything shares the same reward syntax.
-{.is-info}
+## Reward files
 
----
+Reusable reward files are stored in the plugin's `Rewards` directory and are
+referenced by file name without `.yml`.
 
-## ⚙️ Config.yml
+Use these current examples as the reward syntax reference:
 
-| Reward Type | Path | Description |
-|--------------|------|--------------|
-| **Vote Reminding** | `VoteReminding:` | Message or reminder system — not an actual reward trigger. |
+- [ExampleBasic.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleBasic.yml)
+- [ExampleAdvanced.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleAdvanced.yml)
 
----
+## Related guides
 
-> ✅ **Summary:**  
-> All rewards, regardless of where they are defined, share the same reward structure.  
-> You can reference [ExampleBasic.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleBasic.yml) or [ExampleAdvanced.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleAdvanced.yml) for examples.
-{.is-success}
+- [Rewards overview](https://github.com/BenCodez/VotingPlugin/wiki/Rewards)
+- [All reward possibilities](https://github.com/BenCodez/VotingPlugin/wiki/All-Reward-Possibilities)
+- [VoteMilestones](https://github.com/BenCodez/VotingPlugin/wiki/VoteMilestones)
+- [VoteStreak System](https://github.com/BenCodez/VotingPlugin/wiki/VoteStreak-System)
+- [Special Rewards](https://github.com/BenCodez/VotingPlugin/wiki/Special-Rewards)
