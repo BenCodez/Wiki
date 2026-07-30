@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:23.897Z
 ---
 
+# Service Sites
+
 Service sites is the identifier that tells VotingPlugin which incoming vote is which votesite.
 
 Majority of voting websites follow the format of using the base of the url, but not all do. 

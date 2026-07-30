@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:09.653Z
 ---
 
+# File Layout
+
 > 📁 **Default configurations are available here:**  
 > [https://github.com/BenCodez/VotingPlugin/tree/master/VotingPlugin/src/main/resources](https://github.com/BenCodez/VotingPlugin/tree/master/VotingPlugin/src/main/resources)
 {.is-info}

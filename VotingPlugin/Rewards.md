@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:22.882Z
 ---
 
+# Rewards
+
 ### For everything that reward files can do can be seen [here](https://github.com/BenCodez/AdvancedCore/wiki/Reward-files).
 
 You can do any of the following for any rewards defined within the plugin (even for some GUI's), reward files don't need to be used, it's just part of the system to allow more complex rewards. You can configure advanced rewards without reward files.  
@@ -40,7 +42,7 @@ Not sure where to set rewards? [Where to set rewards](https://github.com/BenCode
       # Anything that reward files can do can be done here
       # This auto converts into a reward file automatically
       # Items, etc
-      # See ExampleBasic or ExamapleAdvanced in VotingPlugin/Rewards for all possible configurations
+      # See ExampleBasic or ExampleAdvanced in VotingPlugin/Rewards for all possible configurations
       # Be sure to follow proper spacing
 
 To disable rewards put `Rewards: []` or `Rewards: {}`  

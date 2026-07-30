@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:29.993Z
 ---
 
+# Votifier Troubleshooting
+
 ## Verify Votifier Is Working
 
 > ℹ️ If Votifier is working, you will see this in **console** (even if VotingPlugin isn’t fully configured yet):  

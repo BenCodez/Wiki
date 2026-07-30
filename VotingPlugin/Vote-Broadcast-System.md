@@ -30,7 +30,7 @@ Configured in:
 
 ------------------------------------------------------------------------
 
-# Backend VoteBroadcast (config.yml)
+## Backend VoteBroadcast (config.yml)
 
 ``` yaml
 VoteBroadcast:
@@ -43,42 +43,42 @@ VoteBroadcast:
     ListLine: '&7 - &e%site%'
 ```
 
-## Broadcast Types
+### Broadcast Types
 
-### NONE
+#### NONE
 
 Disables vote broadcasts entirely.
 
-### EVERY_VOTE
+#### EVERY_VOTE
 
 Broadcast every vote (including offline processed votes).
 
-### EVERY_VOTE_ONLINE_ONLY
+#### EVERY_VOTE_ONLINE_ONLY
 
 Broadcast only if the voting player is online.
 
-### COOLDOWN_PER_PLAYER
+#### COOLDOWN_PER_PLAYER
 
 Broadcast at most once per Duration per player.
 
-### BATCH_WINDOW_PER_PLAYER
+#### BATCH_WINDOW_PER_PLAYER
 
 Collect votes during Duration and broadcast once.
 
 -   1 vote → BroadcastMsg
 -   2+ votes → Header + ListLine
 
-### FIRST_VOTE_OF_DAY
+#### FIRST_VOTE_OF_DAY
 
 Broadcast only the first vote per calendar day per player.
 
-### INTERVAL_SUMMARY_GLOBAL
+#### INTERVAL_SUMMARY_GLOBAL
 
 Every Duration, broadcast a global vote summary.
 
 ------------------------------------------------------------------------
 
-# Duration Format
+## Duration Format
 
 Supported units:
 
@@ -99,7 +99,7 @@ Months are NOT supported.
 
 ------------------------------------------------------------------------
 
-# Format Placeholders
+## Format Placeholders
 
 Common:
 
@@ -117,7 +117,7 @@ Interval-only:
 
 ------------------------------------------------------------------------
 
-# Proxy Broadcast System (bungeeconfig.yml)
+## Proxy Broadcast System (bungeeconfig.yml)
 
 Proxy broadcasts are controlled separately.
 
@@ -133,14 +133,14 @@ ProxyBroadcast:
     - lobby
 ```
 
-## Scope Modes
+### Scope Modes
 
 -   PLAYER_SERVER → Only the server the player is on
 -   ALL_SERVERS → All backend servers
 -   SERVERS → Only specific listed servers
 -   ALL_EXCEPT → All except listed servers
 
-## OfflineMode
+### OfflineMode
 
 Controls what happens if the voting player is offline:
 
@@ -148,7 +148,7 @@ Controls what happens if the voting player is offline:
 -   QUEUE → Send when player logs in
 -   FORWARD → Immediately forward to a backend server
 
-### OfflineForward.Servers
+#### OfflineForward.Servers
 
 Used only when OfflineMode = FORWARD.
 
@@ -162,7 +162,7 @@ OfflineForward:
 
 ------------------------------------------------------------------------
 
-# Backend vs Proxy Broadcast Behavior
+## Backend vs Proxy Broadcast Behavior
 
 Backend VoteBroadcast: - Controls message formatting and timing logic -
 Runs per-server
@@ -179,22 +179,22 @@ Recommended setup for networks:
 
 ------------------------------------------------------------------------
 
-# Recommended Configurations
+## Recommended Configurations
 
-## Small Server
+### Small Server
 
 ``` yaml
 Type: EVERY_VOTE
 ```
 
-## Medium Server
+### Medium Server
 
 ``` yaml
 Type: COOLDOWN_PER_PLAYER
 Duration: 5m
 ```
 
-## Large Network
+### Large Network
 
 Backend:
 
@@ -212,7 +212,7 @@ ProxyBroadcast:
     Mode: ALL_SERVERS
 ```
 
-# Summary
+## Summary
 
 The new Vote Broadcast system provides:
 

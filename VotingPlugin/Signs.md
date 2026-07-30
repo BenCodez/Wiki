@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:25.397Z
 ---
 
+# Signs
+
 ## ⭐ Vote Signs / Leaderboard Signs
 
 This page explains how to create **VotingPlugin leaderboard signs**, place heads, set skulls, and configure the 3×3 update area.

@@ -63,5 +63,4 @@ Double/Extra Rewards:
 Not working:
 - Restart all servers
 - Ensure required settings are set
-- Test communication and run test votes (if that works check votiifer)
-
+- Test communication and run test votes (if that works check Votifier)

@@ -8,7 +8,12 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:03.502Z
 ---
 
-## Commands and Permissions (From /av perms, use /av perms (player) to see what the specific player has):
+# Commands and Permissions
+
+## Generated command reference
+
+Use `/av perms` or `/av perms <player>` to view the permissions available to
+the sender or a specific player.
 
 | splits permissions up, meaning it can be either one before/after the |
 
@@ -43,7 +48,7 @@ dateCreated: 2025-08-30T22:18:03.502Z
       See your last votes
     /vote ToggleBroadcast
       VotingPlugin.Commands.Vote.ToggleBroadcast|VotingPlugin.Player
-      Toggle whether or not you will recieve vote broadcasts
+      Toggle whether or not you will receive vote broadcasts
     /vote Next (player)
       VotingPlugin.Commands.Vote.Next.Other|VotingPlugin.Mod
       See other players next votes
@@ -208,7 +213,7 @@ dateCreated: 2025-08-30T22:18:03.502Z
       List permissions from the plugin the player has
     /av Perms (Number) (Player)
       VotingPlugin.Commands.AdminVote.Perms.Other|VotingPlugin.Admin
-      List permissions from the plugin the specificed player has
+      List permissions from the plugin the specified player has
     /av PermsDebug
       VotingPlugin.Commands.AdminVote.PermsDebug
       Dev permission list, generate this list, requires dev debug
@@ -349,7 +354,7 @@ dateCreated: 2025-08-30T22:18:03.502Z
       Enable extra debug, effective until reload/restart
     /av VoteSite (sitename) SetServiceSite (string)
       VotingPlugin.Commands.AdminVote.VoteSite.Edit|VotingPlugin.Admin
-      Set VoteSite SerivceSite
+      Set VoteSite ServiceSite
     /av CheckVoteCoolDownRewards
       VotingPlugin.Commands.AdminVote.VoteSite.CheckVoteCoolDownRewards|VotingPlugin.Admin
       Force check all vote cooldown rewards
@@ -610,10 +615,10 @@ dateCreated: 2025-08-30T22:18:03.502Z
       Let user pick his choice preferences
     /av ConvertToData (UserStorage)
       VotingPlugin.Commands.AdminVote.ConvertToData|VotingPlugin.Admin
-      Convert user storage from current storage type the one specificed
+      Convert user storage from current storage type the one specified
     /av ConvertFromData (UserStorage)
       VotingPlugin.Commands.AdminVote.ConvertFromData|VotingPlugin.Admin
-      Convert user storage from current storage type from the one specificed
+      Convert user storage from current storage type from the one specified
     VotingPlugin.Player : Allows basic access player commands
     VotingPlugin.Mod : Allows mod commands
     VotingPlugin.Admin : Allows admincommands

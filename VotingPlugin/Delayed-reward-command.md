@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:07.057Z
 ---
 
+# Delayed Reward Command
+
 In this example fly will be enabled with /fly and disable with /fly one hour later. Works with any reward
 
     Rewards:

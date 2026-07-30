@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:33.123Z
 ---
 
+# World-Specific Rewards
+
 You can restrict any rewards to within certain worlds
 
     Rewards:
@@ -24,4 +26,3 @@ You can also give rewards based on what world the player is on:
       world_nether:
         Commands:
         - say %player% in nether
-

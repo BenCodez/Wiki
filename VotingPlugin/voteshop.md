@@ -15,7 +15,7 @@ Players can purchase rewards such as items, commands, keys, permissions, or othe
 
 ---
 
-# Enabling VoteShop
+## Enabling VoteShop
 
 VoteShop is enabled in `Shop.yml`:
 
@@ -33,7 +33,7 @@ Players can open the shop using:
 
 ---
 
-# Basic Shop Item
+## Basic Shop Item
 
 A simple purchasable item:
 
@@ -58,7 +58,7 @@ Shop:
 
 ---
 
-# DisplayItem
+## DisplayItem
 
 `DisplayItem` defines what appears in the GUI.
 
@@ -85,7 +85,7 @@ Lore:
 
 ---
 
-# Categories
+## Categories
 
 Categories allow you to organize shop items into separate menus.
 
@@ -123,7 +123,7 @@ Clicking the category button opens the category GUI.
 
 ---
 
-# Back Button
+## Back Button
 
 Categories support returning to the main VoteShop GUI.
 
@@ -148,7 +148,7 @@ Clicking the back button returns the player to the main VoteShop menu.
 
 ---
 
-# Confirmation Menu
+## Confirmation Menu
 
 Items can require confirmation before purchase.
 
@@ -171,7 +171,7 @@ ShopConfirmPurchase:
 
 ---
 
-# Limits
+## Limits
 
 You can limit how many times a player can purchase an item.
 
@@ -190,7 +190,7 @@ Reset:
 
 ---
 
-# Permissions
+## Permissions
 
 Require permissions to purchase items.
 
@@ -204,7 +204,7 @@ HideOnNoPermission: true
 
 ---
 
-# Commands as Rewards
+## Commands as Rewards
 
 Example command reward:
 
@@ -216,7 +216,7 @@ Rewards:
 
 ---
 
-# ExtraItems
+## ExtraItems
 
 ExtraItems are **display-only items** that appear in the GUI but cannot be purchased.
 
@@ -232,7 +232,7 @@ ExtraItems:
 
 ---
 
-# Slot Positioning
+## Slot Positioning
 
 Items can be placed in specific slots using:
 
@@ -240,7 +240,7 @@ Items can be placed in specific slots using:
 Slot: 10
 ```
 
-## Last Slot Shortcut
+### Last Slot Shortcut
 
 Setting the slot to **-2** automatically places the item in the **last available slot of the GUI**.
 
@@ -261,7 +261,7 @@ The plugin will automatically place the item at the end of the menu.
 
 ---
 
-# Tips
+## Tips
 
 - Use **categories** to keep large shops organized.
 - Use **Slot: -2** for navigation buttons like Back.
