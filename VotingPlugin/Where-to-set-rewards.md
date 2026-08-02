@@ -38,9 +38,11 @@ Rewards can be defined inline or reference reward files.
 `VoteMilestonesOptions.Groups` controls how multiple matching milestones in one
 group are selected.
 
-The old `FirstVote`, `FirstVoteToday`, `AllSites`, `Cumulative`, `MileStones`,
-and `VoteStreak` sections are legacy. Use `VoteMilestones` and `VoteStreaks`
-for new configurations.
+The old `FirstVote`, `FirstVoteToday`, `AllSites`, `AlmostAllSites`,
+`Cumulative`, `MileStones`, and `VoteStreak` sections are legacy. VotingPlugin
+maps `AlmostAllSites` to an `ALLSITES_TODAY` milestone that triggers at one
+fewer than the configured number of vote sites. Use `VoteMilestones` and
+`VoteStreaks` for new configurations.
 
 ## Reward files
 
