@@ -49,6 +49,10 @@ jobs:
             --exclude 'README.md' \
             ./ docs/
 
+          # Wiki.js renders attribute-only lines such as "{.is-info}", but
+          # MkDocs displays them as text. Remove them from the staged copy.
+          python .github/scripts/strip-wikijs-attributes.py docs
+
           # Ensure docs/ exists and has something at top
           if [ ! -f docs/index.md ]; then
             echo "# BenCodez Wiki" > docs/index.md
