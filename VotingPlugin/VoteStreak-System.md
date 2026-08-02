@@ -26,7 +26,7 @@ It supports:
 
 ---
 
-### Location
+## Location
 
 ```text
 /plugins/VotingPlugin/SpecialRewards.yml
