@@ -18,7 +18,7 @@ This page explains **how VoteMilestones really work**, followed by **lots of rea
 
 ---
 
-### Where VoteMilestones are configured
+## Where VoteMilestones are configured
 
 All VoteMilestones are configured in:
 
@@ -35,7 +35,7 @@ VoteMilestones:
 
 ---
 
-### How VoteMilestones work
+## How VoteMilestones work
 
 On **every vote**, VotingPlugin:
 
@@ -50,7 +50,7 @@ VoteMilestones are **not automatically one-time** unless you use a `Limit`.
 
 ---
 
-### VoteMilestonesOptions (group selection)
+## VoteMilestonesOptions (group selection)
 
 Groups control **how many milestones can trigger per vote**.
 
@@ -61,7 +61,7 @@ VoteMilestonesOptions:
     RankRewards: HIGHEST
 ```
 
-#### Group modes
+### Group modes
 
 | Mode      | Meaning                                        |
 | --------- | ---------------------------------------------- |
@@ -79,7 +79,7 @@ If a milestone has **no Group**, it automatically uses `Default`.
 
 ---
 
-### VoteMilestone fields
+## VoteMilestone fields
 
 Basic structure:
 
@@ -97,7 +97,7 @@ VoteMilestones:
         - "say %player% hit %amount%"
 ```
 
-#### Core keys
+### Core keys
 
 | Key       | Purpose                                |
 | --------- | -------------------------------------- |
@@ -111,7 +111,7 @@ VoteMilestones:
 
 ---
 
-### Supported totals (`Total:`)
+## Supported totals (`Total:`)
 
 | Value            | Meaning                  |
 | ---------------- | ------------------------ |
@@ -126,9 +126,9 @@ Friendly aliases like `AllTime`, `Daily`, `Weekly`, `Monthly`, and `Points` also
 
 ---
 
-### Triggers: `At` vs `Every`
+## Triggers: `At` vs `Every`
 
-#### `Every` (multiples)
+### `Every` (multiples)
 
 ```yml
 Every: 25
@@ -138,15 +138,15 @@ Triggers when the total is divisible by 25 (25, 50, 75, …)
 
 ---
 
-#### `At` (exact totals)
+### `At` (exact totals)
 
-##### Single value
+#### Single value
 
 ```yml
 At: 50
 ```
 
-##### List
+#### List
 
 ```yml
 At:
@@ -155,7 +155,7 @@ At:
   - 100
 ```
 
-##### Ranges (with optional steps)
+#### Ranges (with optional steps)
 
 ```yml
 At:
@@ -167,7 +167,7 @@ Ranges are expanded safely and automatically.
 
 ---
 
-### Limits
+## Limits
 
 Limits control **how often** a milestone can trigger.
 
@@ -177,7 +177,7 @@ Limit:
   Duration: 12h
 ```
 
-#### Limit types
+### Limit types
 
 | Type           | Behavior          |
 | -------------- | ----------------- |
@@ -376,7 +376,7 @@ VoteMilestones:
 
 ---
 
-### Legacy migration
+## Legacy migration
 
 The following legacy sections are automatically migrated at startup:
 
@@ -393,7 +393,7 @@ New configurations should always use **VoteMilestones**.
 
 ---
 
-### Placeholders
+## Placeholders
 
 | Placeholder       | Meaning                 |
 | ----------------- | ----------------------- |
