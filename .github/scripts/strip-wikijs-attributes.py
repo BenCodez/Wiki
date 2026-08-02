@@ -40,6 +40,9 @@ def main() -> int:
     lines_removed = 0
 
     for path in sorted(args.root.rglob("*.md")):
+        if not path.is_file():
+            continue
+
         removed = strip_attributes(path)
         if removed:
             files_changed += 1
