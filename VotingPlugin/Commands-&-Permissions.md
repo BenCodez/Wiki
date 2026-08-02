@@ -615,10 +615,10 @@ the sender or a specific player.
       Let user pick his choice preferences
     /av ConvertToData (UserStorage)
       VotingPlugin.Commands.AdminVote.ConvertToData|VotingPlugin.Admin
-      Convert user storage from current storage type the one specified
+      Convert user storage from current storage type to the one specified
     /av ConvertFromData (UserStorage)
       VotingPlugin.Commands.AdminVote.ConvertFromData|VotingPlugin.Admin
-      Convert user storage from current storage type from the one specified
+      Convert user storage from the specified storage type to the current one
     VotingPlugin.Player : Allows basic access player commands
     VotingPlugin.Mod : Allows mod commands
     VotingPlugin.Admin : Allows admincommands
