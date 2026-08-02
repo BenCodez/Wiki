@@ -1,41 +1,46 @@
 ---
 title: Online/Offline Mode
-description: 
+description: Configure UUID handling for premium, cracked, and mixed networks
 published: true
 date: 2025-11-06T02:42:46.316Z
-tags: 
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:18.207Z
 ---
 
 # Online Mode Handling
 
-## 🆕 Updated in Version 6.18.5+
+`OnlineMode` controls how VotingPlugin resolves player UUIDs.
 
-Online mode behavior can now be configured directly in **Config.yml** using:
+```yaml
+OnlineMode: true
+```
 
-    OnlineMode: true
+## Which value should I use?
 
-When enabled, VotingPlugin uses **online UUIDs** (Mojang-verified).  
-If your setup uses a **mix of premium and cracked players**, you may want to disable it.
+| Server or network type | Setting | UUID behavior |
+|---|---:|---|
+| Premium players only | `OnlineMode: true` | Uses Mojang-authenticated online UUIDs |
+| Cracked/offline-mode players | `OnlineMode: false` | Uses offline UUIDs generated from player names |
+| Mixed premium and cracked players | `OnlineMode: false` | Keeps VotingPlugin on name-based offline UUIDs for the mixed network |
 
-> ⚙️ When disabled, VotingPlugin will resolve UUIDs purely by player name.  
-> This ensures UUIDs remain consistent across both online and offline players — ideal for hybrid (mixed) setups.
-{.is-info}
+Use the same value on every VotingPlugin instance that shares player data. On a
+proxy network, configure the proxy and backend servers consistently.
 
----
+## Changing an existing server
 
-## 🔄 Versions 6.18.4 and Below
+Changing `OnlineMode` changes the UUID VotingPlugin expects for a player. If a
+server already has vote data, changing this setting without migrating the data
+can make existing totals appear under a different UUID.
 
-For older versions, the same setting exists:
+Before changing it:
 
-    OnlineMode: true
+1. Back up the VotingPlugin data and database.
+2. Stop voting activity while the change and migration are in progress.
+3. Change the setting consistently across the network.
+4. Migrate or merge the existing UUID data as needed.
+5. Test with both a premium and cracked player before reopening voting.
 
-Only disable this if you **know for certain** your server uses **offline-mode UUIDs exclusively**.
-
-If you’re running a **mixed UUID setup** (premium + cracked):
-- Keep `OnlineMode: true`
-- Disable `UUIDLookup` on your **proxy**
-
-> 💡 If unsure, keep `OnlineMode` enabled — it’s the safest default for most servers.
-{.is-info}
+If you are unsure which UUID type your authentication/proxy setup provides,
+check a known player's UUID at the proxy and backend before changing this
+setting.
