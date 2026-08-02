@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:13.003Z
 ---
 
+# Item Configuration
+
 The following item format works throughout the plugin anywhere an item is specified. 
 
         Items:

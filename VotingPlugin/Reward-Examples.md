@@ -8,11 +8,13 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:21.108Z
 ---
 
+# Reward Examples
+
 The following is from ExampleBasic and ExampleAdvanced reward files.
 
     # This is a reward file
     # Define rewards in here (Items, commands, etc)
-    # File name is the reward name, without file extention
+    # File name is the reward name, without file extension
     # This reward is named "ExampleBasic"
     # That is what you put as a reward for other plugins, like VotingPlugin
     # DO NOT HAVE DUPLICATE NAMES!!
@@ -25,7 +27,7 @@ The following is from ExampleBasic and ExampleAdvanced reward files.
     # Below are some basic things you can have, see the advanced example for more
     
     # You can just remove values you don't want (just delete it)
-    # If you just want money just have a reward file containg only "Money: 100", for example
+    # If you just want money just have a reward file containing only "Money: 100", for example
     # You can simply copy and paste from here what you want
     # in other reward files, that is the way they are designed
     
@@ -165,7 +167,7 @@ The following is from ExampleBasic and ExampleAdvanced reward files.
 
     # This is a reward file
     # Define rewards in here (Items, commands, etc)
-    # File name is the reward name, without file extention
+    # File name is the reward name, without file extension
     # This reward is named "ExampleAdvanced"
     # That is what you put as a reward for other plugins, like VotingPlugin
     # DO NOT HAVE DUPLICATE NAMES!!
@@ -174,7 +176,7 @@ The following is from ExampleBasic and ExampleAdvanced reward files.
     # https://github.com/BenCodez/AdvancedCore/wiki/Reward-files
     
     # You can just remove values you don't want (just delete it)
-    # If you just want money just have a reward file containg only "Money: 100", for example
+    # If you just want money just have a reward file containing only "Money: 100", for example
     # Don't use this file as a reward, example only
     
     # This is the advanced example, if you only want an item or command then look

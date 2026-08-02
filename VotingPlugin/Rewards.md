@@ -8,7 +8,11 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:22.882Z
 ---
 
-### For everything that reward files can do can be seen [here](https://github.com/BenCodez/AdvancedCore/wiki/Reward-files).
+# Rewards
+
+## Reward capabilities
+
+Everything that reward files can do is documented [here](https://github.com/BenCodez/AdvancedCore/wiki/Reward-files).
 
 You can do any of the following for any rewards defined within the plugin (even for some GUI's), reward files don't need to be used, it's just part of the system to allow more complex rewards. You can configure advanced rewards without reward files.  
 
@@ -16,7 +20,7 @@ You can configure ingame with /av gui as shown in this video here: https://www.y
 
 Not sure where to set rewards? [Where to set rewards](https://github.com/BenCodez/VotingPlugin/wiki/Where-to-set-rewards)  
 
-### Rewards are defined usually under the Rewards Section 
+## Rewards are usually defined under a Rewards section
 (Some other text can replace the Rewards test in some places, i.e. FirstVote, EverySiteReward, AllSites, etc):
 
     Rewards:
@@ -31,7 +35,7 @@ Not sure where to set rewards? [Where to set rewards](https://github.com/BenCode
       Rewards:
         # sub reward
 
-### Directly define rewards (Recommended, no reward files required):
+## Directly define rewards (Recommended, no reward files required)
 
     Rewards:
       Money: 100
@@ -40,7 +44,7 @@ Not sure where to set rewards? [Where to set rewards](https://github.com/BenCode
       # Anything that reward files can do can be done here
       # This auto converts into a reward file automatically
       # Items, etc
-      # See ExampleBasic or ExamapleAdvanced in VotingPlugin/Rewards for all possible configurations
+      # See ExampleBasic or ExampleAdvanced in VotingPlugin/Rewards for all possible configurations
       # Be sure to follow proper spacing
 
 To disable rewards put `Rewards: []` or `Rewards: {}`  
@@ -59,9 +63,7 @@ Also note that using the above method may generate a file in Rewards/DirectlyDef
   
     Rewards: 'RewardFile1'
 
-## 
-
-### Placeholders (Use within rewards):
+## Placeholders (Use within rewards)
     
     %player% = Player name
     %money% = Money player got (With random number support)

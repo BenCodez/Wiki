@@ -17,7 +17,7 @@ dateCreated: 2025-08-31T00:22:49.805Z
 > Running on velocity requires a mysql driver to be installed, one available as a plugin here if needed http://bencodez.com/job/MySQLDriver/
 {.is-info}
 
-> Requires ability for servers to communicate via sockets, which isn't always possible (Requires a open port for each server)
+> Requires ability for servers to communicate via sockets, which isn't always possible (Requires an open port for each server)
 {.is-warning}
 
 
@@ -69,6 +69,5 @@ Double/Extra Rewards:
 Not working:
 - Restart all servers
 - Ensure required settings are set
-- Ensure ports are open and servers can reach eachother
-- Test communication and run test votes (if that works check votiifer)
-
+- Ensure ports are open and servers can reach each other
+- Test communication and run test votes (if that works check Votifier)

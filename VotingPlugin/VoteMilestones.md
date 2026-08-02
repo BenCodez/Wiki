@@ -195,11 +195,11 @@ Duration supports:
 
 ---
 
-# Examples
+## Examples
 
 ---
 
-## Example: First-ever vote
+### Example: First-ever vote
 
 ```yml
 VoteMilestones:
@@ -216,7 +216,7 @@ VoteMilestones:
 
 ---
 
-## Example: First vote of the day
+### Example: First vote of the day
 
 ```yml
 VoteMilestones:
@@ -231,7 +231,7 @@ VoteMilestones:
 
 ---
 
-## Example: Every 10 total votes
+### Example: Every 10 total votes
 
 ```yml
 VoteMilestones:
@@ -246,7 +246,7 @@ VoteMilestones:
 
 ---
 
-## Example: Multiple exact milestones
+### Example: Multiple exact milestones
 
 ```yml
 VoteMilestones:
@@ -264,7 +264,7 @@ VoteMilestones:
 
 ---
 
-## Example: Range + step milestones
+### Example: Range + step milestones
 
 ```yml
 VoteMilestones:
@@ -281,7 +281,7 @@ VoteMilestones:
 
 ---
 
-## Example: Monthly milestone
+### Example: Monthly milestone
 
 ```yml
 VoteMilestones:
@@ -296,7 +296,7 @@ VoteMilestones:
 
 ---
 
-## Example: Vote points rewards
+### Example: Vote points rewards
 
 ```yml
 VoteMilestones:
@@ -314,7 +314,7 @@ VoteMilestones:
 
 ---
 
-## Example: All vote sites today
+### Example: All vote sites today
 
 ```yml
 VoteMilestones:
@@ -331,7 +331,7 @@ VoteMilestones:
 
 ---
 
-## Example: Cooldown-based milestone
+### Example: Cooldown-based milestone
 
 ```yml
 VoteMilestones:
@@ -349,7 +349,7 @@ VoteMilestones:
 
 ---
 
-## Example: Rank rewards (HIGHEST group)
+### Example: Rank rewards (HIGHEST group)
 
 ```yml
 VoteMilestonesOptions:

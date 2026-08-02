@@ -8,11 +8,13 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:22.178Z
 ---
 
+# Reward Files
+
 ![](http://i.imgur.com/hKOAj4Z.png)
 
 Reward files is how player gets reward. They can be given on voting, or via Rewards.yml (First vote, all sites, Number of votes)
 
-Requirements to give reward possiblities:
+Requirements to give reward possibilities:
 - Permission
 - World
 - Chance

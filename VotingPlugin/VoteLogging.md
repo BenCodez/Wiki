@@ -15,7 +15,7 @@ It is intended for auditing, analytics, debugging, and tracking reward/vote acti
 
 ---
 
-# Overview
+## Overview
 
 VoteLogging works by listening to internal vote/reward events and writing structured entries to a storage backend.
 
@@ -30,7 +30,7 @@ When MySQL logging is enabled, entries are written through the MySQL table handl
 
 ---
 
-# What Gets Logged
+## What Gets Logged
 
 VoteLogging currently logs the following (MySQL only):
 
@@ -42,11 +42,11 @@ VoteLogging currently logs the following (MySQL only):
 
 ---
 
-# Configuration
+## Configuration
 
 VoteLogging can be configured on both backend servers and proxies.
 
-## Backend configuration (Config.yml)
+### Backend configuration (Config.yml)
 
 ```yaml
 ###########################################
@@ -72,7 +72,7 @@ VoteLogging:
   # MySQL settings only used if above is false
 ```
 
-### Field reference
+#### Field reference
 
 - **Enabled**: Master toggle for VoteLogging on this server.
 - **PurgeDays**: Automatically deletes vote log records older than this many days.
@@ -82,7 +82,7 @@ VoteLogging:
 
 ---
 
-## Proxy configuration
+### Proxy configuration
 
 ```yaml
 VoteLogging:
@@ -100,18 +100,18 @@ VoteLogging:
 
 ---
 
-# Operational Notes
+## Operational Notes
 
-## Purging behavior
+### Purging behavior
 If **PurgeDays** is enabled (not `-1`), the system will periodically remove older log entries from MySQL to keep the database size manageable.
 
-## Recommended setup
+### Recommended setup
 - Enable VoteLogging on your backend server(s) where you want command access.
 - Use `UseMainMySQL: true` unless you have a specific reason to isolate VoteLogging into a separate database.
 
 ---
 
-# Disabling VoteLogging
+## Disabling VoteLogging
 
 To disable completely:
 

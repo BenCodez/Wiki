@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:31.670Z
 ---
 
+# Web Support
+
 ## 🌐 Displaying Votes Online (MySQL Required)
 
 If you want to **show vote statistics on your website**, you can use external web integrations that connect directly to your **VotingPlugin MySQL database**.

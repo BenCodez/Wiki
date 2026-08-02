@@ -12,7 +12,7 @@ dateCreated: 2026-02-16T22:48:52.659Z
 
 ## Overview
 
-`AdvancedPriority` is an advanced reward-selection system available in **AdvancedCore** and used by plugins like **VotingPlugin**.  It allows you to create a list of **sub‑rewards** under a single reward entry.  When the reward is processed, the system walks through these sub‑rewards in order and executes the **first** one that meets all of its conditions.  Conditions can include permissions, chance percentages and any other reward requirement supported by AdvancedCore.  This design makes it easy to offer different rewards based on a player’s rank or luck without creating multiple separate reward files.  The documentation emphasises that `AdvancedPriority` checks rewards in order of *rarest* to *most likely* and stops at the first match【436168832069236†L192-L195】.
+`AdvancedPriority` is an advanced reward-selection system available in **AdvancedCore** and used by plugins like **VotingPlugin**.  It allows you to create a list of **sub‑rewards** under a single reward entry.  When the reward is processed, the system walks through these sub‑rewards in order and executes the **first** one that meets all of its conditions.  Conditions can include permissions, chance percentages and any other reward requirement supported by AdvancedCore.  This design makes it easy to offer different rewards based on a player’s rank or luck without creating multiple separate reward files.  The documentation emphasises that `AdvancedPriority` checks rewards in order of *rarest* to *most likely* and stops at the first match.
 
 ### How it works
 
@@ -21,11 +21,11 @@ dateCreated: 2026-02-16T22:48:52.659Z
 3. Assign any requirements to these sub‑rewards (permissions, chance, JavaScript expressions, etc.).  If the first sub‑reward fails its requirements, the next one is evaluated.  This continues until a sub‑reward succeeds.
 4. If none of the sub‑rewards succeed, you can provide a **fallback** reward as the last entry so the player still receives something.
 
-The system lets you structure rewards so that the most exclusive or rare outcome is attempted first, followed by more common ones【436168832069236†L192-L195】.  This avoids duplicating reward files and keeps all logic in one place.
+The system lets you structure rewards so that the most exclusive or rare outcome is attempted first, followed by more common ones.  This avoids duplicating reward files and keeps all logic in one place.
 
 ## Permission‑based example
 
-You can use `AdvancedPriority` to give different rewards based on permissions.  In the example below, the plugin will check whether the player has `permhere`; if so, it runs **Reward1** and stops.  If not, it checks for `permhere2`.  If neither permission is present, the normal reward (money) is given【436168832069236†L199-L214】.
+You can use `AdvancedPriority` to give different rewards based on permissions.  In the example below, the plugin will check whether the player has `permhere`; if so, it runs **Reward1** and stops.  If not, it checks for `permhere2`.  If neither permission is present, the normal reward (money) is given.
 
 ```yaml
 Rewards:
@@ -51,7 +51,7 @@ Use this pattern to offer rank‑specific or permission‑based perks without ne
 
 ## Chance‑based example
 
-`AdvancedPriority` also supports probabilistic rewards.  You can assign a **chance** (out of 100) to each sub‑reward.  The system will evaluate the sub‑rewards in order: if the first one fails its chance roll, the next one is attempted【436168832069236†L218-L231】.
+`AdvancedPriority` also supports probabilistic rewards.  You can assign a **chance** (out of 100) to each sub‑reward.  The system will evaluate the sub‑rewards in order: if the first one fails its chance roll, the next one is attempted.
 
 ```yaml
 Rewards:
@@ -73,7 +73,7 @@ In this example, there is a 60 % chance to get the first reward, a 30 % chance
 
 ## Item‑based and fallback example
 
-You can also give different items with varying chances.  This example demonstrates three tiers: a rare diamond, a common iron ingot and a fallback dirt reward.  Each sub‑reward includes its own `Items` section and `Chance`【436168832069236†L233-L252】.
+You can also give different items with varying chances.  This example demonstrates three tiers: a rare diamond, a common iron ingot and a fallback dirt reward.  Each sub‑reward includes its own `Items` section and `Chance`.
 
 ```yaml
 AdvancedPriority:
@@ -100,7 +100,7 @@ The player first has a 5 % chance to receive the diamond, then a 50 % chance f
 
 ## Rarity tiers example
 
-If you want to weight rewards based on rarity without specifying low percentages manually, you can arrange the sub‑rewards from rarest to most common.  The following example shows a **Rarest**, **SecondRarest** and **Fallback** tier【436168832069236†L255-L276】.
+If you want to weight rewards based on rarity without specifying low percentages manually, you can arrange the sub‑rewards from rarest to most common.  The following example shows a **Rarest**, **SecondRarest** and **Fallback** tier.
 
 ```yaml
 AdvancedPriority:
@@ -156,7 +156,7 @@ Rewards:
 
 ### Inline configuration example
 
-You may also define `AdvancedPriority` directly within a plugin configuration, such as `VoteSites.yml` in VotingPlugin.  The syntax is the same; place `AdvancedPriority` under the `Rewards` section of the site configuration.  The following snippet shows a vote site that gives a diamond if the 50 % chance succeeds, then an emerald with a 20 % chance, otherwise a fallback message【436168832069236†L218-L231】.
+You may also define `AdvancedPriority` directly within a plugin configuration, such as `VoteSites.yml` in VotingPlugin.  The syntax is the same; place `AdvancedPriority` under the `Rewards` section of the site configuration.  The following snippet shows a vote site that gives a diamond if the 50 % chance succeeds, then an emerald with a 20 % chance, otherwise a fallback message.
 
 ```yaml
 VoteSites:
@@ -190,7 +190,7 @@ VoteSites:
 
 ## Best practices
 
-* **Order matters** – always list the rarest or most exclusive rewards first and put common or fallback rewards last【436168832069236†L192-L195】.
+* **Order matters** – always list the rarest or most exclusive rewards first and put common or fallback rewards last.
 * **Unique names** – ensure each sub‑reward name under `AdvancedPriority` is unique to avoid configuration conflicts.
 * **Include a fallback** – adding a fallback reward ensures players always receive something if earlier rewards fail.
 * **Combine with requirements** – you can combine chance with other requirements such as permissions, world restrictions or JavaScript expressions.  If any requirement fails, the system moves on to the next reward.

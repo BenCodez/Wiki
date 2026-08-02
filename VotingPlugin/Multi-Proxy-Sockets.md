@@ -8,11 +8,13 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:16.369Z
 ---
 
-> Each proxy needs a open port for communication
+# Multi-Proxy Sockets
+
+> Each proxy needs an open port for communication
 {.is-warning}
 
 
-> Setup each proxy as it's own proxy network for VotingPlugin before setting multi-proxy up, each proxy can use a different proxy method
+> Setup each proxy as its own proxy network for VotingPlugin before setting multi-proxy up, each proxy can use a different proxy method
 {.is-info}
 
 > Note if using REDIS (Not for multi-proxy method) you will need to set a different redis prefix for each proxy network (This is so that all proxies can use REDIS at the same time without issue)
@@ -23,7 +25,7 @@ dateCreated: 2025-08-30T22:18:16.369Z
 
 Additional things required:
 - Primary server/main proxy needs to be set as primary server (by enabling option). This server will handle adding totals and such and forward the vote to the other proxies.
-- Each sub proxy needs a host/port and needs to be set in the primary proxy under MutliProxyServers.
+- Each sub proxy needs a host/port and needs to be set in the primary proxy under MultiProxyServers.
 - You also need to have the same secretkey.key file across all proxies (copy/paste from one server after it generates)
 
 Check connection status with /votingpluginbungee multiproxystatus
@@ -31,7 +33,7 @@ Check connection status with /votingpluginbungee multiproxystatus
     ##########################################
     # Multi-proxy setup
     # This is still a WIP, use with caution
-    # Primary server  needs votifier and config option enabled
+    # Primary server needs votifier and config option enabled
     # Set socket host on each proxy and primary server set sub proxies
     # All servers should be on pluginmessaging or sockets setup
     ##########################################
@@ -53,7 +55,7 @@ Check connection status with /votingpluginbungee multiproxystatus
     MultiProxyMethod: SOCKET
 
     ##########################################
-    # SOCKET settings for mutli-proxy
+    # SOCKET settings for multi-proxy
     ##########################################
 
     # Set this for each proxy

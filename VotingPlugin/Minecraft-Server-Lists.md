@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:13.937Z
 ---
 
+# Minecraft Server Lists
+
 This list is a work in progress, but end goal is to contain all websites with their service sites to help simplify setting up.
 
 Want me to add one? Please message me (BenCodez) and I will add it, you also need to specify the service site if you do this.

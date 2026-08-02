@@ -40,11 +40,11 @@ VoteStreaks:
 
 ---
 
-# Standard VoteStreaks
+## Standard VoteStreaks
 
 A standard VoteStreak has one required streak amount and one Rewards section.
 
-## Basic Structure
+### Basic Structure
 
 ```yaml
 VoteStreaks:
@@ -64,7 +64,7 @@ VoteStreaks:
 
 In this example, the player must cast at least three votes during a day for that day to count as a successful streak period.
 
-## Standard VoteStreak Options
+### Standard VoteStreak Options
 
 | Option | Description |
 |---|---|
@@ -77,7 +77,7 @@ In this example, the player must cast at least three votes during a day for that
 | `AllowMissedPeriod` | Number of recent periods used when checking missed-period forgiveness. |
 | `Rewards` | Rewards executed when the streak requirement is completed. |
 
-## Recurring Rewards
+### Recurring Rewards
 
 With:
 
@@ -101,7 +101,7 @@ For example, with `Amount: 5`, the reward runs at streaks 5, 10, 15, 20, and so 
 
 ---
 
-# Progress Groups
+## Progress Groups
 
 Progress groups allow multiple milestones to share the same streak progress.
 
@@ -114,7 +114,7 @@ VoteStreaks:
   ProgressGroups:
 ```
 
-## Progress Group Structure
+### Progress Group Structure
 
 ```yaml
 VoteStreaks:
@@ -163,7 +163,7 @@ VoteStreaks:
                 - "&6You completed another 30 days of voting!"
 ```
 
-## How Progress Groups Work
+### How Progress Groups Work
 
 All enabled milestones inside a progress group use:
 
@@ -181,7 +181,7 @@ In the example above:
 
 A player does not maintain a separate streak for each milestone. The milestones are checkpoints within one shared streak.
 
-## Progress Group Options
+### Progress Group Options
 
 | Option | Description |
 |---|---|
@@ -194,7 +194,7 @@ A player does not maintain a separate streak for each milestone. The milestones 
 | `LostRewards` | Rewards executed when an established streak in the group is lost. |
 | `Milestones` | Reward checkpoints belonging to the shared streak. |
 
-## Milestone Options
+### Milestone Options
 
 | Option | Description |
 |---|---|
@@ -205,7 +205,7 @@ A player does not maintain a separate streak for each milestone. The milestones 
 
 ---
 
-# Lost-Streak Rewards
+## Lost-Streak Rewards
 
 Lost-streak rewards are supported on progress groups.
 
@@ -247,7 +247,7 @@ VoteStreaks:
                 - "&aYou established a 3-day streak!"
 ```
 
-## Requiring a Milestone Before LostRewards
+### Requiring a Milestone Before LostRewards
 
 Use:
 
@@ -271,11 +271,11 @@ to allow `LostRewards` after any established streak progress is lost.
 
 ---
 
-# Advanced Streak Logic
+## Advanced Streak Logic
 
 Understanding how streak validation works is important when configuring missed-period forgiveness.
 
-## No Misses Allowed
+### No Misses Allowed
 
 ```yaml
 AllowMissedAmount: 0
@@ -291,7 +291,7 @@ Day 3: Successful -> Reward
 Day 4: Missed -> Streak resets
 ```
 
-## One Miss Allowed
+### One Miss Allowed
 
 ```yaml
 AllowMissedAmount: 1
@@ -308,7 +308,7 @@ Day 4: Successful
 Day 5: Successful -> Reward
 ```
 
-## Window Tracking
+### Window Tracking
 
 `AllowMissedPeriod` controls how far back the system checks when applying missed-period forgiveness.
 
@@ -333,9 +333,9 @@ AllowMissedPeriod: 7
 
 ---
 
-# Period Types
+## Period Types
 
-## Daily
+### Daily
 
 ```yaml
 Type: DAILY
@@ -343,7 +343,7 @@ Type: DAILY
 
 The player must meet `VotesRequired` during each calendar day.
 
-## Weekly
+### Weekly
 
 ```yaml
 Type: WEEKLY
@@ -351,7 +351,7 @@ Type: WEEKLY
 
 The player must meet `VotesRequired` during each calendar week.
 
-## Monthly
+### Monthly
 
 ```yaml
 Type: MONTHLY
@@ -363,9 +363,9 @@ Period boundaries are calendar-based rather than a rolling number of hours from 
 
 ---
 
-# Independent and Shared Progress
+## Independent and Shared Progress
 
-## Independent Standard VoteStreaks
+### Independent Standard VoteStreaks
 
 Each standard VoteStreak ID stores its own progress:
 
@@ -382,7 +382,7 @@ VoteStreaks:
 
 `SurvivalDaily` and `SkyblockDaily` are separate streaks.
 
-## Shared Progress Within a Group
+### Shared Progress Within a Group
 
 All milestones under one progress group use the same progress:
 
@@ -403,7 +403,7 @@ VoteStreaks:
 
 The player has one `NetworkDaily` streak with reward checkpoints at 3, 7, and 30.
 
-## Proxy or Network Usage
+### Proxy or Network Usage
 
 To share streak data across a proxy network, use the same VoteStreak or progress-group ID on every server that participates in the shared configuration.
 
@@ -411,7 +411,7 @@ Changing an ID creates a different stored streak and does not continue progress 
 
 ---
 
-# Rewards
+## Rewards
 
 Standard VoteStreak rewards are configured at:
 
@@ -453,7 +453,7 @@ Rewards:
 ---
 
 
-# Administrative Commands
+## Administrative Commands
 
 VoteStreak progress can be inspected and modified with `/av` or `/adminvote`.
 
@@ -470,7 +470,7 @@ All modern VoteStreak commands use this structure:
 
 Use the group ID when modifying a progress group. Do not enter an individual milestone ID because every milestone inside the group shares the group's stored progress.
 
-## Command Reference
+### Command Reference
 
 | Action | Command | Description |
 |---|---|---|
@@ -486,7 +486,7 @@ Use the group ID when modifying a progress group. Do not enter an individual mil
 | Reset by type | `/av user <player> VoteStreaks Reset DAILY` | Resets all daily VoteStreak and progress-group states for the player. `WEEKLY` and `MONTHLY` are also supported. |
 | Reset everything | `/av user <player> VoteStreaks Reset ALL` | Resets all VoteStreak and progress-group states for the player. |
 
-## Command Examples
+### Command Examples
 
 View a player's progress-group state:
 
@@ -548,7 +548,7 @@ Reset every daily streak and progress group:
 /av user Notch VoteStreaks Reset DAILY
 ```
 
-## Advance Versus SetAmount
+### Advance Versus SetAmount
 
 Use `Advance` when the player should receive rewards for milestones crossed by the adjustment.
 
@@ -570,7 +570,7 @@ changes the stored amount directly and does not execute the milestones at 3 or 7
 
 `AddAmount` also changes stored progress without giving rewards.
 
-## SetVotes and SetSatisfied
+### SetVotes and SetSatisfied
 
 `SetVotes` changes the raw vote count recorded for the active period.
 
@@ -586,7 +586,7 @@ changes the stored amount directly and does not execute the milestones at 3 or 7
 
 These values are related but are adjusted separately. Setting the vote count does not automatically perform the same reward-triggering behavior as `Advance`.
 
-## Setting the Last-Update Date
+### Setting the Last-Update Date
 
 The accepted date format is:
 
@@ -610,7 +610,7 @@ VotingPlugin converts the date into the correct internal period key based on the
 
 An invalid date or an unknown streak/group ID is rejected.
 
-## Reset Behavior and LostRewards
+### Reset Behavior and LostRewards
 
 Administrative reset commands clear stored VoteStreak progress.
 
@@ -620,7 +620,7 @@ Administrative reset commands clear stored VoteStreak progress.
 
 A manual reset does **not** represent a naturally failed streak and should not be used to test `LostRewards`. Lost-streak rewards are intended for streaks lost through normal streak validation.
 
-## Legacy VoteStreak Commands
+### Legacy VoteStreak Commands
 
 The old daily, weekly, and monthly streak fields can still be changed with:
 
@@ -634,7 +634,7 @@ These commands modify the legacy streak fields only. They do not modify a config
 
 For new configurations, use the modern commands with a VoteStreak or progress-group ID.
 
-## Permissions
+### Permissions
 
 Each command uses its own permission beneath the VoteStreaks admin-command path:
 
@@ -654,7 +654,7 @@ Users with the main VotingPlugin admin permission also have access when the serv
 
 ---
 
-# Placeholder Reference
+## Placeholder Reference
 
 | Placeholder | Description |
 |---|---|
@@ -667,7 +667,7 @@ Users with the main VotingPlugin admin permission also have access when the serv
 
 ---
 
-# Internal Logic Overview
+## Internal Logic Overview
 
 When a vote is received, VotingPlugin:
 
@@ -694,7 +694,7 @@ Important behavior:
 
 ---
 
-# Migration from the Legacy VoteStreak System
+## Migration from the Legacy VoteStreak System
 
 The new VoteStreak system replaces the legacy `VoteStreak` configuration.
 
@@ -716,7 +716,7 @@ After confirming that migration completed correctly, use the new `VoteStreaks` c
 
 ---
 
-# Best Practices
+## Best Practices
 
 - Keep VoteStreak and progress-group IDs descriptive and stable.
 - Use a progress group when several rewards should share one streak.

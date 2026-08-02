@@ -8,6 +8,8 @@ editor: markdown
 dateCreated: 2025-08-30T22:18:30.743Z
 ---
 
+# VotingPlugin-Specific Rewards
+
 ## Specific rewards for VotingPlugin (Not in AdvancedCore by default)
 
     #Vote total requirements
