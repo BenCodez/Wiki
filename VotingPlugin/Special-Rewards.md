@@ -141,11 +141,14 @@ These sections are deprecated and retained only for compatibility/reference:
 - `FirstVote`
 - `FirstVoteToday`
 - `AllSites`
+- `AlmostAllSites`
 - `Cumulative`
 - `MileStones`
 - `VoteStreak`
 
-Use `VoteMilestones` for count-based rewards and `VoteStreaks` for current
+Existing `AlmostAllSites` configurations are mapped to an `ALLSITES_TODAY`
+milestone at one fewer than the configured number of vote sites. Use
+`VoteMilestones` for new count-based rewards and `VoteStreaks` for current
 streak behavior. Do not add new configurations using the legacy sections.
 
 To disable a reward section, set it to `{}` or remove it. Example:
