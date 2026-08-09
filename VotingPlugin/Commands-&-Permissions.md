@@ -12,6 +12,14 @@ dateCreated: 2025-08-30T22:18:03.502Z
 
 ## Primary commands and optional aliases
 
+> **Availability:** The full command-unregistration behavior described below is
+> available only in development builds containing
+> [VotingPlugin PR #1548](https://github.com/BenCodez/VotingPlugin/pull/1548),
+> merged after the latest public release, **7.1.1**. In 7.1.1,
+> `LoadCommandAliases: false` prevents VotingPlugin from wiring the optional
+> alias executors, but the commands declared in `plugin.yml` remain registered.
+{.is-warning}
+
 VotingPlugin always keeps these primary commands registered:
 
 - `/vote`
@@ -27,11 +35,12 @@ by VotingPlugin:
 LoadCommandAliases: true
 ```
 
-Set `LoadCommandAliases: false` and fully restart the server when those command
-names should be available to other plugins. VotingPlugin unregisters its
-optional command declarations and their short aliases while leaving the three
-primary commands above available. Use the equivalent subcommands, such as
-`/vote gui` or `/av reload`, after disabling aliases.
+On a development build containing PR #1548, set `LoadCommandAliases: false` and
+fully restart the server when those command names should be available to other
+plugins. VotingPlugin unregisters its optional command declarations and their
+short aliases while leaving the three primary commands above available. Use
+the equivalent subcommands, such as `/vote gui` or `/av reload`, after
+disabling aliases.
 
 If startup logs `Unable to unregister disabled command aliases`, the server's
 command-map implementation prevented VotingPlugin from releasing them. Check

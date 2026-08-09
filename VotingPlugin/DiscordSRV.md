@@ -13,6 +13,14 @@ dateCreated: 2026-08-09T01:18:39.000Z
 VotingPlugin can send reward messages and maintain all-time, monthly, weekly,
 and daily top-voter leaderboards through DiscordSRV.
 
+> **Availability:** DiscordSRV leaderboards and the manual message-ID clear
+> command are available in the latest public release, **7.1.1**. The
+> `AutoRecoverMessageOnFailure` option and automatic recovery behavior are
+> available only in development builds containing
+> [VotingPlugin PR #1542](https://github.com/BenCodez/VotingPlugin/pull/1542),
+> merged after 7.1.1.
+{.is-warning}
+
 Install and configure DiscordSRV first, then enable the integration in
 `Config.yml`:
 
@@ -21,7 +29,7 @@ DiscordSRV:
   Enabled: true
 
   TopVoter:
-    # Recover automatically if a stored leaderboard message was deleted
+    # Development builds after 7.1.1: recover if a stored message was deleted
     AutoRecoverMessageOnFailure: true
 
     Monthly:

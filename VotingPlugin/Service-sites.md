@@ -42,9 +42,17 @@ must match the configured value.
 
 ## Supported names
 
-Current VotingPlugin releases accept bounded, visible service-site names,
-including common domain names, spaces, Unicode letters, and URL-compatible
-punctuation such as `:`, `/`, `?`, `=`, `&`, `%`, `+`, and `#`.
+> **Availability:** The validation rules and rejection warning in this section
+> are available only in development builds containing
+> [VotingPlugin PR #1540](https://github.com/BenCodez/VotingPlugin/pull/1540),
+> merged after the latest public release, **7.1.1**. Release 7.1.1 supports
+> service-site matching and automatic creation but does not apply this new
+> validator.
+{.is-warning}
+
+Development builds with this validator accept bounded, visible service-site
+names, including common domain names, spaces, Unicode letters, and
+URL-compatible punctuation such as `:`, `/`, `?`, `=`, `&`, `%`, `+`, and `#`.
 
 A received name is rejected before vote processing when it:
 
