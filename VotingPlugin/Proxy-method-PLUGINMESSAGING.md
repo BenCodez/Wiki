@@ -41,7 +41,19 @@ Each backend must have a unique `Server` value that matches the name known by th
 
 Configure the same MySQL database used by the rest of the network.
 
-`AllowUnJoined` is a proxy-side option in `bungeeconfig.yml`; do not add the incorrectly capitalized `AllowUnjoined` key to backend `Config.yml`.
+The proxy and backend settings are separate and use different capitalization:
+
+```yaml
+# Backend Config.yml
+AllowUnjoined: true
+```
+
+- Proxy `bungeeconfig.yml`: `AllowUnJoined`
+- Backend `Config.yml`: `AllowUnjoined`
+
+In the standard proxy-managed layout, keep proxy `AllowUnJoined: false` so the
+proxy rejects votes for players it cannot validate, and set backend
+`AllowUnjoined: true` so forwarded votes are not rejected a second time.
 
 ## Reward behavior
 

@@ -10,6 +10,34 @@ dateCreated: 2025-08-30T22:18:03.502Z
 
 # Commands and Permissions
 
+## Primary commands and optional aliases
+
+VotingPlugin always keeps these primary commands registered:
+
+- `/vote`
+- `/adminvote`
+- `/av`
+
+`Config.yml` controls the additional convenience commands and aliases declared
+by VotingPlugin:
+
+```yaml
+# Load commands such as /votegui, /vgui, /adminvotereload, and /avreload
+# Requires a full restart to take effect
+LoadCommandAliases: true
+```
+
+Set `LoadCommandAliases: false` and fully restart the server when those command
+names should be available to other plugins. VotingPlugin unregisters its
+optional command declarations and their short aliases while leaving the three
+primary commands above available. Use the equivalent subcommands, such as
+`/vote gui` or `/av reload`, after disabling aliases.
+
+If startup logs `Unable to unregister disabled command aliases`, the server's
+command-map implementation prevented VotingPlugin from releasing them. Check
+the complete warning and any command conflicts before assuming another plugin
+can claim those names.
+
 ## Generated command reference
 
 Use `/av perms` or `/av perms <player>` to view the permissions available to

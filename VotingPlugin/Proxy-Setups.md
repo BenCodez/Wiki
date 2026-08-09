@@ -80,7 +80,10 @@ VotingPlugin’s proxy integration provides full network-wide support for:
 
 ## Multi-Proxy Support
 
-For networks with multiple proxies, VotingPlugin supports **PLUGINMESSAGING** or **REDIS** synchronization across proxies.
+For networks with multiple proxies, `MultiProxyMethod` supports **SOCKETS** or
+**REDIS** synchronization between proxies. This is separate from the backend
+`BungeeMethod` selected for communication between a proxy and its backend
+servers.
 
 > ⚠️ **Note:** Multi-proxy setups are *experimental but functional* in current releases.  
 > See the full guide here:  
@@ -108,15 +111,16 @@ The proxy receives and manages votes from Votifier before forwarding them to bac
 ---
 
 ### Common Config Keys
-| Key | Description |
-|-----|--------------|
-| `BungeeManageTotals` | Enables proxy-managed totals. |
-| `SendVotesToAllServers` | Sends votes to all servers or only player’s current server. |
-| `AllowUnJoined` | Ignores votes from players who never joined if false. |
-| `WaitForUserOnline` | Queues votes until player logs in. |
-| `GlobalData` | Enables global data/time sync and vote queueing. |
-| `MultiProxySupport` | Allows votes to sync between multiple proxies. |
-| `PrimaryServer` | Marks the main proxy handling totals. |
+| Key | File/location | Description |
+|-----|---------------|-------------|
+| `BungeeManageTotals` | Proxy `bungeeconfig.yml` | Enables proxy-managed totals. |
+| `SendVotesToAllServers` | Proxy `bungeeconfig.yml` | Sends votes to all servers or only the player’s current server. |
+| `AllowUnJoined` | Proxy `bungeeconfig.yml` | When false, the proxy validates that the player has joined before accepting the vote. |
+| `AllowUnjoined` | Backend `Config.yml` | When true, a backend accepts forwarded votes without repeating the proxy’s joined-player check. |
+| `WaitForUserOnline` | Proxy `bungeeconfig.yml` | Queues votes until the player logs in. |
+| `GlobalData` | Proxy `bungeeconfig.yml` and backend `BungeeSettings.yml` | Enables global data/time synchronization and vote queueing; enable and align it on the proxy and applicable backends. |
+| `MultiProxySupport` | Proxy `bungeeconfig.yml` | Allows votes to synchronize between multiple proxies. |
+| `PrimaryServer` | Proxy `bungeeconfig.yml` | Marks the primary proxy for supported multi-proxy responsibilities. |
 
 ---
 

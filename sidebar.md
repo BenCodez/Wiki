@@ -87,5 +87,6 @@ dateCreated: 2026-01-27T00:14:29.606Z
 ---
 
 ## 🌍 Integrations & Web
+- [DiscordSRV](https://github.com/BenCodez/VotingPlugin/wiki/DiscordSRV)
 - [Web Support](https://github.com/BenCodez/VotingPlugin/wiki/Web-Support)
 - [VotingPlugin Presets](https://github.com/BenCodez/VotingPlugin/wiki/VotingPlugin-Presets)

@@ -10,14 +10,67 @@ dateCreated: 2025-08-30T22:18:23.897Z
 
 # Service Sites
 
-Service sites is the identifier that tells VotingPlugin which incoming vote is which votesite.
+The service site is the identifier supplied by the voting website through
+Votifier. VotingPlugin uses it to decide which entry in `VoteSites.yml` should
+process the vote.
 
-Majority of voting websites follow the format of using the base of the url, but not all do. 
+Most voting websites use a domain-like value, but the website controls the
+actual value. Do not guess it from the public vote URL.
 
-Best way to find a service site is to look in console on a vote for a message like this:  
-```[19:01:21] [Votifier I/O/INFO]: [VotifierPlus] Debug: Received vote record -> Vote (from:SERVICESITEHERE username:BenCodez address:Address timeStamp:TestVote)```  
-```[19:01:21] [Server thread/INFO]: [VotingPlugin] Received a vote from service site 'SERVICESITEHERE' by player 'BenCodez'!```
+## Find the received value
 
-If you don't get the above message check [here](https://github.com/BenCodez/VotingPlugin/wiki/Votifier-Troubleshooting)
+Send a real or administrative test vote and check the console for messages like:
 
-Servers lists with known service site can be found [here](https://github.com/BenCodez/VotingPlugin/wiki/Minecraft-Server-Lists)
+```text
+[VotifierPlus] Debug: Received vote record -> Vote (from:SERVICESITEHERE username:BenCodez ...)
+[VotingPlugin] Received a vote from service site 'SERVICESITEHERE' by player 'BenCodez'!
+```
+
+You can also run `/av servicesites` after the vote to view service sites that
+VotingPlugin has received. Put the value in the applicable `VoteSites.yml`
+entry:
+
+```yaml
+VoteSites:
+  ExampleVoteSite:
+    Enabled: true
+    ServiceSite: 'SERVICESITEHERE'
+```
+
+Matching is case-insensitive, but otherwise the received service-site text
+must match the configured value.
+
+## Supported names
+
+Current VotingPlugin releases accept bounded, visible service-site names,
+including common domain names, spaces, Unicode letters, and URL-compatible
+punctuation such as `:`, `/`, `?`, `=`, `&`, `%`, `+`, and `#`.
+
+A received name is rejected before vote processing when it:
+
+- is empty, whitespace-only, or made only of combining/invisible filler
+  characters;
+- exceeds 2,048 UTF-16 code units;
+- contains square brackets, a single or double quote, a backtick, or a
+  backslash; or
+- contains control or formatting characters, including tabs and line breaks.
+
+Rejected values produce a bounded warning beginning with
+`Rejected vote with invalid service site`. Correct the service-site value at
+the voting website; do not create a differently named `VoteSites.yml` entry to
+work around the rejection.
+
+## Automatic vote-site creation
+
+With `AutoCreateVoteSites: true`, VotingPlugin attempts to create a missing
+`VoteSites.yml` entry from a valid received service site. Dots and whitespace
+are converted to underscores for the internal vote-site key, while the
+original text is retained as `ServiceSite`.
+
+If automatic creation is disabled or fails, create the site through `/av gui`,
+VotingPluginEditor, or `VoteSites.yml`, then retry a vote.
+
+If VotingPlugin never logs that it received the vote, follow
+[Votifier Troubleshooting](https://github.com/BenCodez/VotingPlugin/wiki/Votifier-Troubleshooting).
+Known examples are listed under
+[Minecraft Server Lists](https://github.com/BenCodez/VotingPlugin/wiki/Minecraft-Server-Lists).
