@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Simple VotingPlugin proxy flow</title>
+  <desc id="desc">Votes travel from voting websites to VotifierPlus and VotingPlugin on the proxy, through one selected BungeeMethod, then to Lobby, Survival, and Skyblock backend servers.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#334155"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.14"/>
+    </filter>
+    <style>
+      .box { fill: #ffffff; stroke: #334155; stroke-width: 4; rx: 16; filter: url(#shadow); }
+      .proxy { fill: #eff6ff; stroke: #2563eb; }
+      .method { fill: #f0fdf4; stroke: #16a34a; }
+      .backend { fill: #faf5ff; stroke: #7e22ce; }
+      .line { fill: none; stroke: #334155; stroke-width: 5; marker-end: url(#arrow); }
+      .label { font-family: Inter, system-ui, sans-serif; fill: #0f172a; text-anchor: middle; font-size: 32px; font-weight: 700; }
+      .sub { font-family: Inter, system-ui, sans-serif; fill: #475569; text-anchor: middle; font-size: 22px; }
+      .small { font-size: 26px; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="720" fill="#f8fafc"/>
+
+  <rect class="box" x="250" y="40" width="700" height="90"/>
+  <text class="label" x="600" y="95">Voting websites</text>
+
+  <path class="line" d="M 600 130 L 600 190"/>
+
+  <rect class="box proxy" x="210" y="205" width="780" height="115"/>
+  <text class="label" x="600" y="255">VotifierPlus + VotingPlugin</text>
+  <text class="sub" x="600" y="292">Proxy (BungeeCord or Velocity)</text>
+
+  <path class="line" d="M 600 320 L 600 375"/>
+
+  <rect class="box method" x="285" y="390" width="630" height="90"/>
+  <text class="label small" x="600" y="430">One selected BungeeMethod</text>
+  <text class="sub" x="600" y="460">Plugin Messaging · Redis · MQTT · MySQL · Sockets</text>
+
+  <path class="line" d="M 600 480 L 600 515 L 200 515 L 200 555"/>
+  <path class="line" d="M 600 480 L 600 555"/>
+  <path class="line" d="M 600 480 L 600 515 L 1000 515 L 1000 555"/>
+
+  <rect class="box backend" x="40" y="570" width="320" height="100"/>
+  <text class="label small" x="200" y="615">Lobby</text>
+  <text class="sub" x="200" y="647">VotingPlugin backend</text>
+
+  <rect class="box backend" x="440" y="570" width="320" height="100"/>
+  <text class="label small" x="600" y="615">Survival</text>
+  <text class="sub" x="600" y="647">VotingPlugin backend</text>
+
+  <rect class="box backend" x="840" y="570" width="320" height="100"/>
+  <text class="label small" x="1000" y="615">Skyblock</text>
+  <text class="sub" x="1000" y="647">VotingPlugin backend</text>
+</svg>

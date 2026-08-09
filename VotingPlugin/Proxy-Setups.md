@@ -124,5 +124,15 @@ The proxy receives and manages votes from Votifier before forwarding them to bac
 
 ---
 
+## Simple flow reference
+
+![Simple VotingPlugin proxy flow showing votes entering VotifierPlus and VotingPlugin on the proxy, passing through one selected BungeeMethod, and reaching backend servers](/assets/VotingPlugin/proxy-flow-simple-reference.svg)
+
+This compact version preserves the older proxy-flow overview. The detailed
+architecture near the top of this page is the authoritative reference for
+communication methods and shared storage.
+
+---
+
 *For a deeper technical breakdown, see the implementation in  
 [`VotingPluginProxy.java`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/proxy/VotingPluginProxy.java).*
