@@ -38,7 +38,7 @@ PrimaryServer: true
 # Give only one network reward when configured with the matching options.
 MultiProxyOneGlobalReward: false
 
-# Current multi-proxy methods include REDIS and SOCKET.
+# Current multi-proxy methods include REDIS and SOCKETS.
 MultiProxyMethod: REDIS
 
 MultiProxyRedis:

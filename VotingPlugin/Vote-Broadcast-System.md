@@ -121,6 +121,15 @@ Interval-only:
 
 Proxy broadcasts are controlled separately.
 
+> **Availability:** The proxy broadcast settings below are present in the
+> latest public release, **7.1.1**. In 7.1.1, an offline vote that is being
+> queued can delay an `OfflineMode: FORWARD` broadcast until the vote itself is
+> delivered. Immediate forwarding independent of queued vote delivery is
+> available only in development builds containing
+> [VotingPlugin PR #1541](https://github.com/BenCodez/VotingPlugin/pull/1541),
+> merged after 7.1.1.
+{.is-warning}
+
 ``` yaml
 ProxyBroadcast:
   Enabled: true
@@ -146,7 +155,9 @@ Controls what happens if the voting player is offline:
 
 -   NONE → Drop broadcast
 -   QUEUE → Send when player logs in
--   FORWARD → Immediately forward to a backend server
+-   FORWARD → Select a backend forwarding target. In 7.1.1, queued vote
+    delivery can also delay this broadcast; development builds containing PR
+    #1541 forward it independently.
 
 #### OfflineForward.Servers
 

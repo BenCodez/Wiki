@@ -16,7 +16,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 ---
 
 ## 🚀 Setup & Configuration
-- [Setup](https://github.com/BenCodez/VotingPlugin/wiki/Setup)
+- [Setup](https://github.com/BenCodez/VotingPlugin/wiki/setup)
 - [File Layout](https://github.com/BenCodez/VotingPlugin/wiki/File-Layout)
 - [Online / Offline Mode](https://github.com/BenCodez/VotingPlugin/wiki/Online-Offline-Mode)
 - [Item Configuration](https://github.com/BenCodez/VotingPlugin/wiki/Item-Configuration)
@@ -30,10 +30,10 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ### Proxy Methods
 - [PLUGINMESSAGING](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-method-PLUGINMESSAGING)
-- [REDIS](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-method-REDIS)
-- [MQTT](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-method-MQTT)
-- [SOCKETS](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-method-SOCKETS)
-- [MYSQL](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-method-MYSQL)
+- [REDIS](https://github.com/BenCodez/VotingPlugin/wiki/proxy-method-REDIS)
+- [MQTT](https://github.com/BenCodez/VotingPlugin/wiki/proxy-method-MQTT)
+- [SOCKETS](https://github.com/BenCodez/VotingPlugin/wiki/proxy-method-SOCKETS)
+- [MYSQL](https://github.com/BenCodez/VotingPlugin/wiki/proxy-method-MYSQL)
 
 ### Multi-Proxy
 - [Multi-Proxy Setup](https://github.com/BenCodez/VotingPlugin/wiki/Multi-Proxy-Setup)

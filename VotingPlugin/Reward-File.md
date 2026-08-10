@@ -10,7 +10,7 @@ dateCreated: 2025-08-30T22:18:22.178Z
 
 # Reward Files
 
-![](http://i.imgur.com/hKOAj4Z.png)
+![Example VotingPlugin reward-file configuration](https://i.imgur.com/hKOAj4Z.png)
 
 Reward files is how player gets reward. They can be given on voting, or via Rewards.yml (First vote, all sites, Number of votes)
 
@@ -36,6 +36,10 @@ Advanced:
 - Delay when to run reward file (useful for giving players perk on vote, then removing x hours later)
 - Run reward file at specific time
 
-See [ExampleReward](https://github.com/Ben12345rocks/AdvancedCore/blob/master/AdvancedCore/Rewards/ExampleReward.yml) for examples on the above! 
+See the current AdvancedCore
+[basic reward example](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleBasic.yml)
+and
+[advanced reward example](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleAdvanced.yml)
+for complete configurations.
 
 [Examples](https://gist.github.com/Ben12345rocks/c913ba94878327c1a5bad69dd0c6de85)

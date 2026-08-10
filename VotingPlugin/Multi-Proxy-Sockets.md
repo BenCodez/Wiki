@@ -17,7 +17,9 @@ dateCreated: 2025-08-30T22:18:16.369Z
 > Setup each proxy as its own proxy network for VotingPlugin before setting multi-proxy up, each proxy can use a different proxy method
 {.is-info}
 
-> Note if using REDIS (Not for multi-proxy method) you will need to set a different redis prefix for each proxy network (This is so that all proxies can use REDIS at the same time without issue)
+> If a proxy network uses `BungeeMethod: REDIS` for backend communication, give
+> each separate proxy network a different regular Redis prefix. This setting is
+> separate from the multi-proxy method described on this page.
 {.is-warning}
 
 > Check connection status with /votingpluginbungee multiproxystatus - should see a message on each proxy in console
@@ -50,9 +52,9 @@ Check connection status with /votingpluginbungee multiproxystatus
     MultiProxyOneGlobalReward: false
 
     # Multi-proxy available methods:
-    #  SOCKET
+    #  SOCKETS
     #  REDIS
-    MultiProxyMethod: SOCKET
+    MultiProxyMethod: SOCKETS
 
     ##########################################
     # SOCKET settings for multi-proxy
@@ -69,3 +71,8 @@ Check connection status with /votingpluginbungee multiproxystatus
       secondproxy:
         Host: 0.0.0.0
         Port: 1235
+
+Release 7.1.1's generated `bungeeconfig.yml` shows the singular value `SOCKET`,
+but the released enum is `SOCKETS`. The unknown-value fallback happens to
+select sockets, so the generated value works; use the explicit `SOCKETS` value
+shown above so the configuration matches the implemented method name.

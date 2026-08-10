@@ -87,7 +87,7 @@ servers.
 
 > ⚠️ **Note:** Multi-proxy setups are *experimental but functional* in current releases.  
 > See the full guide here:  
-> 🔗 [Multi-Proxy Setup](/en/VotingPlugin/Multi-Proxy-Setup)
+> 🔗 [Multi-Proxy Setup](/VotingPlugin/Multi-Proxy-Setup)
 
 ---
 
