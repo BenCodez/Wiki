@@ -17,7 +17,7 @@ This page explains how to create **VotingPlugin leaderboard signs**, place heads
 ---
 
 ## 🪧 Adding a Sign  
-![Adding a sign](http://i.imgur.com/w2PRmQv.png)
+![Adding a VotingPlugin sign](https://i.imgur.com/w2PRmQv.png)
 
 To create a leaderboard sign:
 
@@ -42,7 +42,7 @@ The appearance and text for signs are controlled by VotingPlugin’s internal fo
 ---
 
 ## 👤 Heads  
-![Heads](http://imgur.com/XF4LqES.png)
+![Example player-head signs](https://i.imgur.com/XF4LqES.png)
 
 VotingPlugin automatically places player heads to match leaderboard positions (1st, 2nd, 3rd, etc.).
 
@@ -51,7 +51,7 @@ VotingPlugin automatically places player heads to match leaderboard positions (1
 ## 🔳 3×3 Cube of Heads  
 (Center of cube is the sign unless a skull is set)
 
-![3x3 Cube of heads](http://imgur.com/RNVPNJv.png)
+![Example 3 by 3 cube of player heads](https://i.imgur.com/RNVPNJv.png)
 
 - The default maximum head layout is a **3×3 cube** centered on the sign.  
 - Setting a skull overrides the center point.

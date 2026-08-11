@@ -26,6 +26,22 @@ VotingPlugin always keeps these primary commands registered:
 - `/adminvote`
 - `/av`
 
+On Spigot or Paper, a server owner who needs another plugin to handle `/vote`
+can redirect that label in the server-root `commands.yml`; this works in release
+7.1.1 and does not require disabling VotingPlugin. Use the other plugin's
+namespaced command so the target is unambiguous:
+
+```yaml
+aliases:
+  vote:
+    - 'otherplugin:vote $1-'
+```
+
+Replace `otherplugin:vote` with the target shown by `/help`. Fully restart the
+server after editing `commands.yml`. This legacy alias mechanism does not
+provide modern tab completion or permission handling; see the
+[Paper `commands.yml` reference](https://docs.papermc.io/paper/reference/bukkit-commands-configuration/).
+
 `Config.yml` controls the additional convenience commands and aliases declared
 by VotingPlugin:
 

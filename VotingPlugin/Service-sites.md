@@ -78,6 +78,45 @@ original text is retained as `ServiceSite`.
 If automatic creation is disabled or fails, create the site through `/av gui`,
 VotingPluginEditor, or `VoteSites.yml`, then retry a vote.
 
+## Enforce the vote delay
+
+`VoteDelay` controls `/vote next`, but it does not reject an early vote unless
+`WaitUntilVoteDelay` is enabled for that site:
+
+```yaml
+VoteSites:
+  ExampleVoteSite:
+    ServiceSite: 'SERVICESITEHERE'
+    VoteDelay: 24h
+    WaitUntilVoteDelay: true
+```
+
+Enable this only when the voting website's real voting interval matches the
+configured delay. Otherwise a legitimate vote can be discarded without its
+normal rewards. `VotingPlugin.BypassWaitUntilVoteDelay` bypasses this check.
+
+> **Development-build availability:** Release **7.1.1** logs and rejects an
+> early real vote, but it has no configurable rejection reward. Development
+> builds containing
+> [VotingPlugin PR #1536](https://github.com/BenCodez/VotingPlugin/pull/1536)
+> add the standard reward section `WaitUntilVoteDelayRewards`:
+>
+> ```yaml
+> VoteSites:
+>   ExampleVoteSite:
+>     WaitUntilVoteDelay: true
+>     WaitUntilVoteDelayRewards:
+>       Messages:
+>         Player: '&cThat vote was too early and was not accepted.'
+> ```
+>
+> It supports `%ServiceSite%`, `%SiteName%`, `%VoteDelay%`, and `%VoteURL%`.
+> Proxy-side rejection feedback requires compatible development builds on the
+> proxy and receiving backend, `ProcessRewards: true` on the backend, and an
+> online player whose current backend is known. An offline proxy rejection is
+> still logged but does not send this reward to a backend.
+{.is-warning}
+
 If VotingPlugin never logs that it received the vote, follow
 [Votifier Troubleshooting](https://github.com/BenCodez/VotingPlugin/wiki/Votifier-Troubleshooting).
 Known examples are listed under

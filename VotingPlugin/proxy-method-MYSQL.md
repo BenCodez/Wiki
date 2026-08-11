@@ -25,6 +25,12 @@ BungeeMethod: MYSQL
 
 Configure the shared MySQL connection and provide enough connections for the proxy and backend workload. The current documentation recommendation is at least five total connections across a small network, with additional headroom for larger installations.
 
+Restrict the database listener to the proxy and backend addresses, use a
+dedicated account with only the required schema permissions, and never post
+the connection password in logs or support screenshots. See
+[Data storage and migration](/VotingPlugin/Transferring-data-storage-within-plugin)
+for released MariaDB/PostgreSQL driver selection and JDBC prerequisites.
+
 ### Backend servers: `BungeeSettings.yml`
 
 ```yaml
@@ -60,8 +66,8 @@ Disable `SendVotesToAllServers` when the network should give only one server rew
 ## Testing
 
 ```text
-/votingpluginbungee status
-/votingpluginbungee vote <player> <site>
+/votingpluginproxy status
+/votingpluginproxy vote <player> <site>
 ```
 
 Check the proxy and backend consoles for status results and queue-processing errors.
@@ -77,6 +83,6 @@ Check the proxy and backend consoles for status results and queue-processing err
 - Restart the proxy and all backend servers after configuration changes.
 - Verify the shared database credentials and permissions.
 - Confirm that `VotingPlugin_message_queue` can be created and updated.
-- Check `/votingpluginbungee status` before testing vote rewards.
+- Check `/votingpluginproxy status` before testing vote rewards.
 
 > **AI disclosure:** This documentation update was written with assistance from ChatGPT.

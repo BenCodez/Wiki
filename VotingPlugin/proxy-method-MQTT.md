@@ -14,7 +14,7 @@ dateCreated: 2025-08-31T00:18:41.324Z
 > All servers use the same mysql table
 {.is-info}
 
-> Running on velocity requires a mysql driver to be installed, one available as a plugin here if needed http://bencodez.com/job/MySQLDriver/
+> Running on Velocity requires a MySQL driver. Install the [MySQLDriver build](https://bencodez.com/job/MySQLDriver/) if the platform does not already provide one.
 {.is-info}
 
 
@@ -47,14 +47,23 @@ See default config files for every setting, as this is very customizable.
 
 If you want one reward per vote across the entire network then disable SendVotesToAllServers
 
+## Secure MQTT
+
+Give every proxy and backend a unique MQTT `ClientID`. Require broker
+credentials, keep the broker on a private network or VPN, and restrict its
+listener to the participating server addresses. The default `tcp://` transport
+must not cross an untrusted or public network without transport protection
+provided by the broker or network. Do not include MQTT credentials in
+screenshots, logs, or a public repository.
+
 
 ## Troubleshooting:
 Testing communication:
-- Check status & working condition with /votingpluginbungee status
+- Check status and connectivity with `/votingpluginproxy status`.
 - See console for results
 
 Test voting:
-- Run bungee test vote with /votingpluginbungee vote (player) (site)
+- Run a proxy test vote with `/votingpluginproxy vote <player> <site>`.
 
 Double/Extra Rewards:
 - Ensure server names in BungeeSettings.yml differ and match names in proxy server

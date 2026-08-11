@@ -18,7 +18,7 @@ When a proxy network already uses `BungeeMethod: REDIS`, give each network a dif
 Use the following command to check multi-proxy connectivity:
 
 ```text
-/votingpluginbungee multiproxystatus
+/votingpluginproxy multiproxystatus
 ```
 
 A status message should appear in the console of each configured proxy.
@@ -46,8 +46,8 @@ MultiProxyRedis:
   UseExistingConnection: false
   Host: localhost
   Port: 6379
-  Username: ''
-  Password: ''
+  Username: 'votingplugin'
+  Password: 'replace-with-a-secret'
 
 # Unique name for this proxy.
 ProxyServerName: proxy1
@@ -66,6 +66,12 @@ SendVotesToAllServers: false
 ```
 
 Leaving `SendVotesToAllServers` enabled can forward the same vote to multiple backend servers and allow more than one reward.
+
+Keep Redis on a private network or behind firewall rules that admit only the
+configured proxy addresses. Require a non-empty username and password, keep
+the credentials identical on participating proxies, and never publish them in
+screenshots or configuration examples. `Host: localhost` is valid only when
+Redis runs on the same machine as every connecting proxy.
 
 > Multi-proxy support is advanced. Test vote forwarding, duplicate prevention, reconnect behavior, and reward delivery before using it in production.
 {.is-warning}

@@ -81,7 +81,7 @@ If a server is offline, the process will automatically skip that server after a 
 
 | Command | Description |
 |----------|-------------|
-| `/votingpluginbungee forcetimechange (TimeType)` | Forces a manual time change event (daily/weekly/monthly). |
+| `/votingpluginproxy forcetimechange <DAY\|WEEK\|MONTH>` | Forces a manual time change event. |
 
 ---
 

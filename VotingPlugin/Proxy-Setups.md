@@ -12,7 +12,7 @@ dateCreated: 2025-08-30T22:18:02.764Z
 >
 > Velocity requires a MySQL driver to be installed.  
 > You can download a prebuilt plugin here if needed:  
-> 🔗 [MySQLDriver (Jenkins)](http://bencodez.com/job/MySQLDriver/)
+> 🔗 [MySQLDriver (Jenkins)](https://bencodez.com/job/MySQLDriver/)
 {.is-info}
 
 > 💾 **Database Requirement**
