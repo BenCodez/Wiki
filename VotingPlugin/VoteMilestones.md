@@ -12,7 +12,7 @@ dateCreated: 2026-01-26T02:35:50.692Z
 
 VoteMilestones allow you to run rewards when a player’s **vote totals, points, or site counts** reach specific conditions.
 
-This system replaces legacy milestone systems such as `FirstVote`, `Cumulative`, and `MileStones`, while remaining fully backward-compatible through automatic migration.
+This system replaces legacy milestone systems such as `FirstVote`, `Cumulative`, and `MileStones`. VotingPlugin 7.1.1 remains backward-compatible by compiling legacy sections into runtime milestones when the configuration loads.
 
 This page explains **how VoteMilestones really work**, followed by **lots of real examples**.
 
@@ -378,7 +378,8 @@ VoteMilestones:
 
 ## Legacy migration
 
-The following legacy sections are automatically migrated at startup:
+VotingPlugin 7.1.1 interprets the following legacy sections as runtime
+milestones when `SpecialRewards.yml` loads:
 
 ```
 FirstVote
@@ -389,7 +390,22 @@ AllSites
 AlmostAllSites
 ```
 
-New configurations should always use **VoteMilestones**.
+This compatibility step does **not** rewrite or remove the legacy YAML. It is a
+runtime mapping, not a file migration. A restart or reload therefore leaves the
+old sections in `SpecialRewards.yml`.
+
+The generated runtime mappings include:
+
+| Legacy section | Runtime behavior |
+|---|---|
+| `AllSites` | `ALLSITES_TODAY` at the number of enabled vote sites, minimum 1, limited once per day |
+| `AlmostAllSites` | `ALLSITES_TODAY` at one fewer than the number of enabled vote sites, minimum 1, limited once per day |
+
+New configurations should use **VoteMilestones**. To convert an existing
+configuration, back up `SpecialRewards.yml`, create an equivalent
+`VoteMilestones` entry, test it, and then remove or empty the legacy reward
+section. Leaving both versions configured can run both rewards when their
+conditions match.
 
 ---
 

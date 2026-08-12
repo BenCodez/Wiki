@@ -146,10 +146,14 @@ These sections are deprecated and retained only for compatibility/reference:
 - `MileStones`
 - `VoteStreak`
 
-Existing `AlmostAllSites` configurations are mapped to an `ALLSITES_TODAY`
-milestone at one fewer than the configured number of vote sites. Use
-`VoteMilestones` for new count-based rewards and `VoteStreaks` for current
-streak behavior. Do not add new configurations using the legacy sections.
+Existing `AlmostAllSites` configurations are compiled at load time as an
+`ALLSITES_TODAY` milestone at one fewer than the number of **enabled** vote
+sites (minimum 1), with a once-per-day limit. This is an in-memory
+compatibility mapping; VotingPlugin does not rewrite `SpecialRewards.yml`.
+Use `VoteMilestones` for new count-based rewards and `VoteStreaks` for current
+streak behavior. Do not add new configurations using the legacy sections, and
+remove or empty a legacy section after manually replacing and testing it so the
+old and new rewards do not both run.
 
 To disable a reward section, set it to `{}` or remove it. Example:
 
