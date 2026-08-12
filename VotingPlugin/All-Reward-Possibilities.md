@@ -149,6 +149,14 @@ Define when a reward should run. Multiple can be combined together.
       Delay: 30
 ```
 
+> **PlaceholderAPI difference:** player `Messages` pass their final text through
+> PlaceholderAPI, but an `ActionBar.Message` does not. Action bars still replace
+> placeholders supplied by the reward itself (for example `%player%`) and can
+> use the configured JavaScript processing, but `%some_expansion_value%` from a
+> PlaceholderAPI expansion will remain unchanged. This behavior applies to
+> release 7.1.1 and the current development branch.
+{.is-info}
+
 ---
 
 ### 🔊 Sound

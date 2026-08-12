@@ -41,7 +41,19 @@ Each backend must have a unique `Server` value that matches the name known by th
 
 Configure the same MySQL database used by the rest of the network.
 
-`AllowUnJoined` is a proxy-side option in `bungeeconfig.yml`; do not add the incorrectly capitalized `AllowUnjoined` key to backend `Config.yml`.
+The proxy and backend settings are separate and use different capitalization:
+
+```yaml
+# Backend Config.yml
+AllowUnjoined: true
+```
+
+- Proxy `bungeeconfig.yml`: `AllowUnJoined`
+- Backend `Config.yml`: `AllowUnjoined`
+
+In the standard proxy-managed layout, keep proxy `AllowUnJoined: false` so the
+proxy rejects votes for players it cannot validate, and set backend
+`AllowUnjoined: true` so forwarded votes are not rejected a second time.
 
 ## Reward behavior
 
@@ -50,8 +62,8 @@ Disable `SendVotesToAllServers` when the network should give only one server rew
 ## Testing
 
 ```text
-/votingpluginbungee status
-/votingpluginbungee vote <player> <site>
+/votingpluginproxy status
+/votingpluginproxy vote <player> <site>
 ```
 
 The status command needs an online player for PLUGINMESSAGING communication.
@@ -72,5 +84,9 @@ PluginMessageEncryption: false
 ```
 
 When encryption is enabled, copy the same `secretkey.key` to every connected server.
+Stop the network while replacing the key, restrict the file to the server
+service account, and fully restart every instance afterward. Changing the
+channel name alone is not a substitute for encryption or normal proxy/backend
+network isolation.
 
 > **AI disclosure:** This documentation update was written with assistance from ChatGPT.

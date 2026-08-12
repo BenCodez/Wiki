@@ -14,7 +14,7 @@ dateCreated: 2025-08-31T00:16:24.909Z
 > All servers use the same mysql table
 {.is-info}
 
-> Running on velocity requires a mysql driver to be installed, one available as a plugin here if needed http://bencodez.com/job/MySQLDriver/
+> Running on Velocity requires a MySQL driver. Install the [MySQLDriver build](https://bencodez.com/job/MySQLDriver/) if the platform does not already provide one.
 {.is-info}
 
 
@@ -47,14 +47,26 @@ See default config files for every setting, as this is very customizable.
 
 If you want one reward per vote across the entire network then disable SendVotesToAllServers
 
+## Secure Redis
+
+Keep Redis on a private network or behind firewall rules that allow only the
+proxy and backend addresses. Configure a non-empty Redis username and password
+on every VotingPlugin instance; all instances in this communication group must
+use the same connection details and prefix. Do not expose the default Redis
+port to the public Internet or include credentials in screenshots and logs.
+
+`Host: localhost` works only when Redis is on the same machine as that
+VotingPlugin instance. Use an internal address when separate hosts share the
+broker.
+
 
 ## Troubleshooting:
 Testing communication:
-- Check status & working condition with /votingpluginbungee status
+- Check status and connectivity with `/votingpluginproxy status`.
 - See console for results
 
 Test voting:
-- Run bungee test vote with /votingpluginbungee vote (player) (site)
+- Run a proxy test vote with `/votingpluginproxy vote <player> <site>`.
 
 Double/Extra Rewards:
 - Ensure server names in BungeeSettings.yml differ and match names in proxy server

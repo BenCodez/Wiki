@@ -19,7 +19,7 @@ dateCreated: 2025-08-30T22:18:09.653Z
 ## Spigot Server Files
 **Path:** `/plugins/VotingPlugin/`
 
-![](https://i.imgur.com/NRZbbcW.png)
+![Example VotingPlugin data folder on a backend server](https://i.imgur.com/NRZbbcW.png)
 
 | File / Folder | Description |
 |----------------|-------------|
@@ -39,7 +39,7 @@ dateCreated: 2025-08-30T22:18:09.653Z
 ### Rewards Folder
 **Path:** `/plugins/VotingPlugin/Rewards/`
 
-![](https://i.imgur.com/etHNpAA.png)
+![Example contents of the VotingPlugin Rewards folder](https://i.imgur.com/etHNpAA.png)
 
 | File / Folder | Description |
 |----------------|-------------|
@@ -55,7 +55,7 @@ dateCreated: 2025-08-30T22:18:09.653Z
 ## Proxy Server Files
 **Path:** `/plugins/VotingPlugin/` *(on BungeeCord or Velocity)*
 
-![](https://i.imgur.com/RYVmnhM.png)
+![Example VotingPlugin data folder on a proxy server](https://i.imgur.com/RYVmnhM.png)
 
 | File | Description |
 |------|-------------|

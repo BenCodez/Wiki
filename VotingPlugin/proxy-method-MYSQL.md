@@ -25,6 +25,12 @@ BungeeMethod: MYSQL
 
 Configure the shared MySQL connection and provide enough connections for the proxy and backend workload. The current documentation recommendation is at least five total connections across a small network, with additional headroom for larger installations.
 
+Restrict the database listener to the proxy and backend addresses, use a
+dedicated account with only the required schema permissions, and never post
+the connection password in logs or support screenshots. See
+[Data storage and migration](/VotingPlugin/Transferring-data-storage-within-plugin)
+for released MariaDB/PostgreSQL driver selection and JDBC prerequisites.
+
 ### Backend servers: `BungeeSettings.yml`
 
 ```yaml
@@ -39,7 +45,19 @@ Each backend must have a unique `Server` value that matches the name known by th
 
 Configure the same MySQL database used by the rest of the network.
 
-`AllowUnJoined` is a proxy-side option in `bungeeconfig.yml`; do not add the incorrectly capitalized `AllowUnjoined` key to backend `Config.yml`.
+The proxy and backend settings are separate and use different capitalization:
+
+```yaml
+# Backend Config.yml
+AllowUnjoined: true
+```
+
+- Proxy `bungeeconfig.yml`: `AllowUnJoined`
+- Backend `Config.yml`: `AllowUnjoined`
+
+In the standard proxy-managed layout, keep proxy `AllowUnJoined: false` so the
+proxy rejects votes for players it cannot validate, and set backend
+`AllowUnjoined: true` so forwarded votes are not rejected a second time.
 
 ## Reward behavior
 
@@ -48,8 +66,8 @@ Disable `SendVotesToAllServers` when the network should give only one server rew
 ## Testing
 
 ```text
-/votingpluginbungee status
-/votingpluginbungee vote <player> <site>
+/votingpluginproxy status
+/votingpluginproxy vote <player> <site>
 ```
 
 Check the proxy and backend consoles for status results and queue-processing errors.
@@ -65,6 +83,6 @@ Check the proxy and backend consoles for status results and queue-processing err
 - Restart the proxy and all backend servers after configuration changes.
 - Verify the shared database credentials and permissions.
 - Confirm that `VotingPlugin_message_queue` can be created and updated.
-- Check `/votingpluginbungee status` before testing vote rewards.
+- Check `/votingpluginproxy status` before testing vote rewards.
 
 > **AI disclosure:** This documentation update was written with assistance from ChatGPT.

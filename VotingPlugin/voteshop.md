@@ -142,9 +142,31 @@ Categories:
     BackButtonItem:
       Material: BARRIER
       Name: '&cBack to VoteShop'
+      Slot: -2
 ```
 
-Clicking the back button returns the player to the main VoteShop menu.
+In release 7.1.1, clicking a category back button returns the player to the
+main VoteShop menu. `Slot: -2` places it in the final GUI slot.
+
+`Categories.<category>.BackButtonItem` is an item definition; it does not run a
+custom command. The shared `CHEST.BackButton` in `GUI.yml` is a separate button
+used by the main VoteShop and other VotingPlugin GUIs.
+
+> **Development only — not in release 7.1.1:** unreleased
+> `7.1.2-SNAPSHOT` builds containing VotingPlugin commits
+> [`9644a140`](https://github.com/BenCodez/VotingPlugin/commit/9644a1400c4f997745ea60a1b06b51d1a91ea37a)
+> and [`4036db0c`](https://github.com/BenCodez/VotingPlugin/commit/4036db0c87dcc3636354952e11aa542332c16ed3)
+> can run a player command from the shared `GUI.yml` back button:
+>
+> ```yaml
+> CHEST:
+>   BackButton:
+>     Command: somecustomgui
+> ```
+>
+> This does not add command handling to category-specific
+> `BackButtonItem` entries. Release users will not have this option yet.
+{.is-warning}
 
 ---
 
@@ -242,7 +264,7 @@ Slot: 10
 
 ### Last Slot Shortcut
 
-Setting the slot to **-2** automatically places the item in the **last available slot of the GUI**.
+Setting the slot to **-2** places the item in the final slot of the GUI.
 
 Example:
 
@@ -257,7 +279,7 @@ This is useful for:
 - "Coming Soon" items
 - Info buttons
 
-The plugin will automatically place the item at the end of the menu.
+The plugin will place the item at the end of the menu.
 
 ---
 

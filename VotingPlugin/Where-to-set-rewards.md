@@ -40,9 +40,12 @@ group are selected.
 
 The old `FirstVote`, `FirstVoteToday`, `AllSites`, `AlmostAllSites`,
 `Cumulative`, `MileStones`, and `VoteStreak` sections are legacy. VotingPlugin
-maps `AlmostAllSites` to an `ALLSITES_TODAY` milestone that triggers at one
-fewer than the configured number of vote sites. Use `VoteMilestones` and
-`VoteStreaks` for new configurations.
+compiles `AlmostAllSites` at load time as an `ALLSITES_TODAY` milestone that
+triggers at one fewer than the number of **enabled** vote sites (minimum 1) and
+is limited once per day. This compatibility mapping is in memory and does not
+rewrite `SpecialRewards.yml`. Use `VoteMilestones` and `VoteStreaks` for new
+configurations; after manually converting and testing a legacy reward, remove
+or empty the old section to avoid running both versions.
 
 ## Reward files
 

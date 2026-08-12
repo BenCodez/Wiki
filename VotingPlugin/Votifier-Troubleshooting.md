@@ -64,7 +64,10 @@ If no site is set, VotingPlugin can auto-generate one automatically.
 
 - **Player / UUID edge cases**
   - If using Floodgate/Bedrock, ensure `BedrockPlayerPrefix` is configured correctly.
-  - Check that your `OnlineMode` and `AllowUnJoined` settings match your player setup.
+  - Check that `OnlineMode` matches your player setup.
+  - On proxy networks, do not confuse proxy `bungeeconfig.yml` → `AllowUnJoined`
+    with backend `Config.yml` → `AllowUnjoined`. In the standard proxy-managed
+    layout, the proxy setting is false and the backend setting is true.
 
 - **Still no luck?**
   - Enable debug mode in Votifier or VotingPlugin.

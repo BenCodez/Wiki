@@ -19,7 +19,7 @@ dateCreated: 2025-08-30T22:18:15.618Z
 > Note if using REDIS (Not for multi-proxy method) you will need to set a different redis prefix for each proxy network (This is so that all proxies can use REDIS at the same time without issue)
 {.is-warning}
 
-> Check connection status with /votingpluginbungee multiproxystatus - should see a message on each proxy in console
+> Check connection status with `/votingpluginproxy multiproxystatus`; each proxy should log the status message.
 {.is-info}
 
 
