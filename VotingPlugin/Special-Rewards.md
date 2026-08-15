@@ -1,8 +1,8 @@
 ---
 title: Special Rewards
-description: Configure milestones, streaks, vote parties, NameMC rewards, and top voter awards
+description: Configure milestones, streaks, vote parties, NameMC, and top-voter awards
 published: true
-date: 2025-09-01T02:58:27.182Z
+date: 2026-08-14T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:26.142Z
@@ -10,26 +10,18 @@ dateCreated: 2025-08-30T22:18:26.142Z
 
 # Special Rewards
 
-`SpecialRewards.yml` contains rewards that are not tied to one individual vote
-site. The current systems are:
+This page targets VotingPlugin 7.1.1. Use the [7.1.1 `SpecialRewards.yml`](https://github.com/BenCodez/VotingPlugin/blob/7.1.1/VotingPlugin/src/main/resources/SpecialRewards.yml) for release defaults; `master` can contain unreleased changes.
 
 | Section | Purpose |
 |---|---|
-| `VoteMilestones` | Reward exact totals, ranges, or repeating vote/point totals |
-| `VoteMilestonesOptions` | Control how matched milestones are selected within groups |
-| `VoteParty` | Run global and per-player rewards after a network/server vote target |
-| `VoteStreaks` | Reward consecutive daily, weekly, or monthly voting progress |
-| `NameMCLikeReward` | Reward players after VotingPlugin confirms a NameMC server like |
-| `MonthlyAwards`, `WeeklyAwards`, `DailyAwards` | Reward the matching top voter positions |
-
-See the current
-[`SpecialRewards.yml`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/resources/SpecialRewards.yml)
-for complete defaults and examples.
+| `VoteMilestones` | Exact, ranged, or repeating vote/point totals. |
+| `VoteMilestonesOptions` | Selection behavior for matching groups. |
+| `VoteParty` | Global and per-player rewards at a shared target. |
+| `VoteStreaks` | Daily, weekly, or monthly progress and lost-progress behavior. |
+| `NameMCLikeReward` | Reward a verified NameMC server like. |
+| `MonthlyAwards`, `WeeklyAwards`, `DailyAwards` | Top-voter placement rewards. |
 
 ## VoteMilestones
-
-`VoteMilestones` is the recommended replacement for the old first-vote,
-all-sites, cumulative, and milestone sections.
 
 ```yaml
 VoteMilestones:
@@ -39,7 +31,7 @@ VoteMilestones:
     At: 1
     Rewards:
       Messages:
-        Player: "&aThanks for your first vote!"
+        Player: '&aThanks for your first vote!'
 
   Every25Votes:
     Enabled: true
@@ -47,21 +39,12 @@ VoteMilestones:
     Every: 25
     Rewards:
       Commands:
-        - "give %player% diamond 1"
+      - 'give %player% diamond 1'
 ```
 
-Milestones can use exact values, lists, ranges, repeating `Every` values,
-limits, and selection groups. See [VoteMilestones](https://github.com/BenCodez/VotingPlugin/wiki/VoteMilestones)
-for the complete system.
-
-To reward voting on every configured site in a day, use the
-`ALLSITES_TODAY` total and set `At` to the number of vote sites.
+Milestones support exact values, lists, ranges, `Every`, limits, and selection groups. See [VoteMilestones](/VotingPlugin/VoteMilestones).
 
 ## VoteStreaks
-
-`VoteStreaks` is the current streak system. Each definition has a stable ID,
-period type, vote requirement, missed-period rules, recurrence behavior, and
-rewards.
 
 ```yaml
 VoteStreaks:
@@ -76,52 +59,28 @@ VoteStreaks:
     Recurring: true
     Rewards:
       Messages:
-        Player: "&aYou completed a three-day voting streak!"
+        Player: '&aYou completed a three-day voting streak!'
 ```
 
-Changing a streak ID disconnects it from progress stored under the previous ID.
-On proxy networks, use the same ID for shared progress or different IDs for
-independent server progress.
-
-Progress groups can share one progress definition across multiple reward
-milestones and can run `LostRewards` when established progress is lost. See
-[VoteStreak System](https://github.com/BenCodez/VotingPlugin/wiki/VoteStreak-System)
-for the full reference and migration guidance.
+Changing a streak ID disconnects it from progress stored under the old ID. Progress groups can share progress and run `LostRewards`; see [VoteStreak System](/VotingPlugin/VoteStreak-System).
 
 ## VoteParty
 
-`VoteParty` counts votes toward a shared target. It supports:
+`VoteParty` supports fixed/increasing requirements, online-only delivery, reset periods, reminders, global commands, and normal per-player rewards. On proxy networks, review `SendVotesToAllServers`, per-server rewards, and vote-party ownership so the same party is not executed on every backend unintentionally.
 
-- fixed or increasing vote requirements
-- all-player or voters-only rewards
-- online-only delivery
-- daily, weekly, or monthly resets
-- reminders as the target approaches
-- global commands that run once
-- normal per-player rewards
-
-Review reward-forwarding settings before enabling a vote party on a proxy
-network so the same party is not executed more than intended.
-
-## NameMCLikeReward
+## NameMC
 
 ```yaml
 NameMCLikeReward:
   Enabled: false
-  Url: "play.example.com"
+  Url: 'play.example.com'
   CheckIntervalMinutes: 10
   Rewards:
     Messages:
-      Player: "&aThanks for liking the server on NameMC!"
+      Player: '&aThanks for liking the server on NameMC!'
 ```
 
-Set `Url` to the server address used on NameMC. VotingPlugin checks eligible
-players at the configured interval and runs the standard reward section after
-confirmation.
-
-## Top voter awards
-
-Enable the period you use and define rewards by placement:
+## Top-voter awards
 
 ```yaml
 EnableMonthlyAwards: true
@@ -129,14 +88,14 @@ MonthlyAwards:
   1:
     Rewards:
       Messages:
-        Player: "&aYou came in first place in %TopVoter%!"
+        Player: '&aYou came in first place in %TopVoter%!'
 ```
 
-The corresponding `LoadTopVoter` period in `Config.yml` must also be enabled.
+Enable the corresponding `LoadTopVoter` period in `Config.yml`.
 
 ## Legacy sections
 
-These sections are deprecated and retained only for compatibility/reference:
+Deprecated compatibility sections include:
 
 - `FirstVote`
 - `FirstVoteToday`
@@ -146,16 +105,7 @@ These sections are deprecated and retained only for compatibility/reference:
 - `MileStones`
 - `VoteStreak`
 
-Existing `AlmostAllSites` configurations are compiled at load time as an
-`ALLSITES_TODAY` milestone at one fewer than the number of **enabled** vote
-sites (minimum 1), with a once-per-day limit. This is an in-memory
-compatibility mapping; VotingPlugin does not rewrite `SpecialRewards.yml`.
-Use `VoteMilestones` for new count-based rewards and `VoteStreaks` for current
-streak behavior. Do not add new configurations using the legacy sections, and
-remove or empty a legacy section after manually replacing and testing it so the
-old and new rewards do not both run.
-
-To disable a reward section, set it to `{}` or remove it. Example:
+`AlmostAllSites` is compiled at load time as an `ALLSITES_TODAY` milestone at one fewer than the number of **enabled** sites, minimum 1, limited once per day. This does not rewrite YAML. Migrate and test manually, then remove or empty the legacy section to avoid duplicate rewards.
 
 ```yaml
 FirstVote: {}

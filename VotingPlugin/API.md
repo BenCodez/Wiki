@@ -1,8 +1,8 @@
 ---
 title: API
-description: Integrate with VotingPlugin users, vote sites, commands, and events
+description: Integrate with VotingPlugin 7.1.1 users, vote sites, commands, rewards, and events
 published: true
-date: 2025-11-23T19:39:23.432Z
+date: 2026-08-14T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2025-08-30T22:17:53.911Z
@@ -10,17 +10,18 @@ dateCreated: 2025-08-30T22:17:53.911Z
 
 # VotingPlugin Developer API
 
-VotingPlugin exposes user, vote-site, command, reward-extension, and event APIs
-for Bukkit plugins.
+> **Release baseline:** The signatures and source links on this page target VotingPlugin **7.1.1**. Current Javadocs or `master` may contain unreleased 7.1.2-SNAPSHOT changes.
+{.is-info}
 
-- [VotingPlugin Javadocs](https://bencodez.github.io/VotingPlugin/)
-- [AdvancedCore Javadocs](https://bencodez.github.io/AdvancedCore/)
-- [VotingPlugin source](https://github.com/BenCodez/VotingPlugin)
+VotingPlugin 7.1.1 requires Java 21.
 
-Add VotingPlugin as a dependency or soft dependency in your plugin metadata
-before accessing it.
+- [Current VotingPlugin Javadocs](https://bencodez.github.io/VotingPlugin/)
+- [Current AdvancedCore Javadocs](https://bencodez.github.io/AdvancedCore/)
+- [VotingPlugin 7.1.1 source](https://github.com/BenCodez/VotingPlugin/tree/7.1.1)
 
-## Getting the plugin and hooks
+Declare VotingPlugin as a dependency or soft dependency before accessing it.
+
+## Plugin and hooks
 
 ```java
 VotingPluginMain plugin = (VotingPluginMain) Bukkit.getPluginManager()
@@ -34,34 +35,28 @@ VotingPluginHooks hooks = VotingPluginHooks.getInstance();
 UserManager userManager = hooks.getUserManager();
 ```
 
-Current `VotingPluginHooks` methods include:
+Release 7.1.1 `VotingPluginHooks` provides:
 
 | Method | Purpose |
 |---|---|
-| `getMainClass()` | Returns the current `VotingPluginMain` instance |
-| `getUserManager()` | Returns VotingPlugin's user manager |
-| `backgroundUpdate(Player)` | Runs the user's vote/offline-reward update |
-| `addCustomReward(RewardInject)` | Registers a custom AdvancedCore reward |
-| `addCustomRequirement(RequirementInject)` | Registers a custom reward requirement |
+| `getMainClass()` | Current `VotingPluginMain`. |
+| `getUserManager()` | VotingPlugin user manager. |
+| `backgroundUpdate(Player)` | User vote/offline-reward update. |
+| `addCustomReward(RewardInject)` | Registers a custom reward injection. |
+| `addCustomRequirement(RequirementInject)` | Registers a custom requirement injection. |
 
-See
-[`VotingPluginHooks.java`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/VotingPluginHooks.java)
-for the current contract.
+See [`VotingPluginHooks.java` at 7.1.1](https://github.com/BenCodez/VotingPlugin/blob/7.1.1/VotingPlugin/src/main/java/com/bencodez/votingplugin/VotingPluginHooks.java).
 
-## User objects
+## Users
 
 ```java
 VotingPluginUser byPlayer = plugin.getVotingPluginUserManager()
         .getVotingPluginUser(player);
-
 VotingPluginUser byName = plugin.getVotingPluginUserManager()
         .getVotingPluginUser("BenCodez");
-
 VotingPluginUser byUuid = plugin.getVotingPluginUserManager()
         .getVotingPluginUser(uuid);
 ```
-
-Common point operations include:
 
 ```java
 int points = byPlayer.getPoints();
@@ -70,13 +65,9 @@ byPlayer.addPoints(10);
 byPlayer.removePoints(5);
 ```
 
-Do not perform blocking database work on the Bukkit main thread. Use the
-plugin's existing APIs and scheduler expectations when working with uncached
-users.
+Do not perform blocking storage work on the Bukkit main thread. Account for uncached/offline users and the plugin's scheduler expectations.
 
 ## Vote sites
-
-`VoteSite` is in `com.bencodez.votingplugin.votesites`.
 
 ```java
 VoteSite site = plugin.getVoteSite("ExampleSite", true);
@@ -85,14 +76,9 @@ if (site != null) {
 }
 ```
 
-The second `getVoteSite` argument controls whether disabled sites are filtered
-out. Reward delivery also needs the correct online and proxy/Bungee context;
-do not blindly copy the example when processing a real vote.
+The second lookup argument controls enabled-site filtering. Real vote processing also needs the correct service-site, online, storage, and proxy context; do not use this short example as a replacement for VotingPlugin's vote pipeline.
 
-## Adding a subcommand
-
-VotingPlugin uses AdvancedCore's `CommandHandler`. Pass the plugin instance to
-the current constructor:
+## Add a subcommand
 
 ```java
 plugin.getVoteCommand().add(new CommandHandler(
@@ -103,21 +89,19 @@ plugin.getVoteCommand().add(new CommandHandler(
 ) {
     @Override
     public void execute(CommandSender sender, String[] args) {
+        if (args.length < 2) {
+            return;
+        }
         sender.sendMessage("Example command for " + args[1]);
     }
 });
 ```
 
-Use `plugin.getAdminVoteCommand()` to add an `/adminvote` (`/av`) subcommand.
-For production code, validate argument counts, console access, permissions, and
-player lookup behavior.
+Use `plugin.getAdminVoteCommand()` for an `/adminvote` (`/av`) subcommand. Validate argument counts, sender type, permissions, and player lookup.
 
-Current examples are available in
-[`CommandLoader.java`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/commands/CommandLoader.java).
+See [`CommandLoader.java` at 7.1.1](https://github.com/BenCodez/VotingPlugin/blob/7.1.1/VotingPlugin/src/main/java/com/bencodez/votingplugin/commands/CommandLoader.java).
 
-## VotingPlugin events
-
-Register listeners through Bukkit's normal event system:
+## Events
 
 ```java
 @EventHandler
@@ -126,29 +110,25 @@ public void onVote(PlayerPostVoteEvent event) {
 }
 ```
 
-The current VotingPlugin event classes are:
+Release 7.1.1 includes:
 
-| Event | When it is used |
+| Event | Purpose |
 |---|---|
-| `PlayerVoteEvent` | A vote enters VotingPlugin processing; exposes vote, total, broadcast, and cancellation controls |
-| `PlayerPostVoteEvent` | Vote processing has reached the post-vote stage |
-| `PlayerReceivePointsEvent` | Vote points are about to be applied; exposes points and cancellation controls |
-| `PlayerSpecialRewardEvent` | A VotingPlugin special reward is processed |
-| `PlayerVoteCoolDownEndEvent` | A player's overall voting cooldown becomes available |
-| `PlayerVoteSiteCoolDownEndEvent` | A specific vote site's cooldown becomes available |
-| `VotePartyEvent` | A vote party is triggered |
-| `VoteMilestoneRewardEvent` | A VoteMilestone reward completes successfully |
-| `VoteShopPurchaseEvent` | A player attempts a VoteShop purchase |
+| `PlayerVoteEvent` | Vote enters VotingPlugin processing and exposes cancellation/override controls. |
+| `PlayerPostVoteEvent` | Post-vote stage. |
+| `PlayerReceivePointsEvent` | Points are about to be applied. |
+| `PlayerSpecialRewardEvent` | A VotingPlugin special reward is processed. |
+| `PlayerVoteCoolDownEndEvent` | Overall vote cooldown becomes available. |
+| `PlayerVoteSiteCoolDownEndEvent` | One site's cooldown becomes available. |
+| `VotePartyEvent` | Vote party triggers. |
+| `VoteMilestoneRewardEvent` | A VoteMilestone reward completes. |
+| `VoteShopPurchaseEvent` | A VoteShop purchase is attempted. |
 
-Use the
-[`events` source directory](https://github.com/BenCodez/VotingPlugin/tree/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/events)
-as the authoritative list. AdvancedCore also publishes reward and lifecycle
-events; check its current source or Javadocs before depending on one.
+Use the [7.1.1 events directory](https://github.com/BenCodez/VotingPlugin/tree/7.1.1/VotingPlugin/src/main/java/com/bencodez/votingplugin/events) as the release-authoritative list.
 
-## Compatibility guidance
+## Compatibility
 
-- Compile against the VotingPlugin and AdvancedCore versions you support.
-- Treat source and Javadocs for that version as authoritative.
-- Use soft dependency handling if your plugin can operate without VotingPlugin.
-- Avoid reflection when a public API is available.
-- Test integrations with both cached/offline votes and normal online votes.
+- Compile and test against every VotingPlugin version you claim to support.
+- Do not infer released API from `master` or snapshot Javadocs.
+- Prefer public APIs over reflection.
+- Test online, offline/queued, SQL, standalone, and proxy contexts relevant to the integration.

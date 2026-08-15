@@ -1,386 +1,301 @@
 ---
 title: All Reward Possibilities
-description: 
+description: VotingPlugin reward requirements, effects, and selection systems
 published: true
-date: 2025-11-07T02:15:45.341Z
-tags: 
+date: 2026-08-14T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:17:56.051Z
 ---
 
-# 🎁 VotingPlugin Reward System — Complete Reference
+# VotingPlugin Reward System Reference
 
-Most reward types and logic can be configured easily through `/av gui`.  
-For manual editing, examples are provided here:  
-- [ExampleBasic.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleBasic.yml)  
-- [ExampleAdvanced.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleAdvanced.yml)  
-- [Reward Examples (Wiki)](https://wiki.bencodez.com/VotingPlugin/Reward-Examples)
+VotingPlugin 7.1.1 uses its bundled AdvancedCore reward system. Reward syntax can be used in standalone reward files or inline under a VotingPlugin `Rewards` section.
 
----
+Related guides:
 
-## ⚙️ Reward Requirements
+- [Rewards overview](/VotingPlugin/Rewards)
+- [Reward files](/VotingPlugin/Reward-File)
+- [Where to set rewards](/VotingPlugin/Where-to-set-rewards)
+- [AdvancedPriority](/VotingPlugin/AdvancedPriority-Rewards)
+- [Item configuration](/VotingPlugin/Item-Configuration)
+- [Reward examples](/VotingPlugin/Reward-Examples)
 
-Define when a reward should run. Multiple can be combined together.
+## Reward requirements
 
-| Requirement | Description |
-|--------------|-------------|
-| **RequirePermission / Permission** | Set `RequirePermission: true` and optionally override the default `AdvancedCore.Reward.<RewardName>` permission. |
-| **Worlds / BlackListedWorlds** | Restrict or block execution by world name. |
-| **Chance** | Chance out of 100 (e.g., `Chance: 40`). |
-| **Online / Offline / Both (RewardType)** | Defines if reward runs only for online, offline, or both players.<br>`ONLINE` → Player must be online at the time.<br>`OFFLINE` → Only given if the player is offline.<br>`BOTH` → Default behavior. |
-| **JavascriptExpression** | Expression must return `true` to run. |
-| **VaultGroup** | Requires player to be in Vault permission group. |
-| **RewardExpiration** | Reward expires if not claimed in time (in minutes). |
-| **Server / BlockedServers** | Restrict to specific servers or exclude some (Bungee/Velocity setups). |
-| **LocationDistance** | Only run if player is within distance of given coordinates. |
-| **Timed** | Trigger reward at a specific time of day (hour/minute). |
-| **Delayed** | Delay the reward by seconds or ticks. |
-| **Date / DayOfMonth** | Trigger reward on specific days, weekdays, or months. |
-| **AdvancedWorld** | Define rewards per world. |
+| Requirement | Purpose |
+|---|---|
+| `RequirePermission` / `Permission` | Require the default or configured permission. |
+| `Worlds` / `BlackListedWorlds` | Allow or reject named worlds. |
+| `Chance` | Independent chance out of 100. |
+| `RewardType` | `ONLINE`, `OFFLINE`, or `BOTH`. |
+| `JavascriptExpression` | Require a true expression when the JavaScript engine is enabled. |
+| `VaultGroup` | Require a Vault permission group. |
+| `RewardExpiration` | Expire delayed/queued reward delivery after the configured time. |
+| `Server` / `BlockedServers` | Include or exclude proxy backend names. |
+| `LocationDistance` | Require an online player within the configured location radius. |
+| `Timed` / `Delayed` | Schedule or delay processing. |
+| date/day settings | Restrict execution by date, weekday, day, or month. |
+| `AdvancedWorld` | Select child rewards by world. |
 
----
+Multiple requirements can be combined. Any requirement that needs a live player cannot pass without that online context.
 
-## 🧱 Reward / Effect Types
-
-### 🪙 Money
+## Money and experience
 
 ```yaml
-    Money: 1000
-    # Or random range:
-    # Money:
-    #   Min: 100
-    #   Max: 3000
-    #   Round: false
+Money: 1000
+EXP: 100
+EXPLevels: 3
 ```
 
-> Requires Vault. Negative values remove money.
+Random money/experience ranges use the corresponding `Min`, `Max`, and supported rounding options. Money requires Vault and an economy provider.
 
----
-
-### 🧠 Experience (EXP / EXPLevels)
+## Items
 
 ```yaml
-    EXP: 100
-    EXPLevels: 3
-    # Random EXP range:
-    # EXP:
-    #   Min: 100
-    #   Max: 1000
-    # EXPLevels:
-    #   Min: 3
-    #   Max: 7
+Items:
+  Diamond:
+    Material: DIAMOND
+    Amount: 1
+    Name: '&aSpecial Diamond'
+    Lore:
+    - 'Line 1'
+    Enchants:
+      unbreaking: 1
+    Glow: false
 ```
 
----
+See [Item Configuration](/VotingPlugin/Item-Configuration) for item metadata, skulls, custom models, potions, and supported custom-item integrations.
 
-### 🎒 [Items](https://wiki.bencodez.com/VotingPlugin/Item-Configuration)
+## Commands
 
 ```yaml
-    Items:
-      Diamond:
-        Material: DIAMOND
-        Amount: 1
-        Name: '&aSpecial Diamond'
-        Lore:
-        - 'Line 1'
-        Enchants:
-          unbreaking: 1
-        Glow: false
-        # ItemFlags, SkullURL, ItemsAdder, CustomModelData, etc. also supported.
+Commands:
+- 'say %player% received a reward'
+
+RandomCommand:
+- 'say first command'
+- 'say second command'
+
+NumberCommand:
+  Min: 1
+  Max: 10
+  Command: 'say Random number: %number%'
 ```
 
-> Supports chance, random amount ranges, custom models, ItemsAdder/Nexo compatibility, potions, and custom names.
+Commands normally run from the configured reward execution context. Validate player-only commands before using them for offline rewards.
 
----
-
-### 🧾 Commands
+## Potions
 
 ```yaml
-    Commands:
-      - 'say %player% received a reward!'
-    # Random command:
-    RandomCommand:
-      - 'say random1'
-      - 'say random2'
-    # NumberCommand:
-    NumberCommand:
-      Min: 1
-      Max: 10
-      Command: 'say Random number: %number%'
+Potions:
+  ABSORPTION:
+    Duration: 100
+    Amplifier: 1
 ```
 
-> Commands can run as **console** or **player** and support placeholder parsing.
-
----
-
-### 🧪 Potions
+## Titles, boss bars, and action bars
 
 ```yaml
-    Potions:
-      ABSORPTION:
-        Duration: 100
-        Amplifier: 1
+Title:
+  Enabled: true
+  Title: '&cTitle!'
+  SubTitle: '&aSubTitle!'
+  FadeIn: 10
+  ShowTime: 50
+  FadeOut: 10
+
+BossBar:
+  Enabled: true
+  Message: '&aBoss bar message'
+  Color: BLUE
+  Style: SOLID
+  Progress: 0.5
+  Delay: 30
+
+ActionBar:
+  Message: '&cAction bar message'
+  Delay: 30
 ```
 
----
-
-### 🏷️ Titles / BossBars / ActionBars
-
-```yaml
-    Title:
-      Enabled: true
-      Title: '&cTitle!'
-      SubTitle: '&aSubTitle!'
-      FadeIn: 10
-      ShowTime: 50
-      FadeOut: 10
-
-    BossBar:
-      Enabled: true
-      Message: '&aBossbar Message'
-      Color: BLUE
-      Style: SOLID
-      Progress: 0.5
-      Delay: 30
-
-    ActionBar:
-      Message: '&cThis is an actionbar!'
-      Delay: 30
-```
-
-> **PlaceholderAPI difference:** player `Messages` pass their final text through
-> PlaceholderAPI, but an `ActionBar.Message` does not. Action bars still replace
-> placeholders supplied by the reward itself (for example `%player%`) and can
-> use the configured JavaScript processing, but `%some_expansion_value%` from a
-> PlaceholderAPI expansion will remain unchanged. This behavior applies to
-> release 7.1.1 and the current development branch.
+> **PlaceholderAPI context in 7.1.1:** ordinary reward player messages pass through PlaceholderAPI. Reward `ActionBar.Message` and `BossBar.Message` do not have a dedicated PlaceholderAPI expansion step. With the release default JavaScript engine disabled, `%votingplugin_*%` expansion placeholders usually remain literal there, although reward-local placeholders such as `%player%` are still replaced. Enabling JavaScript can incidentally change that path, but should not be enabled solely as a PlaceholderAPI workaround.
 {.is-info}
 
----
+These outputs require the player to be online.
 
-### 🔊 Sound
+## Sound
 
 ```yaml
-    Sound:
-      Enabled: true
-      Sound: 'entity.player.levelup'
-      Volume: 1.0
-      Pitch: 1.0
+Sound:
+  Enabled: true
+  Sound: 'entity.player.levelup'
+  Volume: 1.0
+  Pitch: 1.0
 ```
 
----
-
-### 💥 Particle Effects
+## Particles
 
 ```yaml
-    Effect:
-      Enabled: true
-      Effect: 'EXPLOSION_NORMAL'
-      Data: 1
-      Particles: 10
-      Radius: 5
+Effect:
+  Enabled: true
+  Effect: 'EXPLOSION_NORMAL'
+  Data: 1
+  Particles: 10
+  Radius: 5
 ```
 
----
-
-### 🎆 Fireworks
+## Fireworks
 
 ```yaml
-    Firework:
-      Enabled: true
-      Power: 2
-      Colors:
-      - BLUE
-      FadeOutColor:
-      - RED
-      Trail: true
-      Flicker: true
-      Types:
-      - BALL_LARGE
-      Detonate: false
+Firework:
+  Enabled: true
+  Power: 2
+  Colors:
+  - BLUE
+  FadeOutColor:
+  - RED
+  Trail: true
+  Flicker: true
+  Types:
+  - BALL_LARGE
+  Detonate: false
 ```
 
----
-
-### 💬 Messages
+## Messages
 
 ```yaml
-    Messages:
-      Player: '&aYou received a reward!'
-      Broadcast: '&b%player% just voted!'
+Messages:
+  Player: '&aYou received a reward!'
+  Broadcast: '&b%player% just voted!'
 ```
 
-> `Broadcast` supports global proxy broadcast if configured.
+Proxy-wide broadcast routing is controlled separately; see [Vote Broadcast System](/VotingPlugin/Vote-Broadcast-System).
 
----
-
-## 🎲 Advanced Reward Logic
-
-### 🧮 Randomized Rewards
-
-#### RandomItem
-Selects one random item from a defined list.
+## Random item
 
 ```yaml
-    RandomItem:
-      Diamond:
-        Material: DIAMOND
-        Amount: 1
-      Iron:
-        Material: IRON_INGOT
-        Amount: 10
+RandomItem:
+  Diamond:
+    Material: DIAMOND
+    Amount: 1
+  Iron:
+    Material: IRON_INGOT
+    Amount: 10
 ```
 
-#### RandomReward / AdvancedRandomReward
-Chooses one random reward block or file.
+## Random child reward
 
 ```yaml
-    AdvancedRandomReward:
-      reward1:
-        Commands:
-          - 'say reward1'
-      reward2:
-        Commands:
-          - 'say reward2'
+AdvancedRandomReward:
+  First:
+    Commands:
+    - 'say first reward'
+  Second:
+    Commands:
+    - 'say second reward'
 ```
 
-#### Random Chance Group
+## Random reward files with fallback
 
 ```yaml
-    Random:
-      Chance: 40
-      PickRandom: true
-      Rewards:
-        - 'RewardA'
-      FallBack:
-        - 'RewardB'
+Random:
+  Chance: 40
+  PickRandom: true
+  Rewards:
+  - RewardA
+  FallBack:
+  - RewardB
 ```
 
----
+## AdvancedPriority
 
-### 🎯 AdvancedPriority System
-
-Executes rewards in order — the first one to meet all conditions runs.
+Runs the first child whose requirements pass:
 
 ```yaml
-    AdvancedPriority:
-      Reward1:
-        Chance: 50
-        Messages:
-          Player: 'You got first reward'
-      Reward2:
-        Chance: 20
-        Messages:
-          Player: 'You got second reward'
-      Fallback:
-        Messages:
-          Player: 'You got unlucky'
+AdvancedPriority:
+  VIP:
+    RequirePermission: true
+    Permission: 'server.vip'
+    Money: 100
+  Default:
+    Money: 25
 ```
 
-📘 Docs: [AdvancedPriority Examples](https://github.com/BenCodez/AdvancedCore/wiki/AdvancedPriority-Examples)
+Chance entries are ordered independent rolls, not weights. See [AdvancedPriority Rewards](/VotingPlugin/AdvancedPriority-Rewards).
 
----
+## SpecialChance
 
-### ⚖️ SpecialChance (Weighted Chances)
+Selects by numeric weight:
 
 ```yaml
-    SpecialChance:
-      5:
-        Commands:
-          - 'say 5'
-      15:
-        Commands:
-          - 'say 15'
-      30:
-        Commands:
-          - 'say 30'
-      50:
-        Commands:
-          - 'say 50'
+SpecialChance:
+  5:
+    Commands:
+    - 'say weight 5'
+  15:
+    Commands:
+    - 'say weight 15'
+  30:
+    Commands:
+    - 'say weight 30'
+  50:
+    Commands:
+    - 'say weight 50'
 ```
 
+Each entry's probability is its weight divided by the total weight.
 
-> Adds up all numbers (weights). Each reward’s chance = (value / total) × 100%.
-
----
-
-### 🍀 Lucky Rewards
+## Lucky
 
 ```yaml
-    Lucky:
-      '10':
-        Messages:
-          Player: 'You were lucky and got $100!'
-        Money: 100
-      '50':
-        Messages:
-          Player: 'You were lucky and got $1000!'
-        Money: 1000
+Lucky:
+  '10':
+    Money: 100
+  '50':
+    Money: 1000
 ```
 
-> Adds all numbers together and selects 1 out of the total.  
-> Example: 1 “10” and 1 “50” = 10 in 60 chance (~16.6%).
+Check the generated/default reward examples for the exact Lucky behavior used by the installed build before relying on a complex distribution.
 
----
-
-### 🧠 Javascript Integration
-
-Run logic inside rewards to determine actions or conditions dynamically.
+## JavaScript
 
 ```yaml
-    Javascript:
-      Enabled: true
-      Expression: "BukkitPlayer.hasPermission('vip')"
-      TrueRewards:
-        Commands:
-          - 'say VIP Reward!'
-      FalseRewards:
-        Commands:
-          - 'say Not VIP'
+Javascript:
+  Enabled: true
+  Expression: "BukkitPlayer.hasPermission('vip')"
+  TrueRewards:
+    Money: 100
+  FalseRewards:
+    Money: 25
 ```
 
-📘 Reference: [Javascript API](https://github.com/BenCodez/AdvancedCore/wiki/Javascript-API)
+JavaScript execution is disabled by default in VotingPlugin 7.1.1. Enabling it expands the attack surface of configuration and should be limited to trusted, reviewed expressions.
 
----
-
-### 🎴 Choice Rewards
-
-Allows players to select one of multiple rewards (GUI prompt).
+## Choice rewards
 
 ```yaml
-    EnableChoices: true
-    Choices:
-      Diamond:
-        DisplayItem:
-          Name: '&c3 Diamonds'
+EnableChoices: true
+Choices:
+  Diamond:
+    DisplayItem:
+      Name: '&c3 Diamonds'
+      Material: DIAMOND
+      Amount: 3
+    Rewards:
+      Items:
+        Diamond:
           Material: DIAMOND
           Amount: 3
-        Rewards:
-          Items:
-            Diamond:
-              Material: DIAMOND
-              Amount: 3
-      Iron:
-        DisplayItem:
-          Name: '&c15 Iron Ingots'
+  Iron:
+    DisplayItem:
+      Name: '&c15 Iron Ingots'
+      Material: IRON_INGOT
+      Amount: 15
+    Rewards:
+      Items:
+        Iron:
           Material: IRON_INGOT
           Amount: 15
-        Rewards:
-          Items:
-            Iron:
-              Material: IRON_INGOT
-              Amount: 15
 ```
 
-> Great for giving players a reward selection (e.g., choose between XP or money).
-
----
-
-## ✅ Summary
-
-| Category | Examples / Features |
-|-----------|--------------------|
-| **Requirements** | Chance, Permission, World, Timed, Delayed, LocationDistance |
-| **Effects** | Items, Money, EXP, Commands, Potions, Titles, BossBar, ActionBar, Fireworks, Sound, Effects |
-| **Advanced Logic** | Priority, AdvancedPriority, SpecialChance, Lucky, Javascript, RandomReward, ChoiceRewards |
-| **Meta Options** | Delayed execution, Server restrictions, Date-based triggers, RewardType handling |
+Choice GUIs require the player to be online. Always test fallback/offline behavior before using them for queued proxy votes.

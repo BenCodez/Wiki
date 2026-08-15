@@ -2,7 +2,7 @@
 title: Sidebar
 description: Sidebar for the GitHub wiki mirror
 published: true
-date: 2026-07-26T00:00:00.000Z
+date: 2026-08-14T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-01-27T00:14:29.606Z
@@ -63,6 +63,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 - [Reward File Format](https://github.com/BenCodez/VotingPlugin/wiki/Reward-File)
 - [Where to Set Rewards](https://github.com/BenCodez/VotingPlugin/wiki/Where-to-set-rewards)
 - [All Reward Possibilities](https://github.com/BenCodez/VotingPlugin/wiki/All-Reward-Possibilities)
+- [AdvancedPriority Rewards](https://github.com/BenCodez/VotingPlugin/wiki/AdvancedPriority-Rewards)
 - [Reward Examples](https://github.com/BenCodez/VotingPlugin/wiki/Reward-Examples)
 - [Delayed Reward Command](https://github.com/BenCodez/VotingPlugin/wiki/Delayed-reward-command)
 - [World Example](https://github.com/BenCodez/VotingPlugin/wiki/World-Example)
