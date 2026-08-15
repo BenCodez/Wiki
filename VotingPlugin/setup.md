@@ -1,64 +1,87 @@
 ---
 title: Setup
-description: Install VotingPlugin on standalone and proxy networks
+description: VotingPlugin installation and initial configuration
 published: true
 date: 2026-08-14T00:00:00.000Z
 tags:
 editor: markdown
-dateCreated: 2025-08-30T22:18:27.000Z
+dateCreated: 2025-08-31T03:20:39.536Z
 ---
 
-# Setup
+# Setup VotingPlugin
 
-> **Release baseline:** This guide targets VotingPlugin **7.1.1**, released July 23, 2026. VotingPlugin 7.1.1 is compiled for **Java 21**, so the server or proxy runtime that loads it must use Java 21 or newer.
+> **Release baseline:** This guide targets VotingPlugin **7.1.1**, released July 23, 2026. The 7.1.1 plugin and proxy artifacts are compiled for **Java 21**.
 {.is-info}
 
-## Requirements
+## 1. Install a vote listener
 
-- A supported Bukkit-family backend such as Spigot or Paper.
-- A vote listener such as [VotifierPlus](https://github.com/BenCodez/VotifierPlus) or NuVotifier.
-- Java 21 or newer for VotingPlugin 7.1.1.
-- On a proxy network, a shared SQL database and a matching JDBC driver on every process that connects to it.
+Use a compatible listener such as:
 
-Do not place private database, Redis, MQTT, or socket credentials in screenshots, public repositories, or support logs.
+- [VotifierPlus](https://github.com/BenCodez/VotifierPlus)
+- [NuVotifier](https://github.com/NuVotifier/NuVotifier)
 
-## Standalone server
+See [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting) when votes are not reaching the server.
 
-1. Install VotingPlugin in the backend server's `plugins` directory.
-2. Install and configure VotifierPlus or NuVotifier on the same server.
-3. Start the server once so VotingPlugin generates its files.
-4. Configure each entry in `VoteSites.yml`, especially `ServiceSite`, `VoteURL`, vote delays, and rewards.
-5. Restart after changing settings that are documented as restart-only.
+## 2. Configure a proxy network when applicable
 
-The bundled 7.1.1 defaults are available in the [7.1.1 resource directory](https://github.com/BenCodez/VotingPlugin/tree/7.1.1/VotingPlugin/src/main/resources).
+VotingPlugin must be installed on the proxy and each backend server when using VotingPlugin's proxy integration. The normal layout places VotifierPlus on the proxy, though custom routing layouts may differ.
 
-## Proxy network
+Choose one `BungeeMethod` value and use it consistently across the connected servers:
 
-The standard VotingPlugin layout is:
+- `PLUGINMESSAGING`
+- `REDIS`
+- `MQTT`
+- `MYSQL`
+- `SOCKETS`
 
-- VotifierPlus or NuVotifier on the BungeeCord/Velocity proxy.
-- VotingPlugin on the proxy and every participating backend.
-- One selected `BungeeMethod` configured consistently on the proxy and backends.
-- One shared SQL database with compatible settings and drivers.
-- A unique `Server` value in each backend's `BungeeSettings.yml`.
+These names match the 7.1.1 `BungeeSettings.yml` defaults.
 
-Start with [Proxy Setups](/VotingPlugin/Proxy-Setups), then follow the page for the selected communication method. Disable VotifierPlus/NuVotifier forwarding targets unless a custom topology deliberately requires them; VotingPlugin normally performs the backend forwarding.
+See [Proxy Setups](/VotingPlugin/Proxy-Setups).
 
-## Configure vote sites
+## 3. Configure vote sites
 
-The incoming service name must exactly match `VoteSites.yml -> VoteSites.<site>.ServiceSite`. After sending a real or listener-generated test vote, use `/av servicesites` to see the value VotingPlugin received.
+VotingPlugin can create vote sites automatically from received votes when `AutoCreateVoteSites: true`, or they can be added through `/av gui`, VotingPluginEditor, or `VoteSites.yml`.
 
-For current vote-site fields and examples, use the release-bundled [VoteSites.yml](https://github.com/BenCodez/VotingPlugin/blob/7.1.1/VotingPlugin/src/main/resources/VoteSites.yml) and [Service Sites](/VotingPlugin/Service-sites).
+```yaml
+VoteSites:
+  MinecraftServers:
+    Enabled: true
+    ServiceSite: MinecraftServers.org
+    VoteURL: https://minecraftservers.org/vote/example
+    VoteDelay: 24
+    Rewards:
+      Messages:
+        Player: '&aThanks for voting on %ServiceSite%!'
+      Commands:
+      - 'give %player% diamond 1'
+```
 
-## Test the complete path
+| Field | Description |
+|---|---|
+| `ServiceSite` | Must exactly match the service name sent by the vote listener |
+| `VoteDelay` | Voting interval in hours; use `VoteDelayMin` for minute offsets |
+| `VoteURL` | URL shown to players |
+| `Rewards` | Reward section processed for the vote |
 
-There are two different tests:
+Use `/av servicesites` or the console output from a received vote to confirm the service name.
 
-1. **Listener/network test:** Send a vote from a real listing or a Votifier tester. This verifies the public listener port, token/key, proxy routing, and the exact `ServiceSite` value.
-2. **VotingPlugin processing test:** Run `/av vote <player> <site>` on a backend, or `/votingpluginproxy vote <player> <site>` on the proxy. This verifies VotingPlugin processing but does **not** prove that the public Votifier listener is reachable.
+## 4. Configure rewards
 
-A healthy listener test normally produces a Votifier receipt followed by VotingPlugin's `Received a vote from service site ...` message. Follow [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting) when either line is missing.
+Rewards can be created with `/av gui`, directly in a vote-site or special-reward section, or in files under `/plugins/VotingPlugin/Rewards/`.
 
-## Updating
+See [Rewards](/VotingPlugin/Rewards) and [Reward Examples](/VotingPlugin/Reward-Examples).
 
-Back up the entire `plugins/VotingPlugin` directory and database before changing versions. Compare generated/default configuration for the version being installed instead of copying unreleased `master` defaults into a 7.1.1 installation.
+## 5. Permissions
+
+`VotingPlugin.Player` grants the main player commands by default. See [Commands and Permissions](/VotingPlugin/Commands-&-Permissions) for all nodes.
+
+## 6. Restart and test
+
+Restart the server and proxy after changing network settings.
+
+- `/av vote <player> <site>` or `/votingpluginproxy vote <player> <site>` tests VotingPlugin processing and proxy communication.
+- A real or listener-generated vote tests the public Votifier port, token/key, service-site value, and complete delivery path.
+
+Run both tests and verify service-site matching, storage, forwarding, and rewards in the logs. An administrative test alone does not prove the public vote listener is reachable.
+
+> **AI disclosure:** This documentation update was written with assistance from ChatGPT.
