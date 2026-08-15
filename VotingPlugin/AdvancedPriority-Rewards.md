@@ -137,7 +137,7 @@ Because the rewards are evaluated in order, players will only reach the `SecondR
 
 ### Reward file example
 
-Create a YAML file (e.g. `MyReward.yml`) inside the `Plugins/AdvancedCore/Rewards` folder and add an `AdvancedPriority` section.  You can then reference this reward by its file name (without the extension) from other plugins.
+Create a YAML file (for example, `MyReward.yml`) inside the `plugins/VotingPlugin/Rewards` folder and add an `AdvancedPriority` section. You can then reference this reward by its file name without the extension.
 
 ```yaml
 # MyReward.yml
