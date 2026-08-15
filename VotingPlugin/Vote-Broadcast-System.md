@@ -1,38 +1,22 @@
 ---
 title: Vote Broadcast System
-description: 
+description: Configure backend formatting and proxy-wide vote broadcast routing
 published: true
-date: 2026-02-12T02:01:20.209Z
-tags: 
+date: 2026-08-14T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2026-02-12T02:01:20.209Z
 ---
 
 # Vote Broadcast System
 
-The **Vote Broadcast System** controls how vote messages are announced
-to players.
+VotingPlugin separates backend broadcast formatting/timing from proxy routing.
 
-It replaces the legacy broadcast behavior with a flexible system
-supporting:
+## Backend `VoteBroadcast`
 
--   Per-vote broadcasts
--   Cooldowns
--   Vote batching
--   First-vote-of-day messages
--   Global interval summaries
--   Proxy-wide broadcast routing
+Configured in backend `Config.yml`:
 
-Configured in:
-
--   `Config.yml` (Backend servers)
--   `bungeeconfig.yml` / proxy config (Proxy-side)
-
-------------------------------------------------------------------------
-
-## Backend VoteBroadcast (config.yml)
-
-``` yaml
+```yaml
 VoteBroadcast:
   Type: EVERY_VOTE
   Duration: 2m
@@ -43,94 +27,30 @@ VoteBroadcast:
     ListLine: '&7 - &e%site%'
 ```
 
-### Broadcast Types
+### Types
 
-#### NONE
+| Type | Behavior |
+|---|---|
+| `NONE` | Disables backend vote broadcasts. |
+| `EVERY_VOTE` | Broadcasts every processed vote. |
+| `EVERY_VOTE_ONLINE_ONLY` | Broadcasts only while the voting player is online. |
+| `COOLDOWN_PER_PLAYER` | Broadcasts at most once per `Duration` for each player. |
+| `BATCH_WINDOW_PER_PLAYER` | Collects a player's votes during `Duration`, then emits one message/list. |
+| `FIRST_VOTE_OF_DAY` | Broadcasts only the player's first vote of the calendar day. |
+| `INTERVAL_SUMMARY_GLOBAL` | Periodically broadcasts a global summary. |
 
-Disables vote broadcasts entirely.
+`Duration` accepts `s`, `m`, `h`, `d`, or `w`; months are not supported.
 
-#### EVERY_VOTE
+Common format placeholders include `%player%`, `%site%`, `%sites_count%`, `%sites%`, and `%reason%`. Interval summaries also expose `%players%`, `%numberofplayers%`, and `%numberofsites%`.
 
-Broadcast every vote (including offline processed votes).
+## Proxy `ProxyBroadcast`
 
-#### EVERY_VOTE_ONLINE_ONLY
-
-Broadcast only if the voting player is online.
-
-#### COOLDOWN_PER_PLAYER
-
-Broadcast at most once per Duration per player.
-
-#### BATCH_WINDOW_PER_PLAYER
-
-Collect votes during Duration and broadcast once.
-
--   1 vote → BroadcastMsg
--   2+ votes → Header + ListLine
-
-#### FIRST_VOTE_OF_DAY
-
-Broadcast only the first vote per calendar day per player.
-
-#### INTERVAL_SUMMARY_GLOBAL
-
-Every Duration, broadcast a global vote summary.
-
-------------------------------------------------------------------------
-
-## Duration Format
-
-Supported units:
-
--   s (seconds)
--   m (minutes)
--   h (hours)
--   d (days)
--   w (weeks)
-
-Example:
-
-    30s
-    5m
-    1h
-    1d
-
-Months are NOT supported.
-
-------------------------------------------------------------------------
-
-## Format Placeholders
-
-Common:
-
--   %player%
--   %site%
--   %sites_count%
--   %sites%
--   %reason%
-
-Interval-only:
-
--   %players%
--   %numberofplayers%
--   %numberofsites%
-
-------------------------------------------------------------------------
-
-## Proxy Broadcast System (bungeeconfig.yml)
-
-Proxy broadcasts are controlled separately.
-
-> **Availability:** The proxy broadcast settings below are present in the
-> latest public release, **7.1.1**. In 7.1.1, an offline vote that is being
-> queued can delay an `OfflineMode: FORWARD` broadcast until the vote itself is
-> delivered. Immediate forwarding independent of queued vote delivery is
-> available only in development builds containing
-> [VotingPlugin PR #1541](https://github.com/BenCodez/VotingPlugin/pull/1541),
-> merged after 7.1.1.
+> **Release boundary:** These settings exist in public release 7.1.1. In 7.1.1, an offline vote being queued can delay an `OfflineMode: FORWARD` broadcast until vote delivery. Immediate forwarding independent of the queued vote is development-only in builds containing [PR #1541](https://github.com/BenCodez/VotingPlugin/pull/1541), merged after 7.1.1.
 {.is-warning}
 
-``` yaml
+Configured in proxy `bungeeconfig.yml`:
+
+```yaml
 ProxyBroadcast:
   Enabled: true
   Scope:
@@ -142,97 +62,68 @@ ProxyBroadcast:
     - lobby
 ```
 
-### Scope Modes
+### Scope modes
 
--   PLAYER_SERVER → Only the server the player is on
--   ALL_SERVERS → All backend servers
--   SERVERS → Only specific listed servers
--   ALL_EXCEPT → All except listed servers
+| Mode | Routing |
+|---|---|
+| `PLAYER_SERVER` | The player's backend. |
+| `ALL_SERVERS` | All eligible backends. |
+| `SERVERS` | Only the listed backends. |
+| `ALL_EXCEPT` | All eligible backends except the listed entries. |
 
-### OfflineMode
+### Offline modes
 
-Controls what happens if the voting player is offline:
+| Mode | Behavior |
+|---|---|
+| `NONE` | Drops the proxy broadcast while the player is offline. |
+| `QUEUE` | Sends it when the player logs in. |
+| `FORWARD` | Selects an eligible backend forwarding target. In 7.1.1, queued vote delivery can still delay it; PR #1541 changes that only in development builds. |
 
--   NONE → Drop broadcast
--   QUEUE → Send when player logs in
--   FORWARD → Select a backend forwarding target. In 7.1.1, queued vote
-    delivery can also delay this broadcast; development builds containing PR
-    #1541 forward it independently.
+`OfflineForward.Servers` is used only with `FORWARD` and is ignored where the selected scope already determines all targets.
 
-#### OfflineForward.Servers
+## Backend versus proxy responsibilities
 
-Used only when OfflineMode = FORWARD.
+**Backend `VoteBroadcast`**
 
-Example:
+- Chooses message text and aggregation timing.
+- Runs on each backend that processes the broadcast.
+- Controls cooldown, batching, first-vote, and interval-summary formats.
 
-``` yaml
-OfflineForward:
-  Servers:
-  - lobby
-```
+**Proxy `ProxyBroadcast`**
 
-------------------------------------------------------------------------
+- Chooses which backend or backends receive a proxy-wide broadcast.
+- Controls offline routing.
+- Does not replace the backend format configuration.
 
-## Backend vs Proxy Broadcast Behavior
+Before enabling both layers, test one vote online and one vote offline. Confirm that only the intended backends announce it and that Votifier forwarding is not creating a second vote path.
 
-Backend VoteBroadcast: - Controls message formatting and timing logic -
-Runs per-server
+## Examples
 
-ProxyBroadcast: - Controls where broadcasts are routed across the
-network - Determines which backend server(s) receive the broadcast
+Small standalone server:
 
-Recommended setup for networks:
-
--   Use MySQL shared storage
--   Enable ProxyBroadcast
--   Use ALL_SERVERS scope
--   Use BATCH_WINDOW_PER_PLAYER or COOLDOWN_PER_PLAYER on backend
-
-------------------------------------------------------------------------
-
-## Recommended Configurations
-
-### Small Server
-
-``` yaml
+```yaml
 Type: EVERY_VOTE
 ```
 
-### Medium Server
+Moderate-volume backend:
 
-``` yaml
+```yaml
 Type: COOLDOWN_PER_PLAYER
 Duration: 5m
 ```
 
-### Large Network
+High-volume network backend:
 
-Backend:
-
-``` yaml
+```yaml
 Type: BATCH_WINDOW_PER_PLAYER
 Duration: 30s
 ```
 
-Proxy:
+Proxy-wide routing:
 
-``` yaml
+```yaml
 ProxyBroadcast:
   Enabled: true
   Scope:
     Mode: ALL_SERVERS
 ```
-
-## Summary
-
-The new Vote Broadcast system provides:
-
--   Spam protection
--   Vote batching
--   First vote announcements
--   Global summaries
--   Proxy routing control
--   Offline handling options
--   Network-wide broadcast scope control
-
-It is designed for both standalone servers and large proxy networks.
