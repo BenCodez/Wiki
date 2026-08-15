@@ -58,6 +58,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ## 🎁 Rewards
 - [Rewards Overview — Start Here](https://github.com/BenCodez/VotingPlugin/wiki/Rewards)
+- [Special Rewards](https://github.com/BenCodez/VotingPlugin/wiki/Special-Rewards)
 - [Reward System Concepts](https://github.com/BenCodez/VotingPlugin/wiki/reward-system)
 - [Reward File Format](https://github.com/BenCodez/VotingPlugin/wiki/Reward-File)
 - [Where to Set Rewards](https://github.com/BenCodez/VotingPlugin/wiki/Where-to-set-rewards)
@@ -71,6 +72,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ## 📚 Knowledge Base
 - [Commands & Permissions](https://github.com/BenCodez/VotingPlugin/wiki/Commands-&-Permissions)
+- [Signs](https://github.com/BenCodez/VotingPlugin/wiki/Signs)
 - [API](https://github.com/BenCodez/VotingPlugin/wiki/API)
 - [PlaceholderAPI Placeholders](https://github.com/BenCodez/VotingPlugin/wiki/PlaceHolderAPI-placeholders)
 - [Minecraft Server Lists](https://github.com/BenCodez/VotingPlugin/wiki/Minecraft-Server-Lists)
