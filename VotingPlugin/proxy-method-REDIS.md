@@ -34,7 +34,7 @@ dateCreated: 2025-08-31T00:16:24.909Z
 BungeeSettings.yml:
 - `BungeeMethod: REDIS`
 - `UseBungeecord: true`
-- 'Server: SERVERNAMEHERE` (Set server name on each server, matching names from proxy server)
+- `Server: SERVERNAMEHERE` (set a unique server name matching the proxy configuration)
 - Input REDIS info
 
 Config.yml:
