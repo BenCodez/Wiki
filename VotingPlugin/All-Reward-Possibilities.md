@@ -14,7 +14,7 @@ Most reward types and logic can be configured easily through `/av gui`.
 For manual editing, examples are provided here:  
 - [ExampleBasic.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleBasic.yml)  
 - [ExampleAdvanced.yml](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleAdvanced.yml)  
-- [Reward Examples (Wiki)](https://wiki.bencodez.com/en/VotingPlugin/Reward-Examples)
+- [Reward Examples (Wiki)](https://wiki.bencodez.com/VotingPlugin/Reward-Examples)
 
 ---
 
@@ -24,8 +24,8 @@ Define when a reward should run. Multiple can be combined together.
 
 | Requirement | Description |
 |--------------|-------------|
-| **Permission** | Requires specific permission. (`AdvancedCore.Reward.<RewardName>` by default) |
-| **World / BlackListedWorlds** | Restrict or block execution by world name. |
+| **RequirePermission / Permission** | Set `RequirePermission: true` and optionally override the default `AdvancedCore.Reward.<RewardName>` permission. |
+| **Worlds / BlackListedWorlds** | Restrict or block execution by world name. |
 | **Chance** | Chance out of 100 (e.g., `Chance: 40`). |
 | **Online / Offline / Both (RewardType)** | Defines if reward runs only for online, offline, or both players.<br>`ONLINE` → Player must be online at the time.<br>`OFFLINE` → Only given if the player is offline.<br>`BOTH` → Default behavior. |
 | **JavascriptExpression** | Expression must return `true` to run. |
@@ -36,7 +36,6 @@ Define when a reward should run. Multiple can be combined together.
 | **Timed** | Trigger reward at a specific time of day (hour/minute). |
 | **Delayed** | Delay the reward by seconds or ticks. |
 | **Date / DayOfMonth** | Trigger reward on specific days, weekdays, or months. |
-| **WorldGuardRegion** | (If supported) Limit to specific regions. |
 | **AdvancedWorld** | Define rewards per world. |
 
 ---
@@ -74,7 +73,7 @@ Define when a reward should run. Multiple can be combined together.
 
 ---
 
-### 🎒 [Items](https://wiki.bencodez.com/en/VotingPlugin/Item-Configuration)
+### 🎒 [Items](https://wiki.bencodez.com/VotingPlugin/Item-Configuration)
 
 ```yaml
     Items:
