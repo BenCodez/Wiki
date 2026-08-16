@@ -43,37 +43,37 @@ These thresholds describe the released implementation, not recommended outage ta
 
 ## Requirements
 
-- 🗄️ **Shared SQL data**  
+- 🗄️ **Shared SQL data**
   Global data uses an additional SQL table for inter-server coordination. It can reuse the main connection or use a separately configured connection.
 
-- 🔌 **Supported communication path**  
+- 🔌 **Supported communication path**
   The 7.1.1 default comments recommend **PLUGINMESSAGING**. They say **SOCKETS** should work but is not fully tested. Do not assume another method is supported for GlobalData until a released configuration or implementation confirms it.
 
-- ⚙️ **Proper server naming**  
+- ⚙️ **Proper server naming**
   Each participating backend must have a unique `Server` value in `BungeeSettings.yml`.
 
-- 🕓 **Consistent time settings**  
+- 🕓 **Consistent time settings**
   `TimeHourOffSet` and related time settings must agree across the network.
 
 ---
 
 ## Benefits
 
-✅ Votes are cached during coordinated time changes  
-✅ Backends finish reset processing under one proxy-controlled operation  
-✅ TopVoter and VoteParty reset data can remain consistent across servers  
-✅ Recently offline or stuck servers are handled by bounded skip rules  
-✅ `TimeHourOffSet` can align the network's change time
+- ✅ Votes are cached during coordinated time changes.
+- ✅ Backends finish reset processing under one proxy-controlled operation.
+- ✅ TopVoter and VoteParty reset data can remain consistent across servers.
+- ✅ Recently offline or stuck servers are handled by bounded skip rules.
+- ✅ `TimeHourOffSet` can align the network's change time.
 
 ---
 
 ## Drawbacks and cautions
 
-⚠️ Normal coordination introduces a delay while participating servers finish.  
-⚠️ A recently offline or failed server can delay completion for 30 minutes to two hours, depending on whether it started processing.  
-⚠️ Votes received during that period remain cached and are processed afterward.  
-⚠️ The feature requires an additional SQL table, though not necessarily an additional connection when `UseMainMySQL: true`.  
-⚠️ The released configuration still labels the feature work in progress.
+- ⚠️ Normal coordination introduces a delay while participating servers finish.
+- ⚠️ A recently offline or failed server can delay completion for 30 minutes to two hours, depending on whether it started processing.
+- ⚠️ Votes received during that period remain cached and are processed afterward.
+- ⚠️ The feature requires an additional SQL table, though not necessarily an additional connection when `UseMainMySQL: true`.
+- ⚠️ The released configuration still labels the feature work in progress.
 
 ---
 
