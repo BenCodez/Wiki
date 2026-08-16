@@ -15,8 +15,10 @@ dateCreated: 2025-08-30T22:18:02.764Z
 
 > 💾 **Database Requirement**
 >
-> All VotingPlugin proxy methods require a shared SQL database, with the proxy and every participating backend using compatible connection and table settings.  
-> With the released default `BungeeManageTotals: true`, the **proxy** manages user vote totals and points. If it is false, each backend adds its own totals; the 7.1.1 default configuration describes that layout as unsupported.  
+> All VotingPlugin proxy methods require a shared SQL database, with the proxy and every participating backend using compatible connection and table settings.
+>
+> With the released default `BungeeManageTotals: true`, the **proxy** manages user vote totals and points. If it is false, each backend adds its own totals; the 7.1.1 default configuration describes that layout as unsupported.
+>
 > Backend servers process rewards, milestones, streaks, and other gameplay behavior according to their own settings.
 {.is-info}
 
@@ -77,7 +79,8 @@ VotingPlugin’s proxy integration provides network-wide support for:
 
 For networks with multiple proxies, `MultiProxyMethod` supports **SOCKETS** or **REDIS** synchronization between proxies. This is separate from the backend `BungeeMethod` selected for communication between a proxy and its backend servers.
 
-> ⚠️ **Note:** The 7.1.1 bundled configuration labels multi-proxy support as work in progress. Test vote delivery and duplicate prevention before using it in production.  
+> ⚠️ **Note:** The 7.1.1 bundled configuration labels multi-proxy support as work in progress. Test vote delivery and duplicate prevention before using it in production.
+>
 > See [Multi-Proxy Setup](/VotingPlugin/Multi-Proxy-Setup).
 {.is-warning}
 
