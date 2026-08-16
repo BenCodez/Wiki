@@ -10,8 +10,10 @@ dateCreated: 2025-08-30T22:18:09.653Z
 
 # File Layout
 
-> 📁 **Release defaults:**  
-> [VotingPlugin 7.1.1 resources](https://github.com/BenCodez/VotingPlugin/tree/7.1.1/VotingPlugin/src/main/resources)  
+> 📁 **Release defaults:**
+>
+> [VotingPlugin 7.1.1 resources](https://github.com/BenCodez/VotingPlugin/tree/7.1.1/VotingPlugin/src/main/resources)
+>
 > The [`master` resources](https://github.com/BenCodez/VotingPlugin/tree/master/VotingPlugin/src/main/resources) are development defaults and can contain unreleased keys or behavior.
 {.is-info}
 
