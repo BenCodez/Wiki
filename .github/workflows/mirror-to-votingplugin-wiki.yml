@@ -49,6 +49,7 @@ jobs:
           rsync -a --delete \
             --exclude ".git/" \
             --exclude ".github/" \
+            --exclude ".wikijs/" \
             --exclude ".gitignore" \
             --exclude "README.md" \
             "$SRC/" "$DST/"

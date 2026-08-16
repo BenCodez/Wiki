@@ -43,6 +43,7 @@ jobs:
           rsync -a --delete \
             --exclude '.git/' \
             --exclude '.github/' \
+            --exclude '.wikijs/' \
             --exclude 'site/' \
             --exclude 'docs/' \
             --exclude 'mkdocs.yml' \

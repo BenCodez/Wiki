@@ -1,0 +1,421 @@
+{
+  "schemaVersion": 1,
+  "mode": "MIXED",
+  "locales": [
+    {
+      "locale": "en",
+      "items": [
+        {
+          "id": "269b8ec0-c1ac-4602-b0ac-4a63e9d98dda",
+          "kind": "link",
+          "label": "Home",
+          "icon": "mdi-home",
+          "targetType": "home",
+          "target": "/",
+          "visibilityMode": "all",
+          "visibilityGroups": null
+        },
+        {
+          "id": "1d309210-8ad4-4905-913b-f265b8505788",
+          "kind": "header",
+          "label": "VotingPlugin",
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "d598839e-75d3-47d9-a22c-7b03613c7ccb",
+          "kind": "link",
+          "label": "VotingPlugin",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "efcc8cf6-c73a-4d4a-825c-caa5ba92692b",
+          "kind": "divider",
+          "label": null,
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "29f95073-c44c-4781-82cb-7d5daa1b380b",
+          "kind": "link",
+          "label": "Setup",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/setup",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "7e5b303e-f073-4443-8252-54d8417e5e37",
+          "kind": "link",
+          "label": "Votifier Troubleshooting",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Votifier-Troubleshooting",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "089c5ac9-8857-4fee-9c2a-9c149eb06fe5",
+          "kind": "link",
+          "label": "Where to set rewards",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Where-to-set-rewards",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "01ecb754-318b-4b98-b6d7-c36178b55be3",
+          "kind": "link",
+          "label": "Commands & Permissions",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Commands-&-Permissions",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "05c4e0f4-34f3-4ab7-9613-7bb3e91085b3",
+          "kind": "link",
+          "label": "All reward possibilities",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/All-Reward-Possibilities",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "7967b13a-723d-4ccc-a507-56fb05d5b32b",
+          "kind": "link",
+          "label": "Item Configuration",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Item-Configuration",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "f8c05f53-e7aa-4b47-9421-9940c8e74fec",
+          "kind": "divider",
+          "label": null,
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "4ce346c5-4e14-4fd2-a724-a51e85ac9fa2",
+          "kind": "header",
+          "label": "Proxy",
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "6a08119a-dc23-4de2-80cc-1349f698e46d",
+          "kind": "link",
+          "label": "Proxy Setups",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Proxy-Setups",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "977bb47b-008e-4b73-9c7b-2ea468d40975",
+          "kind": "link",
+          "label": "Multi-Proxy",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Multi-Proxy-Setup",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "07e5df57-ceb9-4bf7-bcfc-a4d5d51097b5",
+          "kind": "link",
+          "label": "Proxy Global Data Handling",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Global-Data-Handling",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "251cebdd-779c-4750-b750-57e3e0aebfa0",
+          "kind": "divider",
+          "label": null,
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "6e341883-488b-4e0f-82bc-9f9a3216705f",
+          "kind": "header",
+          "label": "Voting Systems",
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "c0300230-6ba5-4994-9162-b09b71649438",
+          "kind": "link",
+          "label": "Reward System",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/reward-system",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "8e72d6ab-9844-4e49-b2c2-e7b626405f80",
+          "kind": "link",
+          "label": "Special Rewards",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Special-Rewards",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "514a828a-31e1-4331-865e-dcaf7a98d585",
+          "kind": "link",
+          "label": "AdvancedPriority Rewards",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/AdvancedPriority-Rewards",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "caf6735d-b742-403c-86cc-6ee361ec289a",
+          "kind": "link",
+          "label": "Vote Broadcasts",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Vote-Broadcast-System",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "6a22b36f-afa3-4814-a483-3591dd32922e",
+          "kind": "link",
+          "label": "VoteLogging",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/VoteLogging",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "1a30bb1e-979b-432f-829a-f2ca87bd4bd2",
+          "kind": "link",
+          "label": "VoteStreaks",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/VoteStreak-System",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "f47659f3-edcf-4dbd-a591-ec8b152bef2b",
+          "kind": "link",
+          "label": "VoteMilestones",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/VoteMilestones",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "359469b2-ab83-4ed3-bced-144ff6c15d7f",
+          "kind": "link",
+          "label": "Vote Reminders",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/VoteReminders",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "5d8a2bf2-bc2e-43c9-b15c-b08dcf8101a6",
+          "kind": "link",
+          "label": "VoteShop",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/voteshop",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "1cdcd231-b1f7-4836-b2eb-48ff8815a832",
+          "kind": "link",
+          "label": "Webhooks",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/webhooks",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "8818e604-63a8-43e2-89e2-8456bae7e194",
+          "kind": "header",
+          "label": "Additional Info",
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "0a7fbd2c-2209-4838-902d-4e69aba949a0",
+          "kind": "link",
+          "label": "Time changes",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Time-Changes",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "bdb790b6-e8d3-41a5-9853-1d1f550fe4ef",
+          "kind": "link",
+          "label": "Minecraft Server Lists",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Minecraft-Server-Lists",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "2914cc51-faa4-4fcf-a4f3-f06cbac72a4a",
+          "kind": "link",
+          "label": "File Layout",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/File-Layout",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "800255bc-8493-4471-a753-30ec0f9e6bb7",
+          "kind": "link",
+          "label": "Month Date Totals",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Month-Date-Totals",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "085a36fa-1edd-48b0-8994-496b09c2155f",
+          "kind": "link",
+          "label": "Bedrock Player Support",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Bedrock-Player-Support",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "347c2129-9871-450a-912a-469c9812297c",
+          "kind": "link",
+          "label": "Online/Offline Mode",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Online-Offline-Mode",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "1b8f35b5-6c1b-4002-bbe2-2e400851684b",
+          "kind": "link",
+          "label": "Performance settings",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Performance-Settings",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "eaaf9954-f353-46d3-8189-f980ad914727",
+          "kind": "link",
+          "label": "Signs",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Signs",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "9a4f116e-b5bf-49a0-b2ad-89281519faea",
+          "kind": "link",
+          "label": "Changing Storage Types",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Transferring-data-storage-within-plugin",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "31a1a89e-9b34-4172-a751-666da3c751e2",
+          "kind": "link",
+          "label": "API",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/API",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "375b5baf-8294-4227-b9fc-e03eaac7221e",
+          "kind": "link",
+          "label": "PlaceholderAPI Placeholders",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/PlaceHolderAPI-placeholders",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "14774475-3cb1-4eaa-89a3-86544b2cbc8f",
+          "kind": "link",
+          "label": "Web Support",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Web-Support",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "3fbbec8a-77a1-48e8-81ae-c841d6ff9000",
+          "kind": "link",
+          "label": "FAQ",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/faq",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        }
+      ]
+    }
+  ]
+}
