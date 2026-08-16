@@ -20,7 +20,7 @@ Use a compatible listener such as:
 - [VotifierPlus](https://github.com/BenCodez/VotifierPlus)
 - [NuVotifier](https://github.com/NuVotifier/NuVotifier)
 
-See [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting) when votes are not reaching the server.
+See [Votifier Troubleshooting](Votifier-Troubleshooting) when votes are not reaching the server.
 
 ## 2. Configure a proxy network when applicable
 
@@ -36,7 +36,7 @@ Choose one `BungeeMethod` value and use it consistently across the connected ser
 
 These names match the 7.1.1 `BungeeSettings.yml` defaults.
 
-See [Proxy Setups](/VotingPlugin/Proxy-Setups).
+See [Proxy Setups](Proxy-Setups).
 
 ## 3. Configure vote sites
 
@@ -69,11 +69,11 @@ Use `/av servicesites` or the console output from a received vote to confirm the
 
 Rewards can be created with `/av gui`, directly in a vote-site or special-reward section, or in files under `/plugins/VotingPlugin/Rewards/`.
 
-See [Rewards](/VotingPlugin/Rewards) and [Reward Examples](/VotingPlugin/Reward-Examples).
+See [Rewards](Rewards) and [Reward Examples](Reward-Examples).
 
 ## 5. Permissions
 
-`VotingPlugin.Player` grants the main player commands by default. See [Commands and Permissions](/VotingPlugin/Commands-&-Permissions) for all nodes.
+`VotingPlugin.Player` grants the main player commands by default. See [Commands and Permissions](Commands-&-Permissions) for all nodes.
 
 ## 6. Restart and test
 

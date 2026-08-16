@@ -14,10 +14,10 @@ VotingPlugin uses the bundled AdvancedCore reward system. The same reward effect
 
 Start with:
 
-- [Where to Set Rewards](/VotingPlugin/Where-to-set-rewards)
-- [All Reward Possibilities](/VotingPlugin/All-Reward-Possibilities)
-- [Reward File Format](/VotingPlugin/Reward-File)
-- [AdvancedPriority Rewards](/VotingPlugin/AdvancedPriority-Rewards)
+- [Where to Set Rewards](Where-to-set-rewards)
+- [All Reward Possibilities](All-Reward-Possibilities)
+- [Reward File Format](Reward-File)
+- [AdvancedPriority Rewards](AdvancedPriority-Rewards)
 
 ## Inline rewards
 
@@ -81,6 +81,6 @@ AdvancedPriority:
 
 ## Placeholders and player context
 
-Reward-local placeholders such as `%player%`, `%money%`, `%exp%`, and date placeholders are replaced where supported. PlaceholderAPI expansion depends on the output path: ordinary player messages expand PlaceholderAPI values, while reward action bars and boss bars do not have a dedicated PlaceholderAPI pass under the default 7.1.1 JavaScript setting. See [PlaceholderAPI Support](/VotingPlugin/PlaceHolderAPI-placeholders).
+Reward-local placeholders such as `%player%`, `%money%`, `%exp%`, and date placeholders are replaced where supported. PlaceholderAPI expansion depends on the output path: ordinary player messages expand PlaceholderAPI values, while reward action bars and boss bars do not have a dedicated PlaceholderAPI pass under the default 7.1.1 JavaScript setting. See [PlaceholderAPI Support](PlaceHolderAPI-placeholders).
 
 Requirements and effects that need an online Bukkit player cannot run with the same behavior while the player is offline. Test both online votes and queued/offline delivery when using permissions, worlds, GUI choices, action bars, boss bars, or player-executed commands.

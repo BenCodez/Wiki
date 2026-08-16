@@ -69,7 +69,7 @@ Reward files can provide:
 - delayed or scheduled child rewards;
 - ordered, random, weighted, or choice-based child rewards.
 
-Use [All Reward Possibilities](/VotingPlugin/All-Reward-Possibilities) for syntax and [AdvancedPriority Rewards](/VotingPlugin/AdvancedPriority-Rewards) for first-match selection.
+Use [All Reward Possibilities](All-Reward-Possibilities) for syntax and [AdvancedPriority Rewards](AdvancedPriority-Rewards) for first-match selection.
 
 ## Offline delivery
 

@@ -49,7 +49,7 @@ VoteMilestones:
       - "give %player% diamond 1"
 ```
 
-Milestones can use exact values, lists, ranges, repeating `Every` values, limits, and selection groups. See [VoteMilestones](/VotingPlugin/VoteMilestones) for the complete system.
+Milestones can use exact values, lists, ranges, repeating `Every` values, limits, and selection groups. See [VoteMilestones](VoteMilestones) for the complete system.
 
 To reward voting on every configured site in a day, use the `ALLSITES_TODAY` total and set `At` to the number of enabled vote sites.
 
@@ -75,7 +75,7 @@ VoteStreaks:
 
 Changing a streak ID disconnects it from progress stored under the previous ID. On proxy networks, use the same ID for shared progress or different IDs for independent server progress.
 
-Progress groups can share one progress definition across multiple reward milestones and can run `LostRewards` when established progress is lost. See [VoteStreak System](/VotingPlugin/VoteStreak-System) for the full reference and migration guidance.
+Progress groups can share one progress definition across multiple reward milestones and can run `LostRewards` when established progress is lost. See [VoteStreak System](VoteStreak-System) for the full reference and migration guidance.
 
 ## VoteParty
 

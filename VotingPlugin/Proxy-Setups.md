@@ -35,11 +35,11 @@ VotingPlugin supports multiple communication methods between your **proxy (Bunge
 
 | Method | Description |
 |--------|-------------|
-| [PLUGINMESSAGING](/VotingPlugin/Proxy-method-PLUGINMESSAGING) | Uses the proxy plugin-message channel; this is the 7.1.1 release default. |
-| [REDIS](/VotingPlugin/proxy-method-REDIS) | Uses a private Redis service for cross-server messages. |
-| [MQTT](/VotingPlugin/proxy-method-MQTT) | Uses an MQTT broker for cross-server messages. |
-| [SOCKETS](/VotingPlugin/proxy-method-SOCKETS) | Uses direct TCP socket connections and requires explicit peer addresses, secrets, and firewall rules. |
-| [MYSQL](/VotingPlugin/proxy-method-MYSQL) | Uses the shared database as the communication path; the 7.1.1 defaults do not recommend this method. |
+| [PLUGINMESSAGING](Proxy-method-PLUGINMESSAGING) | Uses the proxy plugin-message channel; this is the 7.1.1 release default. |
+| [REDIS](proxy-method-REDIS) | Uses a private Redis service for cross-server messages. |
+| [MQTT](proxy-method-MQTT) | Uses an MQTT broker for cross-server messages. |
+| [SOCKETS](proxy-method-SOCKETS) | Uses direct TCP socket connections and requires explicit peer addresses, secrets, and firewall rules. |
+| [MYSQL](proxy-method-MYSQL) | Uses the shared database as the communication path; the 7.1.1 defaults do not recommend this method. |
 
 ---
 
@@ -81,7 +81,7 @@ For networks with multiple proxies, `MultiProxyMethod` supports **SOCKETS** or *
 
 > ⚠️ **Note:** The 7.1.1 bundled configuration labels multi-proxy support as work in progress. Test vote delivery and duplicate prevention before using it in production.
 >
-> See [Multi-Proxy Setup](/VotingPlugin/Multi-Proxy-Setup).
+> See [Multi-Proxy Setup](Multi-Proxy-Setup).
 {.is-warning}
 
 ---

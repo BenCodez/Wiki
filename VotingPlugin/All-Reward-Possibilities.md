@@ -283,7 +283,7 @@ Executes rewards in order — the first one to meet all conditions runs.
           Player: 'You got unlucky'
 ```
 
-📘 Docs: [AdvancedPriority Rewards](/VotingPlugin/AdvancedPriority-Rewards)
+📘 Docs: [AdvancedPriority Rewards](AdvancedPriority-Rewards)
 
 ---
 

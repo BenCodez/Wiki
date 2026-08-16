@@ -70,7 +70,7 @@ Messages:
 
 Either the vote listener is not receiving the vote or `ServiceSite` does not exactly match the value sent by the vote service.
 
-Run a test vote, check the console, and follow [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting).
+Run a test vote, check the console, and follow [Votifier Troubleshooting](Votifier-Troubleshooting).
 
 ---
 
