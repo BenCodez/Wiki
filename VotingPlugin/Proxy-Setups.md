@@ -2,46 +2,44 @@
 title: Proxy-Setups
 description: Details of proxy setups
 published: true
-date: 2025-11-06T02:26:59.944Z
-tags: 
+date: 2026-08-14T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:02.764Z
 ---
 
 > ⚙️ **Running on Velocity**
 >
-> Velocity requires a MySQL driver to be installed.  
-> You can download a prebuilt plugin here if needed:  
-> 🔗 [MySQLDriver (Jenkins)](https://bencodez.com/job/MySQLDriver/)
+> Velocity requires the JDBC driver selected by `DbType`. Install the [MySQLDriver build](https://bencodez.com/job/MySQLDriver/) when the platform does not already provide the required driver.
 {.is-info}
 
 > 💾 **Database Requirement**
 >
-> All proxy methods require **MySQL**, with every server — including the proxy — pointing to the **same database**.  
-> The **proxy** manages vote forwarding, user vote totals, and synchronization between servers.  
-> Backend servers handle all **rewards, milestones, and streaks** locally.
+> All VotingPlugin proxy methods require a shared SQL database, with the proxy and every participating backend using compatible connection and table settings.
+>
+> With the released default `BungeeManageTotals: true`, the **proxy** manages user vote totals and points. If it is false, each backend adds its own totals; the 7.1.1 default configuration describes that layout as unsupported.
+>
+> Backend servers process rewards, milestones, streaks, and other gameplay behavior according to their own settings.
 {.is-info}
 
 > 📨 **Votifier Configuration**
 >
-> **Votifier** (or **VotifierPlus/NuVotifier**) only needs to run on the **proxy**.  
-> VotingPlugin automatically handles forwarding votes to backend servers.
+> In the standard layout, **VotifierPlus/NuVotifier** runs on the proxy and VotingPlugin handles forwarding to backends. Custom Votifier routing can differ, but each vote must enter VotingPlugin only once to avoid duplicate processing.
 {.is-info}
 
 ---
 
 # Proxy Methods
 
-VotingPlugin supports multiple communication methods between your **proxy (BungeeCord/Velocity)** and backend servers.  
-Each method provides the same core functionality — sending votes from the proxy to backend servers — but differs in setup and infrastructure requirements.
+VotingPlugin supports multiple communication methods between your **proxy (BungeeCord/Velocity)** and backend servers. Select one `BungeeMethod` and configure it consistently on the proxy and participating backends.
 
 | Method | Description |
 |--------|-------------|
-| [PLUGINMESSAGING](/VotingPlugin/Proxy-method-PLUGINMESSAGING) | **Easiest option** — drop and play. No extra setup needed beyond placing the plugin on all servers. |
-| [REDIS](/VotingPlugin/proxy-method-REDIS) | Uses a **Redis** server for fast, reliable network-wide message passing. |
-| [MQTT](/VotingPlugin/proxy-method-MQTT) | Relies on an **MQTT broker** for cross-server vote forwarding (ideal for distributed environments). |
-| [SOCKETS](/VotingPlugin/proxy-method-SOCKETS) | Uses direct TCP socket connections (requires open ports between servers). |
-| [MYSQL](/VotingPlugin/proxy-method-MYSQL) | Shares vote data directly through the **common MySQL database**. |
+| [PLUGINMESSAGING](Proxy-method-PLUGINMESSAGING) | Uses the proxy plugin-message channel; this is the 7.1.1 release default. |
+| [REDIS](proxy-method-REDIS) | Uses a private Redis service for cross-server messages. |
+| [MQTT](proxy-method-MQTT) | Uses an MQTT broker for cross-server messages. |
+| [SOCKETS](proxy-method-SOCKETS) | Uses direct TCP socket connections and requires explicit peer addresses, secrets, and firewall rules. |
+| [MYSQL](proxy-method-MYSQL) | Uses the shared database as the communication path; the 7.1.1 defaults do not recommend this method. |
 
 ---
 
@@ -49,45 +47,42 @@ Each method provides the same core functionality — sending votes from the prox
 
 ![VotingPlugin proxy architecture showing vote websites, VotifierPlus, proxy communication methods, backend servers, and shared MySQL storage](/assets/VotingPlugin/votingplugin-proxy-architecture.svg)
 
-> This diagram shows the typical single-proxy network layout. Multi-proxy setups and custom Votifier routing may use a different topology.
+> This diagram shows the typical single-proxy network layout. Multi-proxy setups and custom Votifier routing may use a different topology. The supported communication methods converge through one selected/configured path to the backend servers.
 {.is-info}
 
 When a player votes:
 
-1. The **proxy** receives the vote from **Votifier**.  
-2. **VotingPlugin (Proxy)** records the vote in the database and updates totals (if enabled).  
-3. The proxy then **forwards** the vote to backend servers using the configured method.  
-4. Each backend’s **VotingPlugin** instance handles rewards, milestones, and streaks locally.
+1. The **proxy** receives the vote from **VotifierPlus/NuVotifier**.
+2. VotingPlugin validates and records the vote; it updates totals when `BungeeManageTotals: true`.
+3. The proxy forwards or caches the vote using the configured `BungeeMethod`.
+4. The selected backend server or servers process rewards and gameplay behavior according to `SendVotesToAllServers`, `ProcessRewards`, server restrictions, and reward settings.
 
-> The **proxy** acts as the **central controller** for vote tracking and forwarding.  
-> Backend servers focus on **reward delivery and gameplay logic**.
+> With `BungeeManageTotals: true`, the proxy is the central controller for vote tracking and forwarding. Backend servers focus on reward delivery and gameplay logic.
 
 ---
 
 ## Abilities
 
-VotingPlugin’s proxy integration provides full network-wide support for:
+VotingPlugin’s proxy integration provides network-wide support for:
 
 - 🌍 **Global or per-server rewards**
 - 🎉 **Proxy-wide or individual server vote parties**
-- ⏰ **Global time synchronization** (via the `GlobalData` setting)
-- 🧱 **Server blocklist/whitelist** controls
+- ⏰ **Global time synchronization** (via the experimental `GlobalData` setting)
+- 🧱 **Server blocklist/allowlist controls**
 - 🔁 **Multi-proxy synchronization**
-- 📊 **Centralized vote totals and logging handled by the proxy**
-- ⚙️ **Local reward and streak logic handled by backend servers**
+- 📊 **Centralized vote totals and logging when `BungeeManageTotals: true`**
+- ⚙️ **Local reward and streak logic on backend servers**
 
 ---
 
 ## Multi-Proxy Support
 
-For networks with multiple proxies, `MultiProxyMethod` supports **SOCKETS** or
-**REDIS** synchronization between proxies. This is separate from the backend
-`BungeeMethod` selected for communication between a proxy and its backend
-servers.
+For networks with multiple proxies, `MultiProxyMethod` supports **SOCKETS** or **REDIS** synchronization between proxies. This is separate from the backend `BungeeMethod` selected for communication between a proxy and its backend servers.
 
-> ⚠️ **Note:** Multi-proxy setups are *experimental but functional* in current releases.  
-> See the full guide here:  
-> 🔗 [Multi-Proxy Setup](/VotingPlugin/Multi-Proxy-Setup)
+> ⚠️ **Note:** The 7.1.1 bundled configuration labels multi-proxy support as work in progress. Test vote delivery and duplicate prevention before using it in production.
+>
+> See [Multi-Proxy Setup](Multi-Proxy-Setup).
+{.is-warning}
 
 ---
 
@@ -96,30 +91,32 @@ servers.
 The proxy receives and manages votes from Votifier before forwarding them to backend servers.
 
 ### Proxy Responsibilities
-- 📨 **Receives votes** from Votifier on the proxy.  
-- 🕓 **Handles time-change conditions** when `GlobalData` is enabled (queues votes safely).  
-- 🧩 **Resolves UUIDs** and supports Bedrock players (prefix detection).  
-- 💾 **Manages totals** when `BungeeManageTotals: true` — updates MySQL totals (daily, weekly, monthly, all-time, and points).  
-- 🎉 **Updates vote party progress** and broadcasts `VoteUpdate` / `VoteBroadcast`.  
-- 🔁 **Forwards or caches votes** for backend servers depending on player presence and configuration.  
-- 🌐 **Supports multi-proxy setups**, syncing votes across proxies and preventing duplicate rewards.
+- 📨 **Receives votes** from VotifierPlus/NuVotifier in the standard layout.
+- 🕓 **Handles time-change conditions** when `GlobalData` is enabled.
+- 🧩 **Resolves UUIDs** and supports configured Bedrock prefixes.
+- 💾 **Manages totals** when `BungeeManageTotals: true`.
+- 🎉 **Updates vote-party progress** and routes configured vote broadcasts.
+- 🔁 **Forwards or caches votes** depending on player presence and configuration.
+- 🌐 **Supports multi-proxy synchronization** when explicitly enabled and configured.
 
 ### Backend Responsibilities
-- Executes rewards, milestones, and streak tracking.  
-- Handles all in-game logic and GUI-related features.  
+- Executes rewards, milestones, and streak processing when enabled.
+- Handles in-game logic and GUI-related features.
+- Adds its own totals only when `BungeeManageTotals: false`.
 
 ---
 
 ### Common Config Keys
 | Key | File/location | Description |
 |-----|---------------|-------------|
-| `BungeeManageTotals` | Proxy `bungeeconfig.yml` | Enables proxy-managed totals. |
-| `SendVotesToAllServers` | Proxy `bungeeconfig.yml` | Sends votes to all servers or only the player’s current server. |
-| `AllowUnJoined` | Proxy `bungeeconfig.yml` | When false, the proxy validates that the player has joined before accepting the vote. |
+| `BungeeManageTotals` | Proxy `bungeeconfig.yml` | Enables proxy-managed totals; true is the supported 7.1.1 default. |
+| `SendVotesToAllServers` | Proxy `bungeeconfig.yml` | Sends votes to all eligible backends or only the player’s selected/current server. |
+| `AllowUnJoined` | Proxy `bungeeconfig.yml` | When false, the proxy validates that the player has joined before accepting the vote. Capitalization is significant. |
 | `AllowUnjoined` | Backend `Config.yml` | When true, a backend accepts forwarded votes without repeating the proxy’s joined-player check. |
 | `WaitForUserOnline` | Proxy `bungeeconfig.yml` | Queues votes until the player logs in. |
-| `GlobalData` | Proxy `bungeeconfig.yml` and backend `BungeeSettings.yml` | Enables global data/time synchronization and vote queueing; enable and align it on the proxy and applicable backends. |
-| `MultiProxySupport` | Proxy `bungeeconfig.yml` | Allows votes to synchronize between multiple proxies. |
+| `ProcessRewards` | Backend `Config.yml` | Controls whether that backend processes rewards for forwarded votes. |
+| `GlobalData` | Proxy `bungeeconfig.yml` and backend `BungeeSettings.yml` | Enables experimental global time/reset coordination; align it on all participating instances. |
+| `MultiProxySupport` | Proxy `bungeeconfig.yml` | Enables synchronization between multiple proxies. |
 | `PrimaryServer` | Proxy `bungeeconfig.yml` | Marks the primary proxy for supported multi-proxy responsibilities. |
 
 ---
@@ -128,11 +125,8 @@ The proxy receives and manages votes from Votifier before forwarding them to bac
 
 ![Simple VotingPlugin proxy flow showing votes entering VotifierPlus and VotingPlugin on the proxy, passing through one selected BungeeMethod, and reaching backend servers](/assets/VotingPlugin/proxy-flow-simple-reference.svg)
 
-This compact version preserves the older proxy-flow overview. The detailed
-architecture near the top of this page is the authoritative reference for
-communication methods and shared storage.
+This compact version preserves the older proxy-flow overview. The detailed architecture near the top of this page is the authoritative reference for communication methods and shared storage.
 
 ---
 
-*For a deeper technical breakdown, see the implementation in  
-[`VotingPluginProxy.java`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/proxy/VotingPluginProxy.java).*
+*For the release implementation, see [`VotingPluginProxy.java` at tag 7.1.1](https://github.com/BenCodez/VotingPlugin/blob/7.1.1/VotingPlugin/src/main/java/com/bencodez/votingplugin/proxy/VotingPluginProxy.java).*

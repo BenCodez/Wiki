@@ -2,7 +2,7 @@
 title: API
 description: Integrate with VotingPlugin users, vote sites, commands, and events
 published: true
-date: 2025-11-23T19:39:23.432Z
+date: 2026-08-14T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2025-08-30T22:17:53.911Z
@@ -10,15 +10,16 @@ dateCreated: 2025-08-30T22:17:53.911Z
 
 # VotingPlugin Developer API
 
-VotingPlugin exposes user, vote-site, command, reward-extension, and event APIs
-for Bukkit plugins.
+> **Release baseline:** The signatures and source links on this page target VotingPlugin **7.1.1**. The hosted Javadocs and `master` source can include unreleased 7.1.2-SNAPSHOT changes. VotingPlugin 7.1.1 requires Java 21.
+{.is-info}
 
-- [VotingPlugin Javadocs](https://bencodez.github.io/VotingPlugin/)
-- [AdvancedCore Javadocs](https://bencodez.github.io/AdvancedCore/)
-- [VotingPlugin source](https://github.com/BenCodez/VotingPlugin)
+VotingPlugin exposes user, vote-site, command, reward-extension, and event APIs for Bukkit plugins.
 
-Add VotingPlugin as a dependency or soft dependency in your plugin metadata
-before accessing it.
+- [Current VotingPlugin Javadocs](https://bencodez.github.io/VotingPlugin/)
+- [Current AdvancedCore Javadocs](https://bencodez.github.io/AdvancedCore/)
+- [VotingPlugin 7.1.1 source](https://github.com/BenCodez/VotingPlugin/tree/7.1.1)
+
+Add VotingPlugin as a dependency or soft dependency in your plugin metadata before accessing it.
 
 ## Getting the plugin and hooks
 
@@ -34,7 +35,7 @@ VotingPluginHooks hooks = VotingPluginHooks.getInstance();
 UserManager userManager = hooks.getUserManager();
 ```
 
-Current `VotingPluginHooks` methods include:
+Release 7.1.1 `VotingPluginHooks` methods include:
 
 | Method | Purpose |
 |---|---|
@@ -44,9 +45,7 @@ Current `VotingPluginHooks` methods include:
 | `addCustomReward(RewardInject)` | Registers a custom AdvancedCore reward |
 | `addCustomRequirement(RequirementInject)` | Registers a custom reward requirement |
 
-See
-[`VotingPluginHooks.java`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/VotingPluginHooks.java)
-for the current contract.
+See [`VotingPluginHooks.java` at 7.1.1](https://github.com/BenCodez/VotingPlugin/blob/7.1.1/VotingPlugin/src/main/java/com/bencodez/votingplugin/VotingPluginHooks.java) for the released contract.
 
 ## User objects
 
@@ -70,9 +69,7 @@ byPlayer.addPoints(10);
 byPlayer.removePoints(5);
 ```
 
-Do not perform blocking database work on the Bukkit main thread. Use the
-plugin's existing APIs and scheduler expectations when working with uncached
-users.
+Do not perform blocking database work on the Bukkit main thread. Use the plugin's existing APIs and scheduler expectations when working with uncached users.
 
 ## Vote sites
 
@@ -85,14 +82,11 @@ if (site != null) {
 }
 ```
 
-The second `getVoteSite` argument controls whether disabled sites are filtered
-out. Reward delivery also needs the correct online and proxy/Bungee context;
-do not blindly copy the example when processing a real vote.
+The second `getVoteSite` argument controls whether disabled sites are filtered out. Reward delivery also needs the correct online and proxy/Bungee context; do not blindly copy the example when processing a real vote.
 
 ## Adding a subcommand
 
-VotingPlugin uses AdvancedCore's `CommandHandler`. Pass the plugin instance to
-the current constructor:
+VotingPlugin uses AdvancedCore's `CommandHandler`. Pass the plugin instance to the released constructor:
 
 ```java
 plugin.getVoteCommand().add(new CommandHandler(
@@ -103,17 +97,17 @@ plugin.getVoteCommand().add(new CommandHandler(
 ) {
     @Override
     public void execute(CommandSender sender, String[] args) {
+        if (args.length < 2) {
+            return;
+        }
         sender.sendMessage("Example command for " + args[1]);
     }
 });
 ```
 
-Use `plugin.getAdminVoteCommand()` to add an `/adminvote` (`/av`) subcommand.
-For production code, validate argument counts, console access, permissions, and
-player lookup behavior.
+Use `plugin.getAdminVoteCommand()` to add an `/adminvote` (`/av`) subcommand. For production code, validate argument counts, console access, permissions, and player lookup behavior.
 
-Current examples are available in
-[`CommandLoader.java`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/commands/CommandLoader.java).
+Released examples are available in [`CommandLoader.java` at 7.1.1](https://github.com/BenCodez/VotingPlugin/blob/7.1.1/VotingPlugin/src/main/java/com/bencodez/votingplugin/commands/CommandLoader.java).
 
 ## VotingPlugin events
 
@@ -126,7 +120,7 @@ public void onVote(PlayerPostVoteEvent event) {
 }
 ```
 
-The current VotingPlugin event classes are:
+VotingPlugin 7.1.1 event classes include:
 
 | Event | When it is used |
 |---|---|
@@ -140,15 +134,12 @@ The current VotingPlugin event classes are:
 | `VoteMilestoneRewardEvent` | A VoteMilestone reward completes successfully |
 | `VoteShopPurchaseEvent` | A player attempts a VoteShop purchase |
 
-Use the
-[`events` source directory](https://github.com/BenCodez/VotingPlugin/tree/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/events)
-as the authoritative list. AdvancedCore also publishes reward and lifecycle
-events; check its current source or Javadocs before depending on one.
+Use the [7.1.1 `events` source directory](https://github.com/BenCodez/VotingPlugin/tree/7.1.1/VotingPlugin/src/main/java/com/bencodez/votingplugin/events) as the release-authoritative list. AdvancedCore also publishes reward and lifecycle events; check the exact dependency version before depending on one.
 
 ## Compatibility guidance
 
 - Compile against the VotingPlugin and AdvancedCore versions you support.
-- Treat source and Javadocs for that version as authoritative.
+- Treat source and Javadocs for that exact version as authoritative.
 - Use soft dependency handling if your plugin can operate without VotingPlugin.
 - Avoid reflection when a public API is available.
 - Test integrations with both cached/offline votes and normal online votes.

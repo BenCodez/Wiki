@@ -186,6 +186,16 @@
           "visibilityGroups": []
         },
         {
+          "id": "8e72d6ab-9844-4e49-b2c2-e7b626405f80",
+          "kind": "link",
+          "label": "Special Rewards",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Special-Rewards",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
           "id": "514a828a-31e1-4331-865e-dcaf7a98d585",
           "kind": "link",
           "label": "AdvancedPriority Rewards",

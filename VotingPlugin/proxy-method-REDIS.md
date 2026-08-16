@@ -1,78 +1,88 @@
 ---
 title: Proxy method REDIS
-description: Details of REDIS setup
+description: Configure the Redis proxy communication method
 published: true
-date: 2025-08-31T00:16:25.441Z
-tags: 
+date: 2026-08-14T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-31T00:16:24.909Z
 ---
 
-> Votifier+VotingPlugin on proxy server, and only VotingPlugin is required on backend servers
-{.is-info}
-
-> All servers use the same mysql table
-{.is-info}
-
-> Running on Velocity requires a MySQL driver. Install the [MySQLDriver build](https://bencodez.com/job/MySQLDriver/) if the platform does not already provide one.
-{.is-info}
-
-
-
 # Method REDIS
-- Uses REDIS to communicate between servers
-- The most reliable method currently for large networks 
 
+Redis carries VotingPlugin messages between the proxy and backend servers. It does not replace VotingPlugin's shared SQL storage requirement.
 
-## Required Settings
-### Proxy (bungeeconfig.yml):
-- `BungeeMethod: REDIS`
-- MySQL database information
-- Input REDIS info
+## Standard topology
 
-### Backend Servers:
-BungeeSettings.yml:
-- `BungeeMethod: REDIS`
-- `UseBungeecord: true`
-- 'Server: SERVERNAMEHERE` (Set server name on each server, matching names from proxy server)
-- Input REDIS info
+- VotifierPlus or NuVotifier and VotingPlugin run on the proxy.
+- VotingPlugin runs on each participating backend.
+- Every instance uses the same SQL database/table naming.
+- Every instance connects to the same Redis service and communication prefix.
 
-Config.yml:
-- MySQL database information
-- `AllowUnjoined: true` (Proxy handles this)
+Disable VotifierPlus/NuVotifier forwarding targets in this standard layout; VotingPlugin performs the backend forwarding.
 
----
+## Required settings
 
-See default config files for every setting, as this is very customizable. 
+### Proxy: `bungeeconfig.yml`
 
-If you want one reward per vote across the entire network then disable SendVotesToAllServers
+```yaml
+BungeeMethod: REDIS
+
+Redis:
+  Host: redis.internal.example
+  Port: 6379
+  Username: 'votingplugin'
+  Password: 'replace-with-a-secret'
+  Prefix: ''
+  #Db-Index: 0
+```
+
+Configure the proxy `Database` section as well.
+
+### Each backend: `BungeeSettings.yml`
+
+```yaml
+UseBungeecord: true
+BungeeMethod: REDIS
+Server: lobby
+
+Redis:
+  Host: redis.internal.example
+  Port: 6379
+  Username: 'votingplugin'
+  Password: 'replace-with-a-secret'
+  Prefix: ''
+  #Db-Index: 0
+```
+
+Give every backend a different `Server` value.
+
+### Each backend: `Config.yml`
+
+Configure the same SQL database and use:
+
+```yaml
+AllowUnjoined: true
+```
+
+This lowercase-d spelling is the backend key. The proxy key is separately named `AllowUnJoined`; in the standard 7.1.1 proxy-managed layout it remains `false`, so the proxy validates the player before forwarding.
+
+With `BungeeManageTotals: true` (the supported release default), totals are owned by the proxy. Set `SendVotesToAllServers: false` when one backend should execute the per-vote reward for the network.
 
 ## Secure Redis
 
-Keep Redis on a private network or behind firewall rules that allow only the
-proxy and backend addresses. Configure a non-empty Redis username and password
-on every VotingPlugin instance; all instances in this communication group must
-use the same connection details and prefix. Do not expose the default Redis
-port to the public Internet or include credentials in screenshots and logs.
+- Keep Redis on a private network or behind firewall rules that allow only participating hosts.
+- Require a dedicated Redis ACL user and non-empty password with only the commands/channels VotingPlugin needs.
+- Do not expose port 6379 to the public Internet or publish credentials in screenshots and logs.
+- `Host: localhost` works only when Redis is on the same machine or network namespace as that VotingPlugin instance.
+- Use a trusted private tunnel or Redis TLS configuration when traffic crosses untrusted networks.
 
-`Host: localhost` works only when Redis is on the same machine as that
-VotingPlugin instance. Use an internal address when separate hosts share the
-broker.
+## Testing
 
+1. Restart the proxy and every backend after changing the method.
+2. Run `/votingpluginproxy status`.
+3. Run `/votingpluginproxy vote <player> <site>`.
+4. Confirm exactly the intended backend or backends process the vote.
+5. Then send a real/listener-generated vote to test Votifier and public network reachability.
 
-## Troubleshooting:
-Testing communication:
-- Check status and connectivity with `/votingpluginproxy status`.
-- See console for results
-
-Test voting:
-- Run a proxy test vote with `/votingpluginproxy vote <player> <site>`.
-
-Double/Extra Rewards:
-- Ensure server names in BungeeSettings.yml differ and match names in proxy server
-- NuVotifier forwarding method set to none (And no votifier plugins on spigot servers)
-
-Not working:
-- Restart all servers
-- Ensure required settings are working
-- Test communication and run test votes (if that works check Votifier)
+For duplicates, verify unique backend `Server` names, a consistent Redis prefix, `SendVotesToAllServers`, backend `ProcessRewards`, and disabled Votifier forwarding.

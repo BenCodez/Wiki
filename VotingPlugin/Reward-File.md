@@ -1,9 +1,9 @@
 ---
-title: Reward-File
-description: 
+title: Reward File
+description: Create reusable VotingPlugin reward YAML files
 published: true
-date: 2025-08-30T22:18:22.666Z
-tags: 
+date: 2026-08-14T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:22.178Z
 ---
@@ -12,34 +12,67 @@ dateCreated: 2025-08-30T22:18:22.178Z
 
 ![Example VotingPlugin reward-file configuration](https://i.imgur.com/hKOAj4Z.png)
 
-Reward files is how player gets reward. They can be given on voting, or via Rewards.yml (First vote, all sites, Number of votes)
+Reusable reward files are stored in:
 
-Requirements to give reward possibilities:
-- Permission
-- World
-- Chance
+```text
+plugins/VotingPlugin/Rewards
+```
 
-Possible Rewards/Effects that can be defined:
-- Items (with random item amounts possible)
-- Money (with random money amounts possible)
-- Commands
-- Potion Effects
-- Title
-- BossBar
-- ActionBar
-- Sound
-- Particle Effect
-- Custom Message (or default message in Format.yml)
+Reference a file by its name without `.yml`.
 
-Advanced:
-- Randomly pick a reward file to give on chance, Also option if chance is unlucky give fallback reward
-- Delay when to run reward file (useful for giving players perk on vote, then removing x hours later)
-- Run reward file at specific time
+## Basic example
 
-See the current AdvancedCore
-[basic reward example](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleBasic.yml)
-and
-[advanced reward example](https://github.com/BenCodez/AdvancedCore/blob/master/AdvancedCore/src/main/resources/Rewards/ExampleAdvanced.yml)
-for complete configurations.
+`plugins/VotingPlugin/Rewards/Thanks.yml`:
 
-[Examples](https://gist.github.com/Ben12345rocks/c913ba94878327c1a5bad69dd0c6de85)
+```yaml
+Money: 100
+Commands:
+- 'say %player% voted'
+Messages:
+  Player: '&aThanks for voting!'
+```
+
+Reference it from a VotingPlugin reward location:
+
+```yaml
+Rewards:
+- Thanks
+```
+
+A reward file starts directly with reward keys. Do not wrap the entire file in another `Rewards:` section.
+
+## Common requirements
+
+```yaml
+RequirePermission: true
+Permission: 'server.vip'
+Worlds:
+- world
+Chance: 25
+RewardType: ONLINE
+```
+
+Requirements can be combined. Online-only requirements and effects need a live player context.
+
+## Common effects
+
+Reward files can provide:
+
+- items and random item amounts;
+- economy money through Vault;
+- experience and levels;
+- console or player commands;
+- potion effects;
+- titles, boss bars, and action bars;
+- sounds, particles, and fireworks;
+- player messages and broadcasts;
+- delayed or scheduled child rewards;
+- ordered, random, weighted, or choice-based child rewards.
+
+Use [All Reward Possibilities](All-Reward-Possibilities) for syntax and [AdvancedPriority Rewards](AdvancedPriority-Rewards) for first-match selection.
+
+## Offline delivery
+
+VotingPlugin may queue a reward until the player is available. Avoid assuming that online-only effects, permissions, worlds, inventories, GUI choices, action bars, or player commands can run identically while offline. Test the actual proxy/standalone delivery path.
+
+Do not edit generated files under `Rewards/DirectlyDefined`; change the inline source configuration instead.

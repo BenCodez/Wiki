@@ -1,9 +1,9 @@
 ---
 title: Vote Broadcast System
-description: 
+description:
 published: true
 date: 2026-02-12T02:01:20.209Z
-tags: 
+tags:
 editor: markdown
 dateCreated: 2026-02-12T02:01:20.209Z
 ---
@@ -175,11 +175,15 @@ OfflineForward:
 
 ## Backend vs Proxy Broadcast Behavior
 
-Backend VoteBroadcast: - Controls message formatting and timing logic -
-Runs per-server
+**Backend `VoteBroadcast`:**
 
-ProxyBroadcast: - Controls where broadcasts are routed across the
-network - Determines which backend server(s) receive the broadcast
+- Controls message formatting and timing logic.
+- Runs per server.
+
+**Proxy `ProxyBroadcast`:**
+
+- Controls where broadcasts are routed across the network.
+- Determines which backend server or servers receive the broadcast.
 
 Recommended setup for networks:
 

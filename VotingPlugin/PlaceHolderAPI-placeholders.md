@@ -1,9 +1,9 @@
 ---
 title: PlaceHolderAPI placeholders
-description: 
+description:
 published: true
-date: 2026-07-23T01:57:17.601Z
-tags: 
+date: 2026-08-14T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:20.126Z
 ---
@@ -22,6 +22,17 @@ Install **PlaceholderAPI** and then install the VotingPlugin expansion.
 | **No player** | Placeholder was used without a valid player context |
 | **..** | Value not cached yet — should return once cache updates |
 | **.** or **...** | Placeholder not cached for the specific player (rare) |
+
+### Inside VotingPlugin reward outputs
+
+PlaceholderAPI expansion is output-path specific in VotingPlugin 7.1.1:
+
+- player `Messages` pass their final text through PlaceholderAPI;
+- reward `ActionBar.Message` and `BossBar.Message` do not have a dedicated PlaceholderAPI pass;
+- with the release default JavaScript engine disabled, `%votingplugin_*%` expansion placeholders normally remain literal in those action-bar and boss-bar messages;
+- reward-local replacements such as `%player%` still work where the reward handler supplies them.
+
+Enabling JavaScript can incidentally change that processing path, but do not enable the JavaScript engine solely as a PlaceholderAPI workaround.
 
 ---
 

@@ -10,13 +10,13 @@ dateCreated: 2025-08-30T22:18:10.405Z
 
 # ❓ VotingPlugin — Quick FAQ
 
-### 1) `/vote` says “vote here: www.votelinkhere.com”
+## 1) `/vote` says “vote here: www.votelinkhere.com”
 
 This is usually **VentureChat** intercepting `/vote`. Remove or change VentureChat's `/vote` alias, restart or reload VentureChat, and test again.
 
 ---
 
-### 2) How do I add rewards for crate keys?
+## 2) How do I add rewards for crate keys?
 
 Put the crate plugin's give-key command in the reward's `Commands` list:
 
@@ -40,7 +40,7 @@ Rewards:
 
 ---
 
-### 3) How do I test a vote?
+## 3) How do I test a vote?
 
 ```text
 /av vote <player> <site>
@@ -48,7 +48,7 @@ Rewards:
 
 ---
 
-### 4) YAML error
+## 4) YAML error
 
 Validate the file with a YAML parser and check that:
 
@@ -66,21 +66,21 @@ Messages:
 
 ---
 
-### 5) “No voting site with the service site: ‘SERVICE SITE HERE’”
+## 5) “No voting site with the service site: ‘SERVICE SITE HERE’”
 
 Either the vote listener is not receiving the vote or `ServiceSite` does not exactly match the value sent by the vote service.
 
-Run a test vote, check the console, and follow [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting).
+Run a test vote, check the console, and follow [Votifier Troubleshooting](Votifier-Troubleshooting).
 
 ---
 
-### 6) “No plugin.yml” or “failed to load”
+## 6) “No plugin.yml” or “failed to load”
 
 Redownload the jar. It is probably corrupted or is not the correct server plugin artifact.
 
 ---
 
-### 7) Extreme troubleshooting and debugging
+## 7) Extreme troubleshooting and debugging
 
 ```yaml
 DebugLevel: EXTRA
@@ -90,7 +90,7 @@ For proxy issues, also enable `BungeeDebug` in `BungeeSettings.yml` and debug ou
 
 ---
 
-### 8) Hex color support
+## 8) Hex color support
 
 Use:
 
@@ -102,7 +102,7 @@ The hexadecimal color is surrounded by `&#` and `#`.
 
 ---
 
-### 9) Reload commands
+## 9) Reload commands
 
 ```text
 /av reload
@@ -113,7 +113,7 @@ The hexadecimal color is surrounded by `&#` and `#`.
 
 ---
 
-### 10) Out of memory or resource limit reached in Pterodactyl
+## 10) Out of memory or resource limit reached in Pterodactyl
 
 First determine whether the failure is Java heap exhaustion or a container PID limit. A PID-limit problem is normally visible in Wings, Docker, or host logs and is different from insufficient Java memory.
 

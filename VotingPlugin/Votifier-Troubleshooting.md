@@ -1,78 +1,83 @@
 ---
 title: Votifier Troubleshooting
-description: 
+description: Diagnose listener, service-site, and proxy vote delivery
 published: true
-date: 2025-11-06T02:39:42.423Z
-tags: 
+date: 2026-08-14T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:29.993Z
 ---
 
 # Votifier Troubleshooting
 
-## Verify Votifier Is Working
+## Verify the listener path
 
-> ℹ️ If Votifier is working, you will see this in **console** (even if VotingPlugin isn’t fully configured yet):  
-> `[VotingPlugin] Received a vote from service site 'SERVICESITEHERE' by player 'BenCodez'!`
-{.is-info}
+A healthy real or listener-generated test normally produces both:
 
-**Votifier plugins:**  
-- [VotifierPlus setup guide](https://github.com/BenCodez/VotifierPlus/wiki/Setup-guide) (recommended)  
-- NuVotifier (also supported)
+1. A VotifierPlus/NuVotifier message showing that a vote record was received.
+2. `[VotingPlugin] Received a vote from service site 'SERVICESITEHERE' by player 'BenCodez'!`
 
-### Testing Sites
-- https://mctools.org/votifier-tester  
-- https://mcservertime.com/votifier-tester  
-- https://votifier.bencodez.com
+`/av vote <player> <site>` tests VotingPlugin processing but does **not** test the public listener port, token/key, or vote-site connection.
 
-Run a test vote (tester or a real site). A healthy setup typically shows **both** lines:
-- From your votifier: `Debug: Received vote record -> Vote (from:SERVICESITEHERE username:BenCodez …)`
-- From VotingPlugin: `[VotingPlugin] Received a vote from service site 'SERVICESITEHERE' by player 'BenCodez'!`
+Supported listener options include [VotifierPlus](https://github.com/BenCodez/VotifierPlus/wiki/Setup-guide) and NuVotifier. Public tester availability changes over time; a real test from one configured listing is the strongest end-to-end check.
 
-**About `SERVICESITEHERE`:**  
-This must match the `ServiceSite` you set in `VoteSites.yml` so VotingPlugin links the incoming vote to the correct site.  
-If no site is set, VotingPlugin can auto-generate one automatically.
+## Match `ServiceSite`
 
-> ✅ If you see the VotingPlugin message above, your votifier is working and VotingPlugin is receiving votes.
-{.is-success}
+The incoming service name must exactly match:
 
----
+```text
+VoteSites.yml -> VoteSites.<site>.ServiceSite
+```
 
-## If You **Don’t** See the Console Message
+After a test vote, use `/av servicesites` to view received service names. Do not substitute the display name or vote URL unless the listing actually sends that value.
 
-- **Votifier is not listening or port is blocked**
-  - Ensure the votifier plugin is loaded (check `/plugins` or `plugins` command).
-  - Confirm the **host/IP** and **port** are correct and **not used** by anything else.
-  - Open the port on your host/provider firewall and any OS firewall.
+If no matching site exists and automatic site creation is enabled, VotingPlugin can create a site. Review generated entries before enabling rewards.
 
-- **Keys / Token mismatch**
-  - If using token mode (NuVotifier), make sure the vote site or tester uses the **same token**.
-  - If using RSA keys, regenerate (2048-bit) and update the public key on the voting site.
-  - If keys become corrupted, delete the RSA folder and let the plugin regenerate them.
+## No listener receipt
 
-- **Wrong bind address**
-  - On shared hosts or containers, set Votifier to bind to the actual interface or `0.0.0.0` depending on your host setup.
+Check:
 
-- **Proxy networks**
-  - Votifier should only run **on the proxy (Bungee/Velocity)**.  
-  - Backend servers do **not** need Votifier.
-  - Make sure your tester sends to the **proxy’s IP and port**, not a backend.
+- the listener plugin loaded successfully;
+- the public host and configured port match the vote listing;
+- the port is forwarded and allowed through provider, host, container, and OS firewalls;
+- another process is not already using the port;
+- the vote listing uses the matching token or public key;
+- DNS resolves to the intended public address.
 
-- **ServiceSite mismatch**
-  - Use `/av servicesites` after a test vote to view the exact service name received.
-  - Match that string exactly in `VoteSites.yml -> ServiceSite`.
+`0.0.0.0` is a wildcard **bind** address, not an address a vote site should connect to. Bind only when the hosting layout requires it, then restrict the listener port to the expected public exposure and keep unrelated management ports private.
 
-- **Player / UUID edge cases**
-  - If using Floodgate/Bedrock, ensure `BedrockPlayerPrefix` is configured correctly.
-  - Check that `OnlineMode` matches your player setup.
-  - On proxy networks, do not confuse proxy `bungeeconfig.yml` → `AllowUnJoined`
-    with backend `Config.yml` → `AllowUnjoined`. In the standard proxy-managed
-    layout, the proxy setting is false and the backend setting is true.
+## Proxy networks
 
-- **Still no luck?**
-  - Enable debug mode in Votifier or VotingPlugin.
-  - Retry a test vote and check console output for “Received vote record” or connection issues.
+In the standard VotingPlugin topology:
 
-> ⚠️ **Note:** VotingPlugin will not function without a working Votifier setup.  
-> If you don’t see the specific VotingPlugin message above, fix Votifier first before troubleshooting VotingPlugin.
-{.is-warning}
+- VotifierPlus/NuVotifier listens on the proxy.
+- VotingPlugin runs on the proxy and backends.
+- VotingPlugin forwards through the selected `BungeeMethod`.
+- VotifierPlus/NuVotifier backend forwarding targets remain disabled.
+
+A deliberately custom topology can place or forward listeners differently, but each vote must enter VotingPlugin only once. Duplicate listener plugins or forwarding paths commonly cause duplicate rewards.
+
+Test proxy communication separately with:
+
+```text
+/votingpluginproxy status
+/votingpluginproxy vote <player> <site>
+```
+
+Then send a real/listener-generated vote to verify the public listener path.
+
+## Player, UUID, and Bedrock checks
+
+- Keep proxy and backend `OnlineMode` values consistent with the network's identity mode.
+- Configure `BedrockPlayerPrefix` to match the actual Floodgate/Geyser prefix.
+- Avoid prefixes that can collide with valid Java usernames.
+- Do not confuse proxy `AllowUnJoined` with backend `AllowUnjoined`; capitalization is significant. The standard proxy-managed layout uses proxy `false` and backend `true`.
+
+## Vote reaches Votifier but not VotingPlugin
+
+- Confirm VotingPlugin is installed on the process receiving the listener event.
+- Check startup errors and plugin compatibility.
+- Enable the relevant debug setting, send one bounded test, and review the surrounding log.
+- On a proxy, verify the selected `BungeeMethod`, shared database, server names, and transport connection.
+
+Do not publish private keys, tokens, database credentials, broker credentials, or full unredacted configuration files in support reports.

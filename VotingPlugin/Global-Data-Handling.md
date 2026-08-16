@@ -2,78 +2,78 @@
 title: Global Data Handling
 description: Sync time changes between multiple servers
 published: true
-date: 2025-11-06T02:31:25.255Z
-tags: 
+date: 2026-08-14T00:00:00.000Z
+tags:
 editor: markdown
 dateCreated: 2025-08-30T22:18:11.336Z
 ---
 
 # Global Data Handling (Work in Progress)
 
-> ⚠️ **Work in Progress Feature**
+> ⚠️ **Release status**
 >
-> This feature is still being developed, but is stable.  
-> Contact **BenCodez** if you encounter any problems or unexpected behavior.
+> VotingPlugin 7.1.1 includes `GlobalData`, but its bundled configuration labels the feature **work in progress** and says to use it with caution. Test coordinated resets and keep a current database backup before enabling it on a production network.
 {.is-warning}
 
 ---
 
 ## Overview
 
-**Global Data Handling** makes the **proxy** (Bungee/Velocity) act as the **primary server** for processing time changes and resetting totals.  
-Instead of each backend handling its own time change independently, the proxy coordinates the process — ensuring all servers finish updating before any totals reset.
+**Global Data Handling** makes the **proxy** (BungeeCord/Velocity) coordinate time changes and total resets across backend servers. Instead of each backend completing a time change independently, the proxy waits for participating servers before the final reset work completes.
 
-This feature improves reliability when using **TopVoter** or **VoteParty** resets across multiple servers.
+This is intended to improve consistency for **TopVoter** and **VoteParty** resets across multiple servers. It is not required for ordinary proxy vote forwarding.
 
 ---
 
 ## How It Works
 
-When enabled, the proxy manages the timing of vote resets (daily, weekly, monthly).  
-During a time change:
-- The proxy signals all connected servers to pause vote processing.
-- Votes received during this time are **cached** (with timestamps).
-- Once all servers report completion, totals reset and cached votes are re-applied.
+When enabled, the proxy coordinates daily, weekly, and monthly changes.
 
-If a server is offline, the process will automatically skip that server after a set period — preventing the network from stalling indefinitely.
+During a time change:
+
+- The proxy signals participating servers to process the change.
+- Votes received during this time are cached with timestamps.
+- Once the required servers finish—or a bounded stale-server rule applies—totals are reset and cached votes are processed.
+
+Release 7.1.1 checks coordination progress every 10 seconds. A server that never starts processing can be skipped after 30 minutes; a server that starts but remains unfinished can be skipped after two hours. A server that has not been seen online for roughly 12 hours is excluded from the recent-server set instead of delaying the change.
+
+These thresholds describe the released implementation, not recommended outage targets.
 
 ---
 
 ## Requirements
 
-- 🗄️ **MySQL required**  
-  Global data uses an additional MySQL table for inter-server coordination.  
-  It can use the **same MySQL connection** defined in your config or a separate one.
+- 🗄️ **Shared SQL data**
+  Global data uses an additional SQL table for inter-server coordination. It can reuse the main connection or use a separately configured connection.
 
-- 🔌 **Proxy Support**  
-  Intended for **PLUGINMESSAGING** and **SOCKETS** setups.  
-  Support for **MySQL method** may be added later.
+- 🔌 **Supported communication path**
+  The 7.1.1 default comments recommend **PLUGINMESSAGING**. They say **SOCKETS** should work but is not fully tested. Do not assume another method is supported for GlobalData until a released configuration or implementation confirms it.
 
-- ⚙️ **Proper Server Naming**  
-  Each backend must have a **unique server name** set in `BungeeSettings.yml`.
+- ⚙️ **Proper server naming**
+  Each participating backend must have a unique `Server` value in `BungeeSettings.yml`.
+
+- 🕓 **Consistent time settings**
+  `TimeHourOffSet` and related time settings must agree across the network.
 
 ---
 
 ## Benefits
 
-✅ Bungee will **cache votes** safely during time changes (stores timestamps)  
-✅ **TopVoter rewards** distribute correctly across all servers  
-✅ Ensures **consistent TopVoter data** when enabled  
-✅ All servers **finish processing time changes together**  
-✅ Prevents random resets if a server was offline  
-✅ Supports **TimeHourOffSet** configuration for time alignment
+- ✅ Votes are cached during coordinated time changes.
+- ✅ Backends finish reset processing under one proxy-controlled operation.
+- ✅ TopVoter and VoteParty reset data can remain consistent across servers.
+- ✅ Recently offline or stuck servers are handled by bounded skip rules.
+- ✅ `TimeHourOffSet` can align the network's change time.
 
 ---
 
-## Drawbacks
+## Drawbacks and cautions
 
-⚠️ **Slight delay** (usually 5–10 seconds) during time changes.  
-⚠️ If a server is offline or fails during a time change, it may take **30 min – 2 hours** before that server is skipped.  
- • Votes received during this time are cached (with timestamps) and processed afterward.  
- • Delay only applies if the server went offline *recently* — if it’s been offline for a long period (≈ 12 hours +), it will **not** slow down the process.  
- • This delay behavior may be adjusted in future updates.  
-⚠️ Requires an extra MySQL table (but not an extra connection if `UseMainMySQL: true`).  
-⚠️ Still experimental — unexpected issues may occur.
+- ⚠️ Normal coordination introduces a delay while participating servers finish.
+- ⚠️ A recently offline or failed server can delay completion for 30 minutes to two hours, depending on whether it started processing.
+- ⚠️ Votes received during that period remain cached and are processed afterward.
+- ⚠️ The feature requires an additional SQL table, though not necessarily an additional connection when `UseMainMySQL: true`.
+- ⚠️ The released configuration still labels the feature work in progress.
 
 ---
 
@@ -81,20 +81,23 @@ If a server is offline, the process will automatically skip that server after a 
 
 | Command | Description |
 |----------|-------------|
-| `/votingpluginproxy forcetimechange <DAY\|WEEK\|MONTH>` | Forces a manual time change event. |
+| `/votingpluginproxy forcetimechange <DAY\|WEEK\|MONTH>` | Forces a manual coordinated time-change event. |
+
+Use the command only during a controlled test or maintenance window with a current backup.
 
 ---
 
 ## Example Configuration
 
-### bungeeconfig.yml
+### `bungeeconfig.yml`
+
 ```yaml
-# Global MySQL data handling between server communications
+# Global SQL data handling between server communications
 GlobalData:
   Enabled: false
-  # Use existing connection from config.yml
+  # Use existing main connection
   UseMainMySQL: true
-  # Custom MySQL settings (if not using main)
+  # Custom SQL settings (if not using main)
   Host: ''
   Port: 3306
   Database: ''
@@ -110,16 +113,18 @@ GlobalData:
 # Time offset for time changes (must match across servers)
 TimeHourOffSet: 0
 ```
+
 ---
 
-### BungeeSettings.yml
+### `BungeeSettings.yml`
+
 ```yaml
-# Global MySQL data handling between server communications
+# Global SQL data handling between server communications
 GlobalData:
   Enabled: false
-  # Use existing MySQL connection from config.yml
+  # Use existing main connection
   UseMainMySQL: true
-  # Custom MySQL settings (if not using main)
+  # Custom SQL settings (if not using main)
   Host: ''
   Port: 3306
   Database: ''
@@ -132,20 +137,18 @@ GlobalData:
   #PublicKeyRetrieval: false
   #UseMariaDB: false
 ```
+
 ---
 
 ## Notes
 
-- Ensure **GlobalData.Enabled** is set to `true` in both **bungeeconfig.yml** and **BungeeSettings.yml**.  
-- All servers must share the same `Prefix` and MySQL configuration if using `UseMainMySQL: true`.  
-- This system will respect **BlockedServers** settings in `bungeeconfig.yml`.  
-- Time synchronization and resets must occur with consistent `TimeHourOffSet` across all servers.
+- Set `GlobalData.Enabled: true` in both `bungeeconfig.yml` and every participating backend's `BungeeSettings.yml`.
+- Use matching `Prefix` and connection settings.
+- The system respects `BlockedServers` in `bungeeconfig.yml`.
+- Keep `TimeHourOffSet` consistent.
+- Verify every intended server can process a normal forwarded vote before testing a forced time change.
+- Confirm cached votes are delivered once after the test completes.
 
 ---
 
-🧩 **Intended Use:**  
-This feature is ideal for large networks where accurate **TopVoter synchronization** is important, and where time changes need to be coordinated globally instead of per-server.
-
----
-
-*Still under development — feedback is welcome.*
+🧩 **Intended use:** large networks that require coordinated TopVoter/VoteParty time changes rather than independent backend resets.
