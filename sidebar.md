@@ -26,6 +26,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ## 🌐 Proxy & Network Setups
 - [Proxy Setups](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-Setups)
+- [Dedicated Voting Proxy](https://github.com/BenCodez/VotingPlugin/wiki/Dedicated-Voting-Proxy)
 - [Global Data Handling](https://github.com/BenCodez/VotingPlugin/wiki/Global-Data-Handling)
 
 ### Proxy Methods

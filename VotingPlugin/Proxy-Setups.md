@@ -75,6 +75,15 @@ VotingPlugin’s proxy integration provides network-wide support for:
 
 ---
 
+## Dedicated Voting Proxy
+
+> **Development builds only:** A dedicated voting proxy is not available in VotingPlugin 7.1.1. Development builds containing merged PRs [#1550](https://github.com/BenCodez/VotingPlugin/pull/1550) and [#1551](https://github.com/BenCodez/VotingPlugin/pull/1551) can run VotingPlugin on one central proxy while separate regional proxies carry players.
+>
+> See [Dedicated Voting Proxy](Dedicated-Voting-Proxy) for the architecture, prerequisites, routing behavior, configuration, security model, migration, and validation steps.
+{.is-warning}
+
+---
+
 ## Multi-Proxy Support
 
 For networks with multiple proxies, `MultiProxyMethod` supports **SOCKETS** or **REDIS** synchronization between proxies. This is separate from the backend `BungeeMethod` selected for communication between a proxy and its backend servers.

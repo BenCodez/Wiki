@@ -136,6 +136,16 @@
           "visibilityGroups": []
         },
         {
+          "id": "ef307e73-71f9-4888-8762-32ec104ca6db",
+          "kind": "link",
+          "label": "Dedicated Voting Proxy",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Dedicated-Voting-Proxy",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
           "id": "977bb47b-008e-4b73-9c7b-2ea468d40975",
           "kind": "link",
           "label": "Multi-Proxy",
