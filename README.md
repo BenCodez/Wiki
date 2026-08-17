@@ -21,7 +21,8 @@ Changes reaching `main` trigger both publication workflows:
 ## Repository layout
 
 - `home.md` — Wiki.js home content; mirrored as GitHub Wiki `Home.md`
-- `sidebar.md` — Wiki.js/sidebar content; mirrored as `_Sidebar.md`
+- `.wikijs/navigation.json` — Wiki.js navigation configuration
+- `sidebar.md` — GitHub Wiki sidebar source; mirrored as `_Sidebar.md`
 - `VotingPlugin/` — VotingPlugin documentation pages
 - `assets/` — diagrams and other documentation assets
 - `.github/workflows/` — mirror and backup deployment workflows
