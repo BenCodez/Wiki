@@ -77,12 +77,16 @@ Do not perform blocking database work on the Bukkit main thread. Use the plugin'
 
 ```java
 VoteSite site = plugin.getVoteSite("ExampleSite", true);
-if (site != null) {
+if (site != null && site.isEnabled()) {
     site.giveRewards(user, user.isOnline(), false);
 }
 ```
 
-The second `getVoteSite` argument controls whether disabled sites are filtered out. Reward delivery also needs the correct online and proxy/Bungee context; do not blindly copy the example when processing a real vote.
+The second `getVoteSite` argument requests enabled-site filtering. In release
+7.1.1, a direct key or display-name lookup can still return a disabled site,
+so also check `site.isEnabled()` as shown above. Reward delivery also needs the
+correct online and proxy/Bungee context; do not blindly copy the example when
+processing a real vote.
 
 ## Adding a subcommand
 
