@@ -72,7 +72,7 @@ Path: `/plugins/VotingPlugin/`
 
 The exact path depends on whether the server is standalone or part of a proxy network, but this diagram shows a typical proxy-network lifecycle:
 
-![Complete VotingPlugin vote lifecycle, from clicking a vote link through validation, processing, storage, rewards, streaks, milestones, and vote-party progress](/assets/VotingPlugin/complete-vote-lifecycle.svg)
+![Complete VotingPlugin vote lifecycle, from clicking a vote link through validation, processing, storage, rewards, streaks, milestones, and vote-party progress](assets/VotingPlugin/complete-vote-lifecycle.svg)
 
 > Standalone servers skip proxy forwarding and process the vote locally. Configuration can change where totals, vote parties, and rewards are processed.
 {.is-info}
@@ -88,7 +88,7 @@ The exact path depends on whether the server is standalone or part of a proxy ne
 
 `VotingPlugin.Player` is the main permission for player commands and is granted by default unless changed in `Config.yml`.
 
-See [Commands and Permissions](/VotingPlugin/Commands-&-Permissions) for the full list.
+See [Commands and Permissions](VotingPlugin/Commands-&-Permissions) for the full list.
 
 ## Storage
 
@@ -101,14 +101,14 @@ VotingPlugin supports:
 
 Rewards can include commands, messages, experience, points, items, titles, action bars, random ranges, and more. Offline rewards are normally delivered when the player next joins.
 
-See [Rewards](/VotingPlugin/Rewards) and [Reward Examples](/VotingPlugin/Reward-Examples).
+See [Rewards](VotingPlugin/Rewards) and [Reward Examples](VotingPlugin/Reward-Examples).
 
 ## Configuration Highlights
 
 | Option / file | Description |
 |---|---|
-| `OnlineMode` | Controls online/offline UUID handling; see [Online / Offline Mode](/VotingPlugin/Online-Offline-Mode) |
-| `VoteReminderOptions` and `VoteReminders` | Current configurable reminder system; see [Vote Reminders](/VotingPlugin/VoteReminders) |
+| `OnlineMode` | Controls online/offline UUID handling; see [Online / Offline Mode](VotingPlugin/Online-Offline-Mode) |
+| `VoteReminderOptions` and `VoteReminders` | Current configurable reminder system; see [Vote Reminders](VotingPlugin/VoteReminders) |
 | Top-voter settings | Monthly and weekly tracking and resets |
 | `BungeeSettings.yml` | Backend proxy-network configuration |
 | `SpecialRewards.yml` | AllSites, VoteParty, milestone, cumulative, and other special rewards |
@@ -123,7 +123,7 @@ VotingPlugin supports these `BungeeMethod` values, matching the current default 
 - **MYSQL** — MySQL-backed message queue
 - **SOCKETS** — direct socket communication; advanced and not recommended for most networks
 
-See [Proxy Setups](/VotingPlugin/Proxy-Setups).
+See [Proxy Setups](VotingPlugin/Proxy-Setups).
 
 ## Troubleshooting
 
@@ -131,18 +131,18 @@ See [Proxy Setups](/VotingPlugin/Proxy-Setups).
 - Verify vote-site ports, tokens, public keys, and service-site names.
 - Use `/adminvote` test commands.
 - Review server and proxy logs.
-- See [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting) and the [FAQ](/VotingPlugin/faq).
+- See [Votifier Troubleshooting](VotingPlugin/Votifier-Troubleshooting) and the [FAQ](VotingPlugin/faq).
 
 ## Related Pages
 
-- [Setup](/VotingPlugin/setup)
-- [File Layout](/VotingPlugin/File-Layout)
-- [Service Sites](/VotingPlugin/Service-sites)
-- [Rewards](/VotingPlugin/Rewards)
-- [Vote Reminders](/VotingPlugin/VoteReminders)
-- [Proxy Setups](/VotingPlugin/Proxy-Setups)
-- [Online / Offline Mode](/VotingPlugin/Online-Offline-Mode)
-- [Commands and Permissions](/VotingPlugin/Commands-&-Permissions)
+- [Setup](VotingPlugin/setup)
+- [File Layout](VotingPlugin/File-Layout)
+- [Service Sites](VotingPlugin/Service-sites)
+- [Rewards](VotingPlugin/Rewards)
+- [Vote Reminders](VotingPlugin/VoteReminders)
+- [Proxy Setups](VotingPlugin/Proxy-Setups)
+- [Online / Offline Mode](VotingPlugin/Online-Offline-Mode)
+- [Commands and Permissions](VotingPlugin/Commands-&-Permissions)
 
 ## Support
 
