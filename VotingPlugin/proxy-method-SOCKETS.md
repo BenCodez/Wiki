@@ -59,7 +59,7 @@ backend. Backends on different IP addresses may reuse a port; two processes on
 the same address need different listener ports.
 
 Also configure the shared external database and the normal proxy settings
-described in [Proxy Setups](/VotingPlugin/Proxy-Setups).
+described in [Proxy Setups](Proxy-Setups).
 
 ## Backend configuration
 
