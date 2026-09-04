@@ -75,7 +75,7 @@ With `BungeeManageTotals: true` (the supported release default), totals are owne
 - Require a dedicated Redis ACL user and non-empty password with only the commands/channels VotingPlugin needs.
 - Do not expose port 6379 to the public Internet or publish credentials in screenshots and logs.
 - `Host: localhost` works only when Redis is on the same machine or network namespace as that VotingPlugin instance.
-- VotingPlugin 7.1.1 has no direct Redis SSL/TLS option. Use a trusted private tunnel or TLS-terminating proxy when traffic must cross untrusted networks.
+- VotingPlugin 7.1.1 has no direct Redis SSL/TLS option. Direct Redis TLS is planned for the next release and is currently available only in unreleased 7.1.2-SNAPSHOT builds containing commit `3354cc70` or newer. Until that release, use a trusted private tunnel or TLS-terminating proxy when traffic must cross untrusted networks.
 
 ## Testing
 
