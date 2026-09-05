@@ -89,4 +89,3 @@ service account, and fully restart every instance afterward. Changing the
 channel name alone is not a substitute for encryption or normal proxy/backend
 network isolation.
 
-> **AI disclosure:** This documentation update was written with assistance from ChatGPT.

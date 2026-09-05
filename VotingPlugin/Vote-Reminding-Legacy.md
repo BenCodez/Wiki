@@ -47,4 +47,3 @@ CoolDownEndRewards:
 
 Do not use this page as the starting point for a new configuration. See [Vote Reminders](VoteReminders) for the active format and migration details.
 
-> **AI disclosure:** This documentation update was written with assistance from ChatGPT.

@@ -85,4 +85,3 @@ Check the proxy and backend consoles for status results and queue-processing err
 - Confirm that `VotingPlugin_message_queue` can be created and updated.
 - Check `/votingpluginproxy status` before testing vote rewards.
 
-> **AI disclosure:** This documentation update was written with assistance from ChatGPT.
