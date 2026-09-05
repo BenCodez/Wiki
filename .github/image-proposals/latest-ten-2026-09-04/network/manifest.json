@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "batch": "latest-ten-2026-09-04",
+  "group": "network",
+  "status": "awaiting_original_png_upload",
+  "source": "Latest ten PNGs generated in this conversation; all earlier images excluded.",
+  "publication": "Draft only; no published page or existing asset changes.",
+  "images": [
+    {
+      "file": "votingplugin_proxy_network_layout.png",
+      "page": "VotingPlugin/Proxy-Setups.md",
+      "sha256": "28bb6bcb37892e6edfa910c1799c499d68bec2e54a125f5ecd02e79acf935e45",
+      "git_blob_sha": "71200099b66cbc4617d2b850d8b233eccc21e64b",
+      "bytes": 1380302,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Retain proxy and backend VotingPlugin installations. Replace broad storage/reward wording and the all-servers tagline with configuration-dependent routing. Do not present reward definitions as automatically shared by SQL."
+    },
+    {
+      "file": "votingplugin_proxy_messaging_infographic.png",
+      "page": "VotingPlugin/Proxy-method-PLUGINMESSAGING.md",
+      "sha256": "c01c436d3c1feb6138316c0151c40ff3f84aa1d947d76018eccd28e7e75b4aef",
+      "git_blob_sha": "2ce770832c1e3436d67c49eabbf1388ad542e512",
+      "bytes": 1408717,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Replace the unconditional immediate-delivery wording. A usable player connection permits transport, but routing, voter state, WaitForUserOnline, and reward settings can still delay delivery. The connection carrying the message need not belong to the voter."
+    },
+    {
+      "file": "redis_proxy_voting_architecture.png",
+      "page": "VotingPlugin/proxy-method-REDIS.md",
+      "sha256": "2643d70e76d9fbfc95236b5cdbaa1b2521f091af7a4dd5aa10f6dc3d3b5bdf2e",
+      "git_blob_sha": "f76b4e9e1711887d8f11cf184a1746459e29a2a4",
+      "bytes": 1547624,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Remove the Redis-to-SQL connection drawn in the image; the VotingPlugin instances access SQL separately. Replace unconditional all-backend delivery with eligible destination(s) selected by configuration."
+    },
+    {
+      "file": "votingplugin_sockets_proxy_architecture.png",
+      "page": "VotingPlugin/proxy-method-SOCKETS.md",
+      "sha256": "5c33be14f29a719487da6fb7b47980105932066f665e5fe713204c9385fb5f7a",
+      "git_blob_sha": "aa85c7f0a682184f18c67747c40d7888720fbaa6",
+      "bytes": 1594057,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Show both proxy and backend listener/address roles, not only proxy-initiated connections. Remove the suggestion that the shared SOCKETS key is optional. Prefer reachable private example addresses and retain firewall restrictions; distinguish these ports from Votifier ingress."
+    },
+    {
+      "file": "dedicated_voting_proxy_architecture.png",
+      "page": "VotingPlugin/Dedicated-Voting-Proxy.md",
+      "sha256": "022e7819262da3235072a4116a2f5cc4fe4c5387480954fb9c115957d1e94d4a",
+      "git_blob_sha": "53d61d2893ac21c375527448788ba78d70b60c4f",
+      "bytes": 1526875,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Add the documented development-build qualification, explicitly exclude VotingPlugin from regional/player-facing proxies, show backend presence reporting, and remove the unexplained regional-to-dedicated connection. Do not claim a measured performance benefit."
+    }
+  ]
+}
