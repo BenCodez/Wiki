@@ -65,8 +65,10 @@ UseJavascriptPlaceholders: false
 - `UseVoteStreaks` does **not** disable the current `VoteStreaks` system in
   `SpecialRewards.yml`; it controls only the legacy `VoteStreak` system.
 - Disable `UseHighestTotals` only if you do not use best/highest totals.
-- Leave `UseJavascriptPlaceholders` disabled unless a placeholder requires
-  JavaScript processing.
+- Leave `UseJavascriptPlaceholders` disabled unless trusted, operator-authored
+  configuration explicitly requires JavaScript processing. If you enable it,
+  do not interpolate untrusted or player-controlled placeholder output into
+  JavaScript expressions.
 
 ## Cooldown and interaction listeners
 
