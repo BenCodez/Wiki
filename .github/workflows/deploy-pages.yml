@@ -54,6 +54,10 @@ jobs:
           # MkDocs displays them as text. Remove them from the staged copy.
           python .github/scripts/strip-wikijs-attributes.py docs
 
+          # Wiki.js and the GitHub Wiki mirror use extensionless page links.
+          # Convert only the staged copy to MkDocs-recognized source targets.
+          python .github/scripts/rewrite-mkdocs-links.py docs
+
           # Ensure docs/ exists and has something at top
           if [ ! -f docs/index.md ]; then
             echo "# BenCodez Wiki" > docs/index.md

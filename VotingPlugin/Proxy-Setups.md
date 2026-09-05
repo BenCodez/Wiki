@@ -45,7 +45,7 @@ VotingPlugin supports multiple communication methods between your **proxy (Bunge
 
 ## How It Works
 
-![VotingPlugin proxy architecture showing vote websites, VotifierPlus, proxy communication methods, backend servers, and shared MySQL storage](/assets/VotingPlugin/votingplugin-proxy-architecture.svg)
+![VotingPlugin proxy architecture showing vote websites, VotifierPlus, proxy communication methods, backend servers, and shared MySQL storage](../assets/VotingPlugin/votingplugin-proxy-architecture.svg)
 
 > This diagram shows the typical single-proxy network layout. Multi-proxy setups and custom Votifier routing may use a different topology. The supported communication methods converge through one selected/configured path to the backend servers.
 {.is-info}
@@ -132,7 +132,7 @@ The proxy receives and manages votes from Votifier before forwarding them to bac
 
 ## Simple flow reference
 
-![Simple VotingPlugin proxy flow showing votes entering VotifierPlus and VotingPlugin on the proxy, passing through one selected BungeeMethod, and reaching backend servers](/assets/VotingPlugin/proxy-flow-simple-reference.svg)
+![Simple VotingPlugin proxy flow showing votes entering VotifierPlus and VotingPlugin on the proxy, passing through one selected BungeeMethod, and reaching backend servers](../assets/VotingPlugin/proxy-flow-simple-reference.svg)
 
 This compact version preserves the older proxy-flow overview. The detailed architecture near the top of this page is the authoritative reference for communication methods and shared storage.
 

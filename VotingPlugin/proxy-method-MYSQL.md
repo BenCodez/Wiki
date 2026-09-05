@@ -28,7 +28,7 @@ Configure the shared MySQL connection and provide enough connections for the pro
 Restrict the database listener to the proxy and backend addresses, use a
 dedicated account with only the required schema permissions, and never post
 the connection password in logs or support screenshots. See
-[Data storage and migration](/VotingPlugin/Transferring-data-storage-within-plugin)
+[Data storage and migration](Transferring-data-storage-within-plugin)
 for released MariaDB/PostgreSQL driver selection and JDBC prerequisites.
 
 ### Backend servers: `BungeeSettings.yml`
