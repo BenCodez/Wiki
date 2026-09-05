@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "batch": "latest-ten-2026-09-04",
+  "group": "guides",
+  "status": "awaiting_original_png_upload",
+  "source": "Latest ten PNGs generated in this conversation; all earlier images excluded.",
+  "publication": "Draft only; no published page or existing asset changes.",
+  "images": [
+    {
+      "file": "votifier_troubleshooting_flowchart.png",
+      "page": "VotingPlugin/Votifier-Troubleshooting.md",
+      "sha256": "36b6580efd8d1d2ec2f3798bde368875e50904e87298039f4320fcff51565be3",
+      "git_blob_sha": "136e4e4e4ea9212d3a8ae97b089908868dec868b",
+      "bytes": 1711422,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Correct ServiceSite matching from case-sensitive to case-insensitive. Distinguish VotingPlugin receipt on the proxy from forwarding and backend processing. Shared SQL is required for the documented proxy integration, not optional."
+    },
+    {
+      "file": "servicesite_matching_infographic.png",
+      "page": "VotingPlugin/Service-sites.md",
+      "sha256": "7ab3a746541163e626a0cf3ae97d8f1b8d65755d79e8783ad96a55c5e0f83663",
+      "git_blob_sha": "754739aef63d74ec962cacabe8e146ea86dc2ffa",
+      "bytes": 1594966,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Replace the invented JSON vote-packet/UUID depiction with an actual documented log excerpt or explicitly labeled conceptual data. State that ServiceSite matching is case-insensitive. Show the VoteSites root or label the YAML as an excerpt; do not promise successful rewards merely because the site matches."
+    },
+    {
+      "file": "where_to_set_rewards_infographic.png",
+      "page": "VotingPlugin/Where-to-set-rewards.md",
+      "sha256": "90e12ef57c675bfa4e760b606362ff7ac91942610fe6def31833c5d3c3bd1eb3",
+      "git_blob_sha": "c3113b4075c182998b2aeac750f3f3f5d907ae26",
+      "bytes": 1462615,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Make clear that reusable reward files define effects and do not create a trigger themselves. Include the EverySiteReward location when depicting all vote-site reward locations. Check added VoteShop/reminder references against their own pages."
+    },
+    {
+      "file": "votingplugin_file_layout_infographic.png",
+      "page": "VotingPlugin/File-Layout.md",
+      "sha256": "0a99af4f4f7ecb6135fe7e125ada548dba9f011e17fe148781017e467f56bc73",
+      "git_blob_sha": "a2bd316d38b0cfe4b3e794a0cd091a3a1a236bce",
+      "bytes": 1532668,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Do not label TopVoter historical output as configuration to edit normally. Add Rewards/DirectlyDefined as generated content that must not be edited. Explain that Users.db and proxy JSON cache files depend on the chosen storage settings."
+    },
+    {
+      "file": "advancedpriority_rewards_flow_infographic.png",
+      "page": "VotingPlugin/AdvancedPriority-Rewards.md",
+      "sha256": "0374a193c478dfe9cbd21007a7dc2b2fafb7a2b09b9a5459e014b69a7e927985",
+      "git_blob_sha": "bce92729649a8d6eab557a677420da31c44129ef",
+      "bytes": 1618758,
+      "width": 1448,
+      "height": 1086,
+      "corrections_before_publication": "Route the entry arrow into Reward1 rather than Reward2. Remove unsupported biome wording. Label the right panel conceptual rather than copyable YAML, or use actual keys with numeric Chance values. Clarify that first-match stopping applies to children of AdvancedPriority, not independent sibling rewards."
+    }
+  ]
+}
