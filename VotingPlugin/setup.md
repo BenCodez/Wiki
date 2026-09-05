@@ -2,8 +2,8 @@
 title: Setup
 description: VotingPlugin installation and initial configuration
 published: true
-date: 2026-08-14T00:00:00.000Z
-tags:
+date: 2026-09-05T14:44:16.983Z
+tags: 
 editor: markdown
 dateCreated: 2025-08-31T03:20:39.536Z
 ---
@@ -73,7 +73,7 @@ See [Rewards](Rewards) and [Reward Examples](Reward-Examples).
 
 ## 5. Permissions
 
-`VotingPlugin.Player` grants the main player commands by default. See [Commands and Permissions](Commands-&-Permissions) for all nodes.
+`VotingPlugin.Player` grants the main player commands by default. See [Commands and Permissions](/VotingPlugin/Commands-&-Permissions) for all nodes.
 
 ## 6. Restart and test
 
