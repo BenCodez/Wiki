@@ -83,5 +83,3 @@ Restart the server and proxy after changing network settings.
 - A real or listener-generated vote tests the public Votifier port, token/key, service-site value, and complete delivery path.
 
 Run both tests and verify service-site matching, storage, forwarding, and rewards in the logs. An administrative test alone does not prove the public vote listener is reachable.
-
-> **AI disclosure:** This documentation update was written with assistance from ChatGPT.
