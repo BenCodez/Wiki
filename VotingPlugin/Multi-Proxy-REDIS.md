@@ -75,5 +75,3 @@ Redis runs on the same machine as every connecting proxy.
 
 > Multi-proxy support is advanced. Test vote forwarding, duplicate prevention, reconnect behavior, and reward delivery before using it in production.
 {.is-warning}
-
-> **AI disclosure:** This documentation update was written with assistance from ChatGPT.
