@@ -169,5 +169,3 @@ Test both routing modes before production use:
 - [Development `bungeeconfig.yml`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/resources/bungeeconfig.yml)
 - [Development `BungeeSettings.yml`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/resources/BungeeSettings.yml)
 - [Development proxy implementation](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/java/com/bencodez/votingplugin/proxy/VotingPluginProxy.java)
-
-> **AI disclosure:** This documentation update was written with assistance from ChatGPT.
