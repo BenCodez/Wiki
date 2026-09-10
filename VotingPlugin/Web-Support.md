@@ -10,7 +10,9 @@ dateCreated: 2025-08-30T22:18:31.670Z
 
 # Web Support
 
-VotingPlugin does not include a first-party web dashboard. Third-party projects can read VotingPlugin's SQL data and display vote statistics, but their compatibility, maintenance status, and security model are separate from VotingPlugin.
+VotingPlugin 7.1.1 does not include a first-party web dashboard. Third-party projects can read VotingPlugin's SQL data and display vote statistics, but their compatibility, maintenance status, and security model are separate from VotingPlugin.
+
+Development builds containing the Control connector can instead use the optional first-party [VotingPlugin Control WebUI](Control-WebUI). Release users do not have those connector or hosting settings yet.
 
 ## Third-party integrations
 
