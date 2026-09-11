@@ -2,7 +2,7 @@
 title: HTTP Proxy Transport
 description: Connect VotingPlugin backends to one secure proxy listener without opening a port on every backend
 published: true
-date: 2026-09-10T00:00:00.000Z
+date: 2026-09-11T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-09-02T00:00:00.000Z
@@ -10,7 +10,7 @@ dateCreated: 2026-09-02T00:00:00.000Z
 
 # HTTP Proxy Transport
 
-> **Development-build feature:** `BungeeMethod: HTTP` is not available in the latest public VotingPlugin release, **7.1.1**. This page currently requires the unmerged [VotingPlugin PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`058e8e7a`](https://github.com/BenCodez/VotingPlugin/commit/058e8e7aa9ffecdd2026faff2ce1d1a3e3445f80) or later. Release users do not have the `HTTP` method, its configuration keys, or its proxy commands.
+> **Development-build feature:** `BungeeMethod: HTTP` is not available in the latest public VotingPlugin release, **7.1.1**. This page currently requires the unmerged [VotingPlugin PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`0da1c460`](https://github.com/BenCodez/VotingPlugin/commit/0da1c46084bc0aaf5345af00e3e54696d9b2a830) or later. Release users do not have the `HTTP` method, its configuration keys, or its proxy commands.
 {.is-warning}
 
 The HTTP proxy method gives every backend an **outbound**, encrypted connection to one HTTPS listener on the BungeeCord or Velocity proxy. Only the proxy listener port needs to be reachable. Backend servers do not expose an HTTP transport port.
