@@ -2,7 +2,7 @@
 title: HTTP Proxy Transport
 description: Connect VotingPlugin backends to one secure proxy listener without opening a port on every backend
 published: true
-date: 2026-09-12T00:00:00.000Z
+date: 2026-09-13T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-09-02T00:00:00.000Z
@@ -10,7 +10,7 @@ dateCreated: 2026-09-02T00:00:00.000Z
 
 # HTTP Proxy Transport
 
-> **Development-build feature:** `BungeeMethod: HTTP` is not available in the latest public VotingPlugin release, **7.1.1**. This page currently requires the unmerged [VotingPlugin PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`fa9f1a58`](https://github.com/BenCodez/VotingPlugin/commit/fa9f1a582f856cb74c3a73aaccece7abfa5f57d5) or later. Release users do not have the `HTTP` method, its configuration keys, or its proxy commands.
+> **Development-build feature:** `BungeeMethod: HTTP` is not available in the latest public VotingPlugin release, **7.1.1**. This page currently requires the unmerged [VotingPlugin PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`3acae789`](https://github.com/BenCodez/VotingPlugin/commit/3acae789142d712da87e690297e3177629075376) or later. Release users do not have the `HTTP` method, its configuration keys, or its proxy commands.
 {.is-warning}
 
 The HTTP proxy method gives every backend an **outbound**, encrypted connection to one HTTPS listener on the BungeeCord or Velocity proxy. Only the proxy listener port needs to be reachable. Backend servers do not expose an HTTP transport port.
@@ -147,9 +147,9 @@ To roll back, select the previous method on the proxy and every backend, restore
 
 ## Control WebUI compatibility
 
-The current public Control release, **v0.1.7**, does not offer `HTTP` through its `config.proxy-method.v1` workflow. Configure this development transport manually; do not use Control to switch a live network to or from HTTP yet.
+The current public Control release, **v0.1.7**, does not offer `HTTP` through its `config.proxy-method.v1` workflow. Configure this development transport manually; do not use released Control to switch a live network to or from HTTP.
 
-A future coordinated Control version must explicitly advertise HTTP compatibility and validate the proxy and every selected backend before the method can be switched safely through the WebUI. Retain console access and external backups for rollback even after that support becomes available.
+Active [Control PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) and VotingPlugin PR #1594 introduce a negotiated `config.proxy-method.v2` workflow for HTTP. That pairing remains unmerged and unreleased. Wait for compatible public releases on both sides, then verify that the proxy and every selected backend advertise v2 before using the WebUI. Retain console access and external backups for rollback.
 
 ## Troubleshooting
 
