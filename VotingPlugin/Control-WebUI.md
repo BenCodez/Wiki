@@ -1,4 +1,3 @@
-Switched to branch 'docs/control-webui-development-page'
 ---
 title: VotingPlugin Control WebUI
 description: Install, enroll, manage, and inspect a VotingPlugin network through the optional Control WebUI
