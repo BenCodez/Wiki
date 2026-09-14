@@ -1,8 +1,9 @@
+Switched to branch 'docs/control-webui-development-page'
 ---
 title: VotingPlugin Control WebUI
 description: Install, enroll, manage, and inspect a VotingPlugin network through the optional Control WebUI
 published: true
-date: 2026-09-13T00:00:00.000Z
+date: 2026-09-14T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-08-31T00:00:00.000Z
@@ -19,7 +20,7 @@ Control does **not** receive votes or replace VotingPlugin's existing proxy comm
 
 ## Active development after Control v0.1.7
 
-> **Not available in Control v0.1.7:** Automatic selected-server loading, negotiated HTTP proxy-method switching, the private VotingPlugin artifact store, and VotingPlugin JAR staging are proposed by stacked Control PRs [#13](https://github.com/BenCodez/VotingPlugin-Control/pull/13), [#14](https://github.com/BenCodez/VotingPlugin-Control/pull/14), and [#15](https://github.com/BenCodez/VotingPlugin-Control/pull/15). Their node-side capabilities require VotingPlugin PR [#1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`3acae789`](https://github.com/BenCodez/VotingPlugin/commit/3acae789142d712da87e690297e3177629075376) or later. All four PRs remain open and unreleased; do not rely on these workflows until compatible public releases exist.
+> **Not available in Control v0.1.7:** Automatic selected-server loading, negotiated HTTP proxy-method switching, the private VotingPlugin artifact store, and VotingPlugin JAR staging are proposed by stacked Control PRs [#13](https://github.com/BenCodez/VotingPlugin-Control/pull/13), [#14](https://github.com/BenCodez/VotingPlugin-Control/pull/14), and [#15](https://github.com/BenCodez/VotingPlugin-Control/pull/15). Their node-side capabilities require VotingPlugin PR [#1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`2e49dd66`](https://github.com/BenCodez/VotingPlugin/commit/2e49dd66699aefe24a572416053c9954e6e864e4) or later. All four PRs remain open and unreleased; do not rely on these workflows until compatible public releases exist.
 {.is-warning}
 
 The proposed stack adds these bounded workflows without changing Control's role in vote processing:
