@@ -84,6 +84,13 @@ VotingPlugin’s proxy integration provides network-wide support for:
 
 ---
 
+## Control WebUI
+
+> **Development builds only:** VotingPlugin 7.1.1 does not include Control connector or hosting settings. Compatible development builds can enroll proxies and backends in the optional [VotingPlugin Control WebUI](Control-WebUI) for reviewed configuration changes and bounded diagnostics. Control does not replace the selected vote transport.
+{.is-warning}
+
+---
+
 ## Multi-Proxy Support
 
 For networks with multiple proxies, `MultiProxyMethod` supports **SOCKETS** or **REDIS** synchronization between proxies. This is separate from the backend `BungeeMethod` selected for communication between a proxy and its backend servers.
