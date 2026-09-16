@@ -73,7 +73,7 @@ See [Rewards](Rewards) and [Reward Examples](Reward-Examples).
 
 ## 5. Permissions
 
-`VotingPlugin.Player` grants the main player commands by default. See [Commands and Permissions](/VotingPlugin/Commands-&-Permissions) for all nodes.
+`VotingPlugin.Player` grants the main player commands by default. See [Commands and Permissions](Commands-&-Permissions) for all nodes.
 
 ## 6. Restart and test
 
