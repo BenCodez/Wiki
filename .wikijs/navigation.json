@@ -176,6 +176,16 @@
           "visibilityGroups": []
         },
         {
+          "id": "c847024d-f7ea-4df5-a2d6-51b5ad8b18df",
+          "kind": "link",
+          "label": "HTTP Proxy Transport",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/proxy-method-HTTP",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
           "id": "251cebdd-779c-4750-b750-57e3e0aebfa0",
           "kind": "divider",
           "label": null,
