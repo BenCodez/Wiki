@@ -146,6 +146,16 @@
           "visibilityGroups": []
         },
         {
+          "id": "b6e2c8a1-892e-4c07-8d4a-4e67cb69ef51",
+          "kind": "link",
+          "label": "Control WebUI",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Control-WebUI",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
           "id": "977bb47b-008e-4b73-9c7b-2ea468d40975",
           "kind": "link",
           "label": "Multi-Proxy",

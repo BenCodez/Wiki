@@ -2,7 +2,7 @@
 title: HTTP Proxy Transport
 description: Connect VotingPlugin backends to one secure proxy listener without opening a port on every backend
 published: true
-date: 2026-09-14T00:00:00.000Z
+date: 2026-09-15T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-09-02T00:00:00.000Z
@@ -10,7 +10,7 @@ dateCreated: 2026-09-02T00:00:00.000Z
 
 # HTTP Proxy Transport
 
-> **Development-build feature:** `BungeeMethod: HTTP` is not available in the latest public VotingPlugin release, **7.1.1**. This page currently requires the unmerged [VotingPlugin PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`2e49dd66`](https://github.com/BenCodez/VotingPlugin/commit/2e49dd66699aefe24a572416053c9954e6e864e4) or later. Release users do not have the `HTTP` method, its configuration keys, or its proxy commands.
+> **Development-build feature:** `BungeeMethod: HTTP` is not available in the latest public VotingPlugin release, **7.1.1**. This page currently requires the unmerged [VotingPlugin PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`72d5183d`](https://github.com/BenCodez/VotingPlugin/commit/72d5183de1837082dd30173bbd203e45d9189d4c) or later. Release users do not have the `HTTP` method, its configuration keys, or its proxy commands.
 {.is-warning}
 
 The HTTP proxy method gives every backend an **outbound**, encrypted connection to one HTTPS listener on the BungeeCord or Velocity proxy. Only the proxy listener port needs to be reachable. Backend servers do not expose an HTTP transport port.
@@ -95,7 +95,7 @@ Repeat the process with a new code for every backend. Never reuse one backend's 
 1. Confirm the proxy reports the HTTP method without listener or endpoint errors.
 2. Confirm each backend enrolls under its exact configured `Server` name.
 3. Remove the temporary connection code after successful enrollment.
-4. Run the proxy status command and confirm every expected backend responds.
+4. Put at least one player online on each backend, then run the proxy status command and confirm every expected backend responds. The status command skips empty backends.
 5. Send a real test vote through the public Votifier listener.
 6. Test an online player and an offline player, then verify the normal cache and reward behavior on the intended backend servers.
 7. Restart the proxy and one backend to verify that enrolled identities and pending deliveries recover.
@@ -107,6 +107,7 @@ A successful HTTP connection test does not prove that a vote site, Votifier toke
 - Proxy-to-backend messages remain in a bounded, owner-only durable proxy queue until the backend acknowledgement is durably applied.
 - The backend journals callback states so a completed callback can be acknowledged after restart without automatically running it twice.
 - A callback interrupted at an ambiguous point is quarantined for operator investigation instead of being automatically replayed or silently acknowledged.
+- An HTTP Vote Party threshold commit journals backend reward deliveries, the proxy broadcast, and ordered proxy commands together. Pending proxy effects resume after restart, but those local effects are at-least-once: a crash after execution and before progress is saved can repeat one. A Velocity command that does not complete within 60 seconds moves to `VoteParty.QuarantinedProxyEffects` for manual review instead of blocking later work.
 - Backend-to-proxy delivery retains VotingPlugin's existing bounded in-process retry behavior; application vote caching remains responsible for vote durability in that direction.
 - `SendVotesToAllServers`, `BlockedServers`, `WhiteListedServers`, `WaitForUserOnline`, dedicated-proxy presence, offline caching, UUID mode, and `BedrockPlayerPrefix` keep their existing meanings.
 
@@ -149,7 +150,7 @@ To roll back, select the previous method on the proxy and every backend, restore
 
 The current public Control release, **v0.1.7**, does not offer `HTTP` through its `config.proxy-method.v1` workflow. Configure this development transport manually; do not use released Control to switch a live network to or from HTTP.
 
-Active [Control PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) and VotingPlugin PR #1594 introduce a negotiated `config.proxy-method.v2` workflow for HTTP. That pairing remains unmerged and unreleased. Wait for compatible public releases on both sides, then verify that the proxy and every selected backend advertise v2 before using the WebUI. Retain console access and external backups for rollback.
+Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is merged into Control development at [`39e0b31`](https://github.com/BenCodez/VotingPlugin-Control/commit/39e0b31077100d81f6da6261afd638b2df2eb645), while VotingPlugin PR #1594 provides the node-side `config.proxy-method.v2` workflow for HTTP. Both sides remain unreleased. Wait for compatible public releases, then verify that the proxy and every selected backend advertise v2 before using the WebUI. Retain console access and external backups for rollback.
 
 ## Troubleshooting
 
