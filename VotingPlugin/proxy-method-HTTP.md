@@ -2,7 +2,7 @@
 title: HTTP Proxy Transport
 description: Connect VotingPlugin backends to one secure proxy listener without opening a port on every backend
 published: true
-date: 2026-09-15T00:00:00.000Z
+date: 2026-09-16T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-09-02T00:00:00.000Z
@@ -148,9 +148,9 @@ To roll back, select the previous method on the proxy and every backend, restore
 
 ## Control WebUI compatibility
 
-The current public Control release, **v0.1.7**, does not offer `HTTP` through its `config.proxy-method.v1` workflow. Configure this development transport manually; do not use released Control to switch a live network to or from HTTP.
+The current public Control release, **v0.1.8**, includes negotiated `config.proxy-method.v2` support for HTTP. The latest public VotingPlugin release, 7.1.1, does not advertise that capability and cannot use HTTP. Configure this development transport manually unless every selected node runs a compatible PR #1594 build.
 
-Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is merged into Control development at [`39e0b31`](https://github.com/BenCodez/VotingPlugin-Control/commit/39e0b31077100d81f6da6261afd638b2df2eb645), while VotingPlugin PR #1594 provides the node-side `config.proxy-method.v2` workflow for HTTP. Both sides remain unreleased. Wait for compatible public releases, then verify that the proxy and every selected backend advertise v2 before using the WebUI. Retain console access and external backups for rollback.
+Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is included in v0.1.8, while VotingPlugin PR #1594 provides the still-unreleased node-side `config.proxy-method.v2` workflow for HTTP. Verify that the proxy and every selected backend advertise v2 before using the WebUI. For production networks, wait for a compatible public VotingPlugin release. Retain console access and external backups for rollback.
 
 ## Troubleshooting
 

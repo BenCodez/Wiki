@@ -2,7 +2,7 @@
 title: VotingPlugin Control WebUI
 description: Install, enroll, manage, and inspect a VotingPlugin network through the optional Control WebUI
 published: true
-date: 2026-09-15T00:00:00.000Z
+date: 2026-09-16T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-08-31T00:00:00.000Z
@@ -10,19 +10,19 @@ dateCreated: 2026-08-31T00:00:00.000Z
 
 # VotingPlugin Control WebUI
 
-> **Development-build feature:** Control integration is not available in the latest public VotingPlugin release, **7.1.1**. Unless a section is marked as later active development, the management and inspection suite described here requires a `7.1.2-SNAPSHOT` build containing merged commit [`034e39aa`](https://github.com/BenCodez/VotingPlugin/commit/034e39aae5890db249a51109fa0ee2d2561b7142) or later and [VotingPlugin-Control v0.1.7](https://github.com/BenCodez/VotingPlugin-Control/releases/tag/v0.1.7). Release users do not have the VotingPlugin connector or hosting settings yet. Details may change before VotingPlugin 7.1.2 is released.
+> **Development-build feature:** Control integration is not available in the latest public VotingPlugin release, **7.1.1**. Unless a section requires a later development build, the management and inspection suite described here requires a `7.1.2-SNAPSHOT` build containing merged commit [`034e39aa`](https://github.com/BenCodez/VotingPlugin/commit/034e39aae5890db249a51109fa0ee2d2561b7142) or later and [VotingPlugin-Control v0.1.8](https://github.com/BenCodez/VotingPlugin-Control/releases/tag/v0.1.8). Release users do not have the VotingPlugin connector or hosting settings yet. Details may change before VotingPlugin 7.1.2 is released.
 {.is-warning}
 
 VotingPlugin Control is an optional, local-first management application for a VotingPlugin network. Its WebUI can show enrolled proxies and backends, coordinate reviewed configuration changes, and request bounded read-only diagnostics from capable backend nodes.
 
 Control does **not** receive votes or replace VotingPlugin's existing proxy communication method. Voting continues normally if Control is stopped, slow, unavailable, or disabled.
 
-## Active development after Control v0.1.7
+## Control v0.1.8 compatibility boundary
 
-> **Not available in Control v0.1.7:** Automatic selected-server loading and negotiated HTTP proxy-method switching are merged into Control development by [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13). The private VotingPlugin artifact store and VotingPlugin JAR staging remain proposed by stacked Control PRs [#14](https://github.com/BenCodez/VotingPlugin-Control/pull/14) and [#15](https://github.com/BenCodez/VotingPlugin-Control/pull/15). Their node-side capabilities require the unmerged VotingPlugin PR [#1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`72d5183d`](https://github.com/BenCodez/VotingPlugin/commit/72d5183de1837082dd30173bbd203e45d9189d4c) or later. These workflows remain unreleased; do not rely on them until compatible public releases exist.
+> **VotingPlugin 7.1.1 is not compatible with these workflows:** Control v0.1.8 includes automatic selected-server loading, negotiated HTTP proxy-method switching, a private VotingPlugin artifact store, and VotingPlugin JAR staging. Their node-side capabilities require the unmerged VotingPlugin PR [#1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`72d5183d`](https://github.com/BenCodez/VotingPlugin/commit/72d5183de1837082dd30173bbd203e45d9189d4c) or later. Installing Control v0.1.8 alone does not add those capabilities to release VotingPlugin nodes; wait for a compatible public VotingPlugin release.
 {.is-warning}
 
-The proposed stack adds these bounded workflows without changing Control's role in vote processing:
+Control v0.1.8 adds these bounded workflows without changing Control's role in vote processing:
 
 - Selecting a server automatically loads its current settings, clears stale editor state, and rereads confirmed state after an apply.
 - HTTP method selection uses negotiated `config.proxy-method.v2`; older nodes remain connected but are excluded from HTTP previews and applies.
@@ -30,7 +30,7 @@ The proposed stack adds these bounded workflows without changing Control's role 
 - Staging verifies the artifact identity and SHA-256, reports per-node results, and ends at `RESTART_REQUIRED`. Control does not reload or restart a Minecraft process automatically.
 - A retry creates a new operation for currently eligible failed targets; it does not replay successful targets implicitly.
 
-Continue using manual VotingPlugin updates and manual HTTP configuration until compatible public releases are available.
+Continue using manual VotingPlugin updates and manual HTTP configuration unless every selected node runs a compatible development build and advertises the required capability. For production networks, wait for a compatible public VotingPlugin release.
 
 ## Architecture
 
@@ -238,15 +238,15 @@ Transport tests request a bounded check through a node's existing VotingPlugin c
 
 Coordinated proxy-method switching validates capabilities and current topology, previews the proposed changes, and applies only after approval. All participating nodes must support the selected method and its required configuration. Take external backups before a network-wide transport migration.
 
-Control v0.1.7 supports `MYSQL`, `PLUGINMESSAGING`, `REDIS`, `MQTT`, and `SOCKETS` through `config.proxy-method.v1`. HTTP is not a v1 option. The active post-v0.1.7 stack uses `config.proxy-method.v2` for HTTP and excludes nodes that do not advertise that exact capability.
+Control v0.1.8 retains `MYSQL`, `PLUGINMESSAGING`, `REDIS`, `MQTT`, and `SOCKETS` through `config.proxy-method.v1` and adds negotiated `config.proxy-method.v2` for HTTP. HTTP is not a v1 option. Nodes that do not advertise the exact v2 capability are excluded from HTTP previews and applies; VotingPlugin 7.1.1 does not advertise it.
 
 ### VotingPlugin update staging
 
-The active post-v0.1.7 stack proposes a **Plugin update** workspace. It accepts one bounded VotingPlugin JAR, verifies the embedded plugin identity, stores it by SHA-256, and shows which connected nodes currently advertise `plugin.deploy.v1` before an operation is created.
+Control v0.1.8 provides a **Plugin update** workspace. It accepts one bounded VotingPlugin JAR, verifies the embedded plugin identity, stores it by SHA-256, and shows which connected nodes currently advertise `plugin.deploy.v1` before an operation is created. VotingPlugin 7.1.1 does not advertise that capability.
 
 Each selected node downloads the exact verified artifact through a session- and attempt-bound lease, stages it for the next process start, and reports either `RESTART_REQUIRED` or a bounded failure. Control never hot reloads VotingPlugin, restarts a server, or turns a failed target into an automatic retry. Review the per-node result, then restart successful targets through the normal server-management process.
 
-The proposed store is private and bounded to 32 artifacts and 512 MiB. Retained deployment history protects referenced artifacts from eviction. Treat uploaded JARs and the Control data directory as trusted administrative material and include them in the host's access-control and backup policy.
+The store is private and bounded to 32 artifacts and 512 MiB. Retained deployment history protects referenced artifacts from eviction. Treat uploaded JARs and the Control data directory as trusted administrative material and include them in the host's access-control and backup policy.
 
 ## Safe change workflow
 
@@ -315,7 +315,7 @@ VoteLog views contain retained **logged events**, not a complete packet or comma
 | VoteLog says enabled but unavailable | Restart VotingPlugin after enabling VoteLogging, then check database connectivity and table readability. |
 | Network Doctor is healthy but votes still fail | Run a real Votifier vote through the complete public listener and delivery path. Network Doctor is not a synthetic vote test. |
 | The hosted update rolled back | Inspect the hosted log and retained failed candidate. Do not bypass digest or health verification. |
-| A VotingPlugin deployment says `RESTART_REQUIRED` | The JAR was staged successfully but is not active yet. Restart that node through the normal server-management process. This workflow is not available in Control v0.1.7. |
+| A VotingPlugin deployment says `RESTART_REQUIRED` | The JAR was staged successfully but is not active yet. Restart that node through the normal server-management process. Control v0.1.8 provides this workflow, but VotingPlugin 7.1.1 lacks the required node capability. |
 
 ## Disable Control
 
@@ -345,10 +345,10 @@ On a proxy, set `Control.Enabled: false` as well. Disabling or removing Control 
 
 - [VotingPlugin Control connector implementation notes](https://github.com/BenCodez/VotingPlugin/blob/master/docs/control-connector.md)
 - [VotingPlugin Control management reference](https://github.com/BenCodez/VotingPlugin-Control/blob/main/docs/control-management.md)
-- [VotingPlugin Control v0.1.7](https://github.com/BenCodez/VotingPlugin-Control/releases/tag/v0.1.7)
-- [Automatic settings and HTTP v2 development merge (Control PR #13)](https://github.com/BenCodez/VotingPlugin-Control/pull/13)
-- [Verified VotingPlugin artifact-store proposal (Control PR #14)](https://github.com/BenCodez/VotingPlugin-Control/pull/14)
-- [VotingPlugin staging proposal (Control PR #15)](https://github.com/BenCodez/VotingPlugin-Control/pull/15)
+- [VotingPlugin Control v0.1.8](https://github.com/BenCodez/VotingPlugin-Control/releases/tag/v0.1.8)
+- [Automatic settings and HTTP v2 merge (Control PR #13)](https://github.com/BenCodez/VotingPlugin-Control/pull/13)
+- [Verified VotingPlugin artifact-store merge (Control PR #14)](https://github.com/BenCodez/VotingPlugin-Control/pull/14)
+- [VotingPlugin staging merge (Control PR #15)](https://github.com/BenCodez/VotingPlugin-Control/pull/15)
 - [VotingPlugin HTTP and deployment capabilities (PR #1594)](https://github.com/BenCodez/VotingPlugin/pull/1594)
 - [VotingPlugin proxy configuration management merge (PR #1596)](https://github.com/BenCodez/VotingPlugin/pull/1596)
 - [Development backend `Config.yml`](https://github.com/BenCodez/VotingPlugin/blob/master/VotingPlugin/src/main/resources/Config.yml)
