@@ -112,6 +112,11 @@ jobs:
           # ------------------------------------------------------------
           python "$SRC/.github/scripts/strip-wikijs-attributes.py" "$DST"
 
+          # Wiki.js needs root-relative internal links. Rewrite only the
+          # staged mirror so GitHub Wiki keeps page links in its /wiki route
+          # and resolves repository assets from the copied file location.
+          python "$SRC/.github/scripts/rewrite-github-wiki-links.py" "$DST"
+
       - name: Commit & push if changed
         run: |
           set -euo pipefail

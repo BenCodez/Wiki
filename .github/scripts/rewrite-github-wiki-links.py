@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Rewrite staged Wiki.js page links to MkDocs source-file links."""
+"""Rewrite staged Wiki.js root links for the GitHub Wiki mirror."""
 
 from __future__ import annotations
 
 import argparse
-import os
 import re
 from pathlib import Path
 
@@ -19,25 +18,26 @@ def rewrite_link(match: re.Match[str], source: Path, root: Path) -> str:
 
     path, marker, remainder = target.partition("#")
     path, query_marker, query = path.partition("?")
-    if not path or path.startswith(("#", "?")) or "://" in path or path.startswith("mailto:"):
+    if not path.startswith("/"):
         return match.group(0)
 
-    if path.startswith("/"):
-        candidate = (root / path.lstrip("/")).resolve()
-    else:
-        candidate = (source.parent / path).resolve()
-
+    candidate = (root / path.lstrip("/")).resolve()
     try:
         candidate.relative_to(root)
     except ValueError:
         return match.group(0)
 
-    if not candidate.suffix and candidate.with_suffix(".md").is_file():
-        candidate = candidate.with_suffix(".md")
-    elif not candidate.is_file():
+    page = candidate.with_suffix(".md")
+    if not candidate.suffix and page.is_file():
+        # GitHub Wiki page URLs are flat and use the Markdown filename.
+        rewritten = page.stem
+    elif candidate.is_file():
+        # GitHub Wiki page URLs are also flat, so assets are relative to the
+        # /wiki/ route rather than to the Markdown file's repository folder.
+        rewritten = candidate.relative_to(root).as_posix()
+    else:
         return match.group(0)
 
-    rewritten = os.path.relpath(candidate, source.parent).replace(os.sep, "/")
     if query_marker:
         rewritten += query_marker + query
     if marker:
@@ -64,9 +64,9 @@ def rewrite_file(path: Path, root: Path) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Rewrite staged Wiki.js links for MkDocs."
+        description="Rewrite staged Wiki.js links for the GitHub Wiki mirror."
     )
-    parser.add_argument("root", type=Path, help="Staged documentation directory")
+    parser.add_argument("root", type=Path, help="Staged GitHub Wiki directory")
     args = parser.parse_args()
     root = args.root.resolve()
 
@@ -83,7 +83,7 @@ def main() -> int:
 
     print(
         f"Rewrote {links_rewritten} staged Markdown link(s) "
-        f"in {files_changed} file(s) for MkDocs."
+        f"in {files_changed} file(s) for GitHub Wiki."
     )
     return 0
 

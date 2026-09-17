@@ -333,13 +333,13 @@ On a proxy, set `Control.Enabled: false` as well. Disabling or removing Control 
 
 ## Related pages
 
-- [Proxy Setups](Proxy-Setups)
-- [Dedicated Voting Proxy](Dedicated-Voting-Proxy)
-- [Vote sites](Service-sites)
-- [Rewards](Rewards)
-- [VoteLogging](VoteLogging)
-- [Commands and Permissions](Commands-&-Permissions)
-- [Web Support](Web-Support)
+- [Proxy Setups](/VotingPlugin/Proxy-Setups)
+- [Dedicated Voting Proxy](/VotingPlugin/Dedicated-Voting-Proxy)
+- [Vote sites](/VotingPlugin/Service-sites)
+- [Rewards](/VotingPlugin/Rewards)
+- [VoteLogging](/VotingPlugin/VoteLogging)
+- [Commands and Permissions](/VotingPlugin/Commands-&-Permissions)
+- [Web Support](/VotingPlugin/Web-Support)
 
 ## Source references
 

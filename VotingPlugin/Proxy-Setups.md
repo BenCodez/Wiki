@@ -35,17 +35,17 @@ VotingPlugin supports multiple communication methods between your **proxy (Bunge
 
 | Method | Description |
 |--------|-------------|
-| [PLUGINMESSAGING](Proxy-method-PLUGINMESSAGING) | Uses the proxy plugin-message channel; this is the 7.1.1 release default. |
-| [REDIS](proxy-method-REDIS) | Uses a private Redis service for cross-server messages. |
-| [MQTT](proxy-method-MQTT) | Uses an MQTT broker for cross-server messages. |
-| [SOCKETS](proxy-method-SOCKETS) | Uses direct TCP socket connections and requires explicit peer addresses, secrets, and firewall rules. |
-| [MYSQL](proxy-method-MYSQL) | Uses the shared database as the communication path; the 7.1.1 defaults do not recommend this method. |
+| [PLUGINMESSAGING](/VotingPlugin/Proxy-method-PLUGINMESSAGING) | Uses the proxy plugin-message channel; this is the 7.1.1 release default. |
+| [REDIS](/VotingPlugin/proxy-method-REDIS) | Uses a private Redis service for cross-server messages. |
+| [MQTT](/VotingPlugin/proxy-method-MQTT) | Uses an MQTT broker for cross-server messages. |
+| [SOCKETS](/VotingPlugin/proxy-method-SOCKETS) | Uses direct TCP socket connections and requires explicit peer addresses, secrets, and firewall rules. |
+| [MYSQL](/VotingPlugin/proxy-method-MYSQL) | Uses the shared database as the communication path; the 7.1.1 defaults do not recommend this method. |
 
 ---
 
 ## How It Works
 
-![VotingPlugin proxy architecture showing vote websites, VotifierPlus, proxy communication methods, backend servers, and shared MySQL storage](../assets/VotingPlugin/votingplugin-proxy-architecture.svg)
+![VotingPlugin proxy architecture showing vote websites, VotifierPlus, proxy communication methods, backend servers, and shared MySQL storage](/assets/VotingPlugin/votingplugin-proxy-architecture.svg)
 
 > This diagram shows the typical single-proxy network layout. Multi-proxy setups and custom Votifier routing may use a different topology. The supported communication methods converge through one selected/configured path to the backend servers.
 {.is-info}
@@ -79,14 +79,14 @@ VotingPlugin’s proxy integration provides network-wide support for:
 
 > **Development builds only:** A dedicated voting proxy is not available in VotingPlugin 7.1.1. Development builds containing merged PRs [#1550](https://github.com/BenCodez/VotingPlugin/pull/1550) and [#1551](https://github.com/BenCodez/VotingPlugin/pull/1551) can run VotingPlugin on one central proxy while separate regional proxies carry players.
 >
-> See [Dedicated Voting Proxy](Dedicated-Voting-Proxy) for the architecture, prerequisites, routing behavior, configuration, security model, migration, and validation steps.
+> See [Dedicated Voting Proxy](/VotingPlugin/Dedicated-Voting-Proxy) for the architecture, prerequisites, routing behavior, configuration, security model, migration, and validation steps.
 {.is-warning}
 
 ---
 
 ## Control WebUI
 
-> **Development builds only:** VotingPlugin 7.1.1 does not include Control connector or hosting settings. Compatible development builds can enroll proxies and backends in the optional [VotingPlugin Control WebUI](Control-WebUI) for reviewed configuration changes and bounded diagnostics. Control does not replace the selected vote transport.
+> **Development builds only:** VotingPlugin 7.1.1 does not include Control connector or hosting settings. Compatible development builds can enroll proxies and backends in the optional [VotingPlugin Control WebUI](/VotingPlugin/Control-WebUI) for reviewed configuration changes and bounded diagnostics. Control does not replace the selected vote transport.
 {.is-warning}
 
 ---
@@ -97,7 +97,7 @@ For networks with multiple proxies, `MultiProxyMethod` supports **SOCKETS** or *
 
 > ⚠️ **Note:** The 7.1.1 bundled configuration labels multi-proxy support as work in progress. Test vote delivery and duplicate prevention before using it in production.
 >
-> See [Multi-Proxy Setup](Multi-Proxy-Setup).
+> See [Multi-Proxy Setup](/VotingPlugin/Multi-Proxy-Setup).
 {.is-warning}
 
 ---
@@ -139,7 +139,7 @@ The proxy receives and manages votes from Votifier before forwarding them to bac
 
 ## Simple flow reference
 
-![Simple VotingPlugin proxy flow showing votes entering VotifierPlus and VotingPlugin on the proxy, passing through one selected BungeeMethod, and reaching backend servers](../assets/VotingPlugin/proxy-flow-simple-reference.svg)
+![Simple VotingPlugin proxy flow showing votes entering VotifierPlus and VotingPlugin on the proxy, passing through one selected BungeeMethod, and reaching backend servers](/assets/VotingPlugin/proxy-flow-simple-reference.svg)
 
 This compact version preserves the older proxy-flow overview. The detailed architecture near the top of this page is the authoritative reference for communication methods and shared storage.
 
