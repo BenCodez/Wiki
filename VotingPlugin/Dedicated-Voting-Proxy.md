@@ -29,7 +29,7 @@ Use a dedicated voting proxy when all of these are true:
 - the dedicated proxy and backends share one SQL database and table configuration;
 - the dedicated proxy and backends communicate through `MYSQL`, `REDIS`, `MQTT`, or `SOCKETS`.
 
-This is different from [Multi-Proxy Setup](Multi-Proxy-Setup). `MultiProxySupport` coordinates multiple VotingPlugin proxies. Dedicated mode instead keeps VotingPlugin on one central proxy while the regional proxies remain outside VotingPlugin's vote-delivery path.
+This is different from [Multi-Proxy Setup](/VotingPlugin/Multi-Proxy-Setup). `MultiProxySupport` coordinates multiple VotingPlugin proxies. Dedicated mode instead keeps VotingPlugin on one central proxy while the regional proxies remain outside VotingPlugin's vote-delivery path.
 
 ## Requirements
 
@@ -60,10 +60,10 @@ SendVotesToAllServers: false
 
 Configure the matching transport section and the normal `Database` section in the same file. See the method-specific guides:
 
-- [MQTT](proxy-method-MQTT)
-- [Redis](proxy-method-REDIS)
-- [MySQL](proxy-method-MYSQL)
-- [Sockets](proxy-method-SOCKETS)
+- [MQTT](/VotingPlugin/proxy-method-MQTT)
+- [Redis](/VotingPlugin/proxy-method-REDIS)
+- [MySQL](/VotingPlugin/proxy-method-MYSQL)
+- [Sockets](/VotingPlugin/proxy-method-SOCKETS)
 
 Enable `DedicatedVotingProxy` on **one** central voting proxy only. Do not enable it on regional proxies.
 
@@ -127,7 +127,7 @@ Dedicated presence adds no separate presence password, secret file, or persisten
 - Require dedicated credentials with the minimum necessary permissions.
 - Use TLS or a trusted private tunnel when traffic crosses hosts or untrusted networks.
 - Do not publish database, broker, socket, or encryption credentials in screenshots or logs.
-- For `SOCKETS`, keep the generated/shared encryption key private and follow [Sockets](proxy-method-SOCKETS).
+- For `SOCKETS`, keep the generated/shared encryption key private and follow [Sockets](/VotingPlugin/proxy-method-SOCKETS).
 
 ## Migration checklist
 

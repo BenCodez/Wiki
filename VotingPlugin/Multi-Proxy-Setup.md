@@ -25,6 +25,6 @@ dateCreated: 2025-08-30T22:18:15.618Z
 
 
 ## 2 Methods available:
-- [REDIS](Multi-Proxy-REDIS) (Recommended)
-- [Sockets](Multi-Proxy-Sockets)
+- [REDIS](/VotingPlugin/Multi-Proxy-REDIS) (Recommended)
+- [Sockets](/VotingPlugin/Multi-Proxy-Sockets)
 
