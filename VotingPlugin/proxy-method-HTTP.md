@@ -2,7 +2,7 @@
 title: HTTP Proxy Transport
 description: Connect VotingPlugin backends to one secure proxy listener without opening a port on every backend
 published: true
-date: 2026-09-16T00:00:00.000Z
+date: 2026-09-18T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-09-02T00:00:00.000Z
@@ -148,9 +148,9 @@ To roll back, select the previous method on the proxy and every backend, restore
 
 ## Control WebUI compatibility
 
-The current public Control release, **v0.1.8**, includes negotiated `config.proxy-method.v2` support for HTTP. The latest public VotingPlugin release, 7.1.1, does not advertise that capability and cannot use HTTP. Configure this development transport manually unless every selected node runs a compatible PR #1594 build.
+The current public Control release, **v0.1.9**, includes negotiated `config.proxy-method.v2` support for HTTP. The latest public VotingPlugin release, 7.1.1, does not advertise that capability and cannot use HTTP. Configure this development transport manually unless every selected node runs a compatible PR #1594 build.
 
-Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is included in v0.1.8, while VotingPlugin PR #1594 provides the still-unreleased node-side `config.proxy-method.v2` workflow for HTTP. Verify that the proxy and every selected backend advertise v2 before using the WebUI. For production networks, wait for a compatible public VotingPlugin release. Retain console access and external backups for rollback.
+Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is included in v0.1.9, while VotingPlugin PR #1594 provides the still-unreleased node-side `config.proxy-method.v2` workflow for HTTP. The proxy-method workflow previews the change and then asks for browser confirmation before applying it. Verify that the proxy and every selected backend advertise v2 before using the WebUI. For production networks, wait for a compatible public VotingPlugin release. Retain console access and external backups for rollback.
 
 ## Troubleshooting
 
@@ -168,12 +168,12 @@ Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is in
 
 ## Related pages
 
-- [Proxy Setups](Proxy-Setups)
-- [Dedicated Voting Proxy](Dedicated-Voting-Proxy)
-- [PLUGINMESSAGING](Proxy-method-PLUGINMESSAGING)
-- [Redis](proxy-method-REDIS)
-- [Votifier Troubleshooting](Votifier-Troubleshooting)
-- [Online and Offline Mode](Online-Offline-Mode)
+- [Proxy Setups](/VotingPlugin/Proxy-Setups)
+- [Dedicated Voting Proxy](/VotingPlugin/Dedicated-Voting-Proxy)
+- [PLUGINMESSAGING](/VotingPlugin/Proxy-method-PLUGINMESSAGING)
+- [Redis](/VotingPlugin/proxy-method-REDIS)
+- [Votifier Troubleshooting](/VotingPlugin/Votifier-Troubleshooting)
+- [Online and Offline Mode](/VotingPlugin/Online-Offline-Mode)
 
 ## Source references
 
