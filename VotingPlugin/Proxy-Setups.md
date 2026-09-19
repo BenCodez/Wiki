@@ -36,6 +36,7 @@ VotingPlugin supports multiple communication methods between your **proxy (Bunge
 | Method | Description |
 |--------|-------------|
 | [PLUGINMESSAGING](/VotingPlugin/Proxy-method-PLUGINMESSAGING) | Uses the proxy plugin-message channel; this is the 7.1.1 release default. |
+| [HTTP](/VotingPlugin/proxy-method-HTTP) | Development-only transport using one proxy TLS listener and outbound mutually authenticated backend connections. VotingPlugin 7.1.1 does not include it. |
 | [REDIS](/VotingPlugin/proxy-method-REDIS) | Uses a private Redis service for cross-server messages. |
 | [MQTT](/VotingPlugin/proxy-method-MQTT) | Uses an MQTT broker for cross-server messages. |
 | [SOCKETS](/VotingPlugin/proxy-method-SOCKETS) | Uses direct TCP socket connections and requires explicit peer addresses, secrets, and firewall rules. |

@@ -32,6 +32,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ### Proxy Methods
 - [PLUGINMESSAGING](https://github.com/BenCodez/VotingPlugin/wiki/Proxy-method-PLUGINMESSAGING)
+- [HTTP](https://github.com/BenCodez/VotingPlugin/wiki/proxy-method-HTTP)
 - [REDIS](https://github.com/BenCodez/VotingPlugin/wiki/proxy-method-REDIS)
 - [MQTT](https://github.com/BenCodez/VotingPlugin/wiki/proxy-method-MQTT)
 - [SOCKETS](https://github.com/BenCodez/VotingPlugin/wiki/proxy-method-SOCKETS)
