@@ -178,6 +178,6 @@ Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is in
 ## Source references
 
 - [VotingPlugin HTTP transport PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594)
-- [Development HTTP transport guide](https://github.com/BenCodez/VotingPlugin/blob/codex/http-transport/docs/http-transport.md)
-- [Development proxy configuration](https://github.com/BenCodez/VotingPlugin/blob/codex/http-transport/VotingPlugin/src/main/resources/bungeeconfig.yml)
-- [Development backend configuration](https://github.com/BenCodez/VotingPlugin/blob/codex/http-transport/VotingPlugin/src/main/resources/BungeeSettings.yml)
+- [Development HTTP transport guide](https://github.com/BenCodez/VotingPlugin/blob/72d5183de1837082dd30173bbd203e45d9189d4c/docs/http-transport.md)
+- [Development proxy configuration](https://github.com/BenCodez/VotingPlugin/blob/72d5183de1837082dd30173bbd203e45d9189d4c/VotingPlugin/src/main/resources/bungeeconfig.yml)
+- [Development backend configuration](https://github.com/BenCodez/VotingPlugin/blob/72d5183de1837082dd30173bbd203e45d9189d4c/VotingPlugin/src/main/resources/BungeeSettings.yml)
