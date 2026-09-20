@@ -2,7 +2,7 @@
 title: VotingPlugin Control WebUI
 description: Install, enroll, manage, and inspect a VotingPlugin network through the optional Control WebUI
 published: true
-date: 2026-09-19T00:00:00.000Z
+date: 2026-09-20T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-08-31T00:00:00.000Z
@@ -19,7 +19,7 @@ Control does **not** receive votes or replace VotingPlugin's existing proxy comm
 
 ## Control v1.0.0 compatibility boundary
 
-> **VotingPlugin 7.1.1 is not compatible with these workflows:** Control v1.0.0 includes the scope-first WebUI, visual General Settings, Vote Sites and Rewards editors, negotiated HTTP proxy-method switching, a private VotingPlugin artifact store, and VotingPlugin JAR staging. Existing named reward-file editing requires merged VotingPlugin commit [`4fd3b439`](https://github.com/BenCodez/VotingPlugin/commit/4fd3b4396c0c475f4adecfd6f1c70fa06d13c157) or later. HTTP currently requires unmerged VotingPlugin PR [#1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`bc9dac63`](https://github.com/BenCodez/VotingPlugin/commit/bc9dac6303626e1757e4b5570b6fba548399fd27) or later. Verified JAR staging requires VotingPlugin PR [#1609](https://github.com/BenCodez/VotingPlugin/pull/1609) at commit [`0c5b725b`](https://github.com/BenCodez/VotingPlugin/commit/0c5b725b1aa3862cb7577604222a9981985e4a82) or a compatible #1594 build containing the same hardened deployment service. Installing Control v1.0.0 alone does not add these capabilities to release VotingPlugin nodes; wait for compatible public VotingPlugin releases.
+> **VotingPlugin 7.1.1 is not compatible with these workflows:** Control v1.0.0 includes the scope-first WebUI, visual General Settings, Vote Sites and Rewards editors, negotiated HTTP proxy-method switching, a private VotingPlugin artifact store, and VotingPlugin JAR staging. Existing named reward-file editing requires merged VotingPlugin commit [`4fd3b439`](https://github.com/BenCodez/VotingPlugin/commit/4fd3b4396c0c475f4adecfd6f1c70fa06d13c157) or later. Verified JAR staging requires merged commit [`e89e60bd`](https://github.com/BenCodez/VotingPlugin/commit/e89e60bd064f96c90499b6b5cabfe1ea2ae143e9) or later. HTTP and its negotiated `config.proxy-method.v2` workflow require merged development commit [`46088736`](https://github.com/BenCodez/VotingPlugin/commit/460887368d2a980b79bb8cebd518d5a5bd3f5913) or later. These changes are merged into development but have not shipped in a public VotingPlugin release. Installing Control v1.0.0 alone does not add them to release VotingPlugin nodes; wait for a compatible public VotingPlugin release.
 {.is-warning}
 
 Control v1.0.0 includes these bounded workflows without changing Control's role in vote processing:
@@ -270,7 +270,7 @@ Control v1.0.0 retains `MYSQL`, `PLUGINMESSAGING`, `REDIS`, `MQTT`, and `SOCKETS
 
 ### VotingPlugin update staging
 
-Control v1.0.0 provides a **Plugin update** workspace. It accepts one bounded VotingPlugin JAR, verifies the embedded plugin identity, stores it by SHA-256, and shows which connected nodes currently advertise `plugin.deploy.v1` before an operation is created. VotingPlugin 7.1.1 does not advertise that capability. Manually install a build containing VotingPlugin PR #1609 at `0c5b725b` or a compatible #1594 build once on every intended node. A remote connector advertises deployment only when its Control endpoint uses HTTPS. The local HTTP exception requires Control to be hosted directly on that same node **and** the connector endpoint to use a loopback host such as `127.0.0.1` or `localhost`. Windows proxy nodes remain ineligible and must be updated manually. After eligible nodes reconnect, Control can stage later VotingPlugin JARs.
+Control v1.0.0 provides a **Plugin update** workspace. It accepts one bounded VotingPlugin JAR, verifies the embedded plugin identity, stores it by SHA-256, and shows which connected nodes currently advertise `plugin.deploy.v1` before an operation is created. VotingPlugin 7.1.1 does not advertise that capability. Manually install a development build containing merged commit `e89e60bd` or later once on every intended node. A remote connector advertises deployment only when its Control endpoint uses HTTPS. The local HTTP exception requires Control to be hosted directly on that same node **and** the connector endpoint to use a loopback host such as `127.0.0.1` or `localhost`. Windows proxy nodes remain ineligible and must be updated manually. After eligible nodes reconnect, Control can stage later VotingPlugin JARs.
 
 Each selected node downloads the exact verified artifact through a session- and attempt-bound lease, stages it for the next process start, and reports either `RESTART_REQUIRED` or a bounded failure. Bukkit backends preserve the filename of the currently installed VotingPlugin JAR when placing the update in the server update folder. Control never hot reloads VotingPlugin, restarts a server, or turns a failed target into an automatic retry. Review the per-node result, then restart successful targets through the normal server-management process.
 
@@ -344,7 +344,7 @@ VoteLog views contain retained **logged events**, not a complete packet or comma
 | VoteLog says enabled but unavailable | Restart VotingPlugin after enabling VoteLogging, then check database connectivity and table readability. |
 | Network Doctor is healthy but votes still fail | Run a real Votifier vote through the complete public listener and delivery path. Network Doctor is not a synthetic vote test. |
 | The hosted update rolled back | Inspect the hosted log and retained failed candidate. Do not bypass digest or health verification. |
-| No connected node is eligible for a VotingPlugin deployment | VotingPlugin 7.1.1 lacks `plugin.deploy.v1`. Manually install a compatible build containing PR #1609 at `0c5b725b` or the equivalent hardened #1594 deployment service once, then reconnect the node. For a remote connector, also confirm that its Control endpoint uses HTTPS. Local HTTP is eligible only when Control is hosted directly on that node and the connector uses a loopback endpoint. Windows proxy nodes are intentionally ineligible and require manual updates. |
+| No connected node is eligible for a VotingPlugin deployment | VotingPlugin 7.1.1 lacks `plugin.deploy.v1`. Manually install a development build containing merged commit `e89e60bd` or later once, then reconnect the node. For a remote connector, also confirm that its Control endpoint uses HTTPS. Local HTTP is eligible only when Control is hosted directly on that node and the connector uses a loopback endpoint. Windows proxy nodes are intentionally ineligible and require manual updates. |
 | A VotingPlugin deployment says `RESTART_REQUIRED` | The JAR was staged successfully but is not active yet. Restart that node through the normal server-management process. |
 
 ## Disable Control

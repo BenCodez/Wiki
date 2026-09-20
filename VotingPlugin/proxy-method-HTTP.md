@@ -2,7 +2,7 @@
 title: HTTP Proxy Transport
 description: Connect VotingPlugin backends to one secure proxy listener without opening a port on every backend
 published: true
-date: 2026-09-19T00:00:00.000Z
+date: 2026-09-20T00:00:00.000Z
 tags:
 editor: markdown
 dateCreated: 2026-09-02T00:00:00.000Z
@@ -10,7 +10,7 @@ dateCreated: 2026-09-02T00:00:00.000Z
 
 # HTTP Proxy Transport
 
-> **Development-build feature:** `BungeeMethod: HTTP` is not available in the latest public VotingPlugin release, **7.1.1**. This page requires the unmerged [VotingPlugin PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594) at commit [`bc9dac63`](https://github.com/BenCodez/VotingPlugin/commit/bc9dac6303626e1757e4b5570b6fba548399fd27) or later. Release users do not have the `HTTP` method, its configuration keys, or its proxy commands. The implementation remains under review and should not be treated as release-ready.
+> **Development-build feature:** `BungeeMethod: HTTP` is not available in the latest public VotingPlugin release, **7.1.1**. [VotingPlugin PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594) is merged into development at commit [`46088736`](https://github.com/BenCodez/VotingPlugin/commit/460887368d2a980b79bb8cebd518d5a5bd3f5913), but it has not shipped in a public release. Release users do not have the `HTTP` method, its configuration keys, or its proxy commands. Use a build containing `46088736` or later only for development testing; production networks should wait for a compatible public VotingPlugin release.
 {.is-warning}
 
 The HTTP proxy method gives every backend an **outbound**, encrypted connection to one HTTPS listener on the BungeeCord or Velocity proxy. Only the proxy listener port needs to be reachable. Backend servers do not expose an HTTP transport port.
@@ -148,9 +148,9 @@ To roll back, select the previous method on the proxy and every backend, restore
 
 ## Control WebUI compatibility
 
-The current public Control release, **v1.0.0**, includes negotiated `config.proxy-method.v2` support for HTTP. The latest public VotingPlugin release, 7.1.1, does not advertise that capability and cannot use HTTP. Configure this development transport manually unless every selected node runs a compatible PR #1594 build.
+The current public Control release, **v1.0.0**, includes negotiated `config.proxy-method.v2` support for HTTP. The latest public VotingPlugin release, 7.1.1, does not advertise that capability and cannot use HTTP. Configure this development transport manually unless every selected node runs a development build containing merged commit `46088736` or later.
 
-Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is included in v1.0.0, while VotingPlugin PR #1594 provides the still-unreleased node-side `config.proxy-method.v2` workflow for HTTP. The proxy-method workflow previews the change and then asks for browser confirmation before applying it. Verify that the proxy and every selected backend advertise v2 before using the WebUI. For production networks, wait for a compatible public VotingPlugin release. Retain console access and external backups for rollback.
+Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is included in v1.0.0, while the merged-but-unreleased VotingPlugin commit `46088736` provides the node-side `config.proxy-method.v2` workflow for HTTP. The proxy-method workflow previews the change and then asks for browser confirmation before applying it. Verify that the proxy and every selected backend advertise v2 before using the WebUI. For production networks, wait for a compatible public VotingPlugin release. Retain console access and external backups for rollback.
 
 ## Troubleshooting
 
@@ -178,6 +178,6 @@ Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is in
 ## Source references
 
 - [VotingPlugin HTTP transport PR #1594](https://github.com/BenCodez/VotingPlugin/pull/1594)
-- [Development HTTP transport guide](https://github.com/BenCodez/VotingPlugin/blob/bc9dac6303626e1757e4b5570b6fba548399fd27/docs/http-transport.md)
-- [Development proxy configuration](https://github.com/BenCodez/VotingPlugin/blob/bc9dac6303626e1757e4b5570b6fba548399fd27/VotingPlugin/src/main/resources/bungeeconfig.yml)
-- [Development backend configuration](https://github.com/BenCodez/VotingPlugin/blob/bc9dac6303626e1757e4b5570b6fba548399fd27/VotingPlugin/src/main/resources/BungeeSettings.yml)
+- [Merged HTTP transport guide](https://github.com/BenCodez/VotingPlugin/blob/460887368d2a980b79bb8cebd518d5a5bd3f5913/docs/http-transport.md)
+- [Merged proxy configuration](https://github.com/BenCodez/VotingPlugin/blob/460887368d2a980b79bb8cebd518d5a5bd3f5913/VotingPlugin/src/main/resources/bungeeconfig.yml)
+- [Merged backend configuration](https://github.com/BenCodez/VotingPlugin/blob/460887368d2a980b79bb8cebd518d5a5bd3f5913/VotingPlugin/src/main/resources/BungeeSettings.yml)
