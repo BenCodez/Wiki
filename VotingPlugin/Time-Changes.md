@@ -91,7 +91,7 @@ On a standalone or backend server, run this command from the server console:
 
 This runs the selected time-change handling on that server. It does not replace proxy coordination for a network using GlobalData.
 
-On BungeeCord or Velocity with `GlobalData.Enabled: true`, use the proxy command:
+On BungeeCord or Velocity, set `GlobalData.Enabled: true` in the proxy's `bungeeconfig.yml` and every participating backend's `BungeeSettings.yml`, then use the proxy command:
 
     /votingpluginproxy forcetimechange <DAY|WEEK|MONTH>
 
@@ -119,4 +119,4 @@ set this in `ServerData.yml`:
 | `IgnoreTime` | Skips time-change events on startup. |
 | `/av CurrentPluginTime` | Displays plugin time. |
 | `/av ForceTimeChange <DAY\|WEEK\|MONTH>` | Forces the selected time change on one standalone or backend server. |
-| `/votingpluginproxy forcetimechange <DAY\|WEEK\|MONTH>` | With GlobalData enabled, forces a coordinated change on participating backends; otherwise the event is ignored. |
+| `/votingpluginproxy forcetimechange <DAY\|WEEK\|MONTH>` | Requires `GlobalData.Enabled: true` in the proxy's `bungeeconfig.yml` and every participating backend's `BungeeSettings.yml`; coordinates the change across those backends. |
