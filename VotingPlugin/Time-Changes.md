@@ -83,19 +83,21 @@ You can view the time VotingPlugin is currently using:
 
 ### 🧨 Forcing Time Changes
 
-To manually trigger a time change (for testing):
+VotingPlugin 7.1.1 provides two manual commands with different scopes.
 
-    /av forcetimechange (TimeType)
+On a standalone or backend server, run this command from the server console:
 
-Valid types:
-- `DAY`
-- `WEEK`
-- `MONTH`
+    /av ForceTimeChange <DAY|WEEK|MONTH>
 
-Example:
-> `/av forcetimechange MONTH`
+This runs the selected time-change handling on that server. It does not replace proxy coordination for a network using GlobalData.
 
-Must be run from **console**.
+On BungeeCord or Velocity with `GlobalData.Enabled: true`, use the proxy command:
+
+    /votingpluginproxy forcetimechange <DAY|WEEK|MONTH>
+
+Run it from the proxy console or as a proxy command sender with `votingpluginproxy.admin`. The proxy coordinates the selected change with participating backend servers. When GlobalData is disabled, VotingPlugin 7.1.1 logs that the proxy time-change event is ignored and does not instruct a backend to process it.
+
+Use either command only during controlled testing or maintenance, with current backups.
 
 ---
 
@@ -116,4 +118,5 @@ set this in `ServerData.yml`:
 | `TimeZone` | Uses a valid Java Zone ID to define your region. |
 | `IgnoreTime` | Skips time-change events on startup. |
 | `/av CurrentPluginTime` | Displays plugin time. |
-| `/av forcetimechange` | Forces daily/weekly/monthly reset. |
+| `/av ForceTimeChange <DAY\|WEEK\|MONTH>` | Forces the selected time change on one standalone or backend server. |
+| `/votingpluginproxy forcetimechange <DAY\|WEEK\|MONTH>` | With GlobalData enabled, forces a coordinated change on participating backends; otherwise the event is ignored. |
