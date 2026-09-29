@@ -2,7 +2,7 @@
 title: Minecraft Server Lists
 description: 
 published: true
-date: 2026-09-28T22:08:23.759Z
+date: 2026-09-29T22:10:37.950Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:13.937Z
@@ -18,6 +18,7 @@ If AdvancedServiceSiteHandling is true plugin will auto correct invalid service 
 
 Domain - Service site
 
+* minecraftservers-list.com - MinecraftServersList
 * minecraft-server-list.com - MCSL
 * minecraftservers.org - MinecraftServers.org
 * Minecraft-MP.com - Minecraft-MP.com
@@ -41,5 +42,4 @@ Domain - Service site
 * play-minecraft-servers.com - play-minecraft-servers.com
 * minecraftservers.blog - minecraftservers.blog
 * top-mcservers.com - TOPMCSERVERS
-* minecraftservers-list.com - MinecraftServersList
 * 9minecraftserver.com - 9minecraftserver.com
