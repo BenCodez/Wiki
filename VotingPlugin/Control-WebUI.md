@@ -2,7 +2,7 @@
 title: VotingPlugin Control WebUI
 description: Install, enroll, manage, and inspect a VotingPlugin network through the optional Control WebUI
 published: true
-date: 2026-09-20T00:00:00.000Z
+date: 2026-09-30T02:02:09.000Z
 tags:
 editor: markdown
 dateCreated: 2026-08-31T00:00:00.000Z
@@ -10,28 +10,29 @@ dateCreated: 2026-08-31T00:00:00.000Z
 
 # VotingPlugin Control WebUI
 
-> **Development-build feature:** Control integration is not available in the latest public VotingPlugin release, **7.1.1**. Unless a section requires a later development build, the management and inspection suite described here requires a `7.1.2-SNAPSHOT` build containing merged commit [`034e39aa`](https://github.com/BenCodez/VotingPlugin/commit/034e39aae5890db249a51109fa0ee2d2561b7142) or later and [VotingPlugin-Control v1.0.0](https://github.com/BenCodez/VotingPlugin-Control/releases/tag/v1.0.0). Release users do not have the VotingPlugin connector or hosting settings yet. Details may change before VotingPlugin 7.1.2 is released.
+> **Development-build feature:** Control integration is not available in the latest public VotingPlugin release, **7.1.1**. Unless a section requires a later development build, the management and inspection suite described here requires a development build containing merged commit [`034e39aa`](https://github.com/BenCodez/VotingPlugin/commit/034e39aae5890db249a51109fa0ee2d2561b7142) or later and [VotingPlugin-Control v1.0.2](https://github.com/BenCodez/VotingPlugin-Control/releases/tag/v1.0.2). Release users do not have the VotingPlugin connector or hosting settings yet. Details may change before a compatible VotingPlugin release.
 {.is-warning}
 
 VotingPlugin Control is an optional, local-first management application for a VotingPlugin network. Its WebUI can show enrolled proxies and backends, coordinate reviewed configuration changes, and request bounded read-only diagnostics from capable backend nodes.
 
 Control does **not** receive votes or replace VotingPlugin's existing proxy communication method. Voting continues normally if Control is stopped, slow, unavailable, or disabled.
 
-## Control v1.0.0 compatibility boundary
+## Control v1.0.2 compatibility boundary
 
-> **VotingPlugin 7.1.1 is not compatible with these workflows:** Control v1.0.0 includes the scope-first WebUI, visual General Settings, Vote Sites and Rewards editors, negotiated HTTP proxy-method switching, a private VotingPlugin artifact store, and VotingPlugin JAR staging. Existing named reward-file editing requires merged VotingPlugin commit [`4fd3b439`](https://github.com/BenCodez/VotingPlugin/commit/4fd3b4396c0c475f4adecfd6f1c70fa06d13c157) or later. Verified JAR staging requires merged commit [`e89e60bd`](https://github.com/BenCodez/VotingPlugin/commit/e89e60bd064f96c90499b6b5cabfe1ea2ae143e9) or later. HTTP and its negotiated `config.proxy-method.v2` workflow require merged development commit [`46088736`](https://github.com/BenCodez/VotingPlugin/commit/460887368d2a980b79bb8cebd518d5a5bd3f5913) or later. These changes are merged into development but have not shipped in a public VotingPlugin release. Installing Control v1.0.0 alone does not add them to release VotingPlugin nodes; wait for a compatible public VotingPlugin release.
+> **VotingPlugin 7.1.1 is not compatible with these workflows:** Control v1.0.2 includes the scope-first WebUI, network-aware visual General Settings, Vote Sites and Rewards editors, the Full YAML workbench, negotiated HTTP proxy-method switching, a private VotingPlugin artifact store, and VotingPlugin JAR staging. Existing named reward-file editing requires merged VotingPlugin commit [`4fd3b439`](https://github.com/BenCodez/VotingPlugin/commit/4fd3b4396c0c475f4adecfd6f1c70fa06d13c157) or later. Verified JAR staging requires merged commit [`e89e60bd`](https://github.com/BenCodez/VotingPlugin/commit/e89e60bd064f96c90499b6b5cabfe1ea2ae143e9) or later. HTTP and its negotiated `config.proxy-method.v2` workflow require merged development commit [`46088736`](https://github.com/BenCodez/VotingPlugin/commit/460887368d2a980b79bb8cebd518d5a5bd3f5913) or later. These changes are merged into development but have not shipped in a public VotingPlugin release. Installing Control v1.0.2 alone does not add them to release VotingPlugin nodes; wait for a compatible public VotingPlugin release.
 {.is-warning}
 
-Control v1.0.0 includes these bounded workflows without changing Control's role in vote processing:
+Control v1.0.2 includes these bounded workflows without changing Control's role in vote processing:
 
 - Home supports one-backend, persistent multi-backend, and separate Global Settings workspaces. Selecting or navigating a workspace never applies configuration.
-- General Settings, Vote Sites, and Rewards read every selected capable backend independently, show mixed or partial state, preview only explicit edits against each target's own retained source, and reread confirmed state after apply.
-- Existing inline Vote Site rewards support a bounded simple editor. Existing named `Rewards/<name>.yml` files are available only when a node advertises `config.reward-files.v1`; the WebUI cannot create, delete, or browse arbitrary files.
+- General Settings reads every selected capable backend plus the managed proxies that report those backends. It keeps per-node values visible and previews only explicit allow-listed edits against each target's retained `Config.yml` or `bungeeconfig.yml` source. Vote Sites and Rewards remain backend workspace editors.
+- Existing inline Vote Site rewards support a bounded simple editor. Existing named `Rewards/<name>.yml` files are available only when a node advertises `config.reward-files.v1`; they can be opened in the source-preserving Full YAML workbench but cannot be created, deleted, or used to browse arbitrary files.
 - HTTP method selection uses negotiated `config.proxy-method.v2`; older nodes remain connected but are excluded from HTTP previews and applies.
-- An administrator can upload a VotingPlugin JAR into a private, content-addressed store and stage it only on selected nodes advertising `plugin.deploy.v1`. Install the first deployment-capable VotingPlugin build manually on each node; a node without the deployment endpoint cannot use Control to bootstrap that endpoint.
+- An administrator can upload a VotingPlugin JAR from an eligible client or select the latest successful build from Control's fixed bencodez.com Jenkins source. Control verifies either artifact into its private, content-addressed store and can stage it only on selected nodes advertising `plugin.deploy.v1`. Install the first deployment-capable VotingPlugin build manually on each node; a node without the deployment endpoint cannot use Control to bootstrap that endpoint.
 - Windows proxy nodes do not advertise deployment because the running proxy JAR cannot be replaced safely there. Update those proxy nodes manually.
 - Staging verifies the artifact identity and SHA-256, reports per-node results, and ends at `RESTART_REQUIRED`. Control does not reload or restart a Minecraft process automatically.
 - A retry creates a new operation for currently eligible failed targets; it does not replay successful targets implicitly.
+- The Full YAML workbench identifies the source node, file, and retained revision; shows synchronized line numbers, document size, cursor position, and confirmed or unsaved state; and provides bounded in-document search. These browser-side aids do not parse, normalize, save, or bypass the connector's redaction and preview validation.
 - The full YAML editor and guided configuration workflows now say that nothing has been saved after a successful preview, focus **Approve and apply** when it is available, and treat Ctrl/Command+S in the full YAML editor as preview-only. Proxy-method switching uses its separate preview and browser-confirmation flow.
 
 Continue using manual VotingPlugin updates and manual HTTP configuration unless every selected node runs a compatible development build and advertises the required capability. For production networks, wait for a compatible public VotingPlugin release.
@@ -197,7 +198,7 @@ Legacy guided presets, the reward builder, and Full YAML remain single-source to
 
 ### Visual General Settings
 
-The curated editor exposes nine existing top-level `Config.yml` booleans: `ProcessRewards`, `AutoCreateVoteSites`, `ExtraAllSitesCheck`, `CountFakeVotes`, `DisableNoServiceSiteMessage`, `DisableUpdateChecking`, `UseVoteGUIMainCommand`, `CloseInventoryOnVote`, and `ExtraVoteShopCheck`. Missing or non-boolean values are not synthesized or normalized. Changing `DisableUpdateChecking` reloads the file but still requires a backend restart to reconcile the update-check scheduler.
+The curated editor exposes bounded boolean, enum, and string controls from backend `Config.yml` and proxy `bungeeconfig.yml`: debug level, online mode, automatic Vote Site creation, fake-vote counting, unjoined-player handling, the main vote GUI command, default permissions, command aliases, case-insensitive YAML lookup, Bedrock prefix, per-site cooldown events, update checking, and closing inventories on vote. A reporting proxy is included with its selected backends so network-wide values remain visible per node. Missing, unsupported, or incorrectly typed values are not synthesized from defaults. Settings marked as startup-only still require the indicated backend or proxy restart after the reviewed write.
 
 ### Visual Vote Sites
 
@@ -207,7 +208,7 @@ The Vote Sites editor manages the main `VoteSites.yml` only. For an exact site k
 
 The Rewards workspace inventories inline and advanced reward scopes without flattening unsupported structures. Its bounded simple editor can create or remove an inline Vote Site reward, edit ordered commands, `Messages.Player`, `Messages.Broadcast`, scalar `Money` or `Chance`, and existing item `Material` or `Amount` leaves when their source shape is safe. Advanced structures such as `AdvancedPriority`, `Choices`, nested rewards, conditions, ranges, and unrecognized keys remain read-only in the visual view. For scopes in the managed `Config.yml`, `VoteSites.yml`, or `SpecialRewards.yml` files, use Full YAML when editing is required.
 
-Nodes advertising `config.reward-files.v1` can also inventory and edit the root of existing, directly contained named `Rewards/<name>.yml` files. The feature does not create or delete named files, resolve references, provide Full YAML editing, or provide general filesystem access. Edit unsupported advanced structures in a named file manually with the server stopped or through the server's normal file-management workflow, then restart or reload VotingPlugin as appropriate. Older connectors continue to support the other editors but show named reward files as unsupported.
+Nodes advertising `config.reward-files.v1` can also inventory and edit the root of existing, directly contained named `Rewards/<name>.yml` files. Control v1.0.2 can open those discovered files in the same source-preserving, redacted Full YAML workbench used for other managed files. The feature does not create or delete named files, resolve references, or provide general filesystem access. Older connectors continue to support the other editors but show named reward files as unsupported.
 
 | Area | What it is for | Important boundary |
 | --- | --- | --- |
@@ -232,7 +233,7 @@ Capable backend nodes can expose these user-facing files:
 - `Shop.yml`
 - `BungeeSettings.yml`
 
-Existing named `Rewards/<name>.yml` files use the separate optional `config.reward-files.v1` capability. They are not added to the general managed-file browser.
+Existing named `Rewards/<name>.yml` files use the separate optional `config.reward-files.v1` capability. They are discovered through the Rewards inventory and can then be opened in Full YAML for one explicitly selected capable backend; they are not added to an arbitrary file browser.
 
 A capable proxy node can expose its single `bungeeconfig.yml` file when it advertises `config.proxy-files.v1`. This does not enable arbitrary proxy file browsing. Saving this file reports that a proxy restart is required; it does not claim a full proxy hot reload.
 
@@ -266,11 +267,13 @@ Transport tests request a bounded check through a node's existing VotingPlugin c
 
 Coordinated proxy-method switching validates capabilities and current topology, previews the proposed changes, and applies only after approval. All participating nodes must support the selected method and its required configuration. Take external backups before a network-wide transport migration.
 
-Control v1.0.0 retains `MYSQL`, `PLUGINMESSAGING`, `REDIS`, `MQTT`, and `SOCKETS` through `config.proxy-method.v1` and includes negotiated `config.proxy-method.v2` for HTTP. HTTP is not a v1 option. Nodes that do not advertise the exact v2 capability are excluded from HTTP previews and applies; VotingPlugin 7.1.1 does not advertise it.
+Control v1.0.2 retains `MYSQL`, `PLUGINMESSAGING`, `REDIS`, `MQTT`, and `SOCKETS` through `config.proxy-method.v1` and includes negotiated `config.proxy-method.v2` for HTTP. HTTP is not a v1 option. Nodes that do not advertise the exact v2 capability are excluded from HTTP previews and applies; VotingPlugin 7.1.1 does not advertise it.
 
 ### VotingPlugin update staging
 
-Control v1.0.0 provides a **Plugin update** workspace. It accepts one bounded VotingPlugin JAR, verifies the embedded plugin identity, stores it by SHA-256, and shows which connected nodes currently advertise `plugin.deploy.v1` before an operation is created. VotingPlugin 7.1.1 does not advertise that capability. Manually install a development build containing merged commit `e89e60bd` or later once on every intended node. A remote connector advertises deployment only when its Control endpoint uses HTTPS. The local HTTP exception requires Control to be hosted directly on that same node **and** the connector endpoint to use a loopback host such as `127.0.0.1` or `localhost`. Windows proxy nodes remain ineligible and must be updated manually. After eligible nodes reconnect, Control can stage later VotingPlugin JARs.
+Control v1.0.2 provides a **Plugin update** workspace. It can accept one bounded local VotingPlugin JAR or download the latest successful development build from a fixed bencodez.com Jenkins job; administrators cannot supply an arbitrary remote URL. Control verifies the embedded plugin identity, computes the SHA-256, stores the artifact by that digest, and shows which connected nodes currently advertise `plugin.deploy.v1` before an operation is created. Direct plain-HTTP uploads require the actual client socket to be loopback, link-local, private IPv4, or IPv6 ULA. Uploads through a reverse proxy require HTTPS, secure cookies, and an explicitly trusted proxy that overwrites `X-Forwarded-Proto`.
+
+VotingPlugin 7.1.1 does not advertise `plugin.deploy.v1`. Manually install a development build containing merged commit `e89e60bd` or later once on every intended node. Endpoint eligibility is enforced by the installed connector build: use HTTPS unless that build explicitly documents and enables another supported local/private policy, and follow its initialization diagnostic when the capability is withheld. Windows proxy nodes remain ineligible and must be updated manually. After eligible nodes reconnect, Control can stage later VotingPlugin JARs.
 
 Each selected node downloads the exact verified artifact through a session- and attempt-bound lease, stages it for the next process start, and reports either `RESTART_REQUIRED` or a bounded failure. Bukkit backends preserve the filename of the currently installed VotingPlugin JAR when placing the update in the server update folder. Control never hot reloads VotingPlugin, restarts a server, or turns a failed target into an automatic retry. Review the per-node result, then restart successful targets through the normal server-management process.
 
@@ -344,7 +347,7 @@ VoteLog views contain retained **logged events**, not a complete packet or comma
 | VoteLog says enabled but unavailable | Restart VotingPlugin after enabling VoteLogging, then check database connectivity and table readability. |
 | Network Doctor is healthy but votes still fail | Run a real Votifier vote through the complete public listener and delivery path. Network Doctor is not a synthetic vote test. |
 | The hosted update rolled back | Inspect the hosted log and retained failed candidate. Do not bypass digest or health verification. |
-| No connected node is eligible for a VotingPlugin deployment | VotingPlugin 7.1.1 lacks `plugin.deploy.v1`. Manually install a development build containing merged commit `e89e60bd` or later once, then reconnect the node. For a remote connector, also confirm that its Control endpoint uses HTTPS. Local HTTP is eligible only when Control is hosted directly on that node and the connector uses a loopback endpoint. Windows proxy nodes are intentionally ineligible and require manual updates. |
+| No connected node is eligible for a VotingPlugin deployment | VotingPlugin 7.1.1 lacks `plugin.deploy.v1`. Manually install a development build containing merged commit `e89e60bd` or later once, then reconnect the node. Use HTTPS unless that connector build explicitly documents and enables another supported local/private policy, and check its initialization diagnostic for the exact reason staging was withheld. Windows proxy nodes are intentionally ineligible and require manual updates. |
 | A VotingPlugin deployment says `RESTART_REQUIRED` | The JAR was staged successfully but is not active yet. Restart that node through the normal server-management process. |
 
 ## Disable Control
@@ -375,13 +378,17 @@ On a proxy, set `Control.Enabled: false` as well. Disabling or removing Control 
 
 - [VotingPlugin Control connector implementation notes](https://github.com/BenCodez/VotingPlugin/blob/master/docs/control-connector.md)
 - [VotingPlugin Control management reference](https://github.com/BenCodez/VotingPlugin-Control/blob/main/docs/control-management.md)
-- [VotingPlugin Control v1.0.0](https://github.com/BenCodez/VotingPlugin-Control/releases/tag/v1.0.0)
+- [VotingPlugin Control v1.0.2](https://github.com/BenCodez/VotingPlugin-Control/releases/tag/v1.0.2)
 - [Automatic settings and HTTP v2 merge (Control PR #13)](https://github.com/BenCodez/VotingPlugin-Control/pull/13)
 - [Verified VotingPlugin artifact-store merge (Control PR #14)](https://github.com/BenCodez/VotingPlugin-Control/pull/14)
 - [VotingPlugin staging merge (Control PR #15)](https://github.com/BenCodez/VotingPlugin-Control/pull/15)
 - [Explicit preview-to-apply workflow (Control PR #16)](https://github.com/BenCodez/VotingPlugin-Control/pull/16)
 - [Verified staging bootstrap guidance (Control PR #17)](https://github.com/BenCodez/VotingPlugin-Control/pull/17)
 - [Scope-first Control WebUI v1 (Control PR #18)](https://github.com/BenCodez/VotingPlugin-Control/pull/18)
+- [Full YAML workbench (Control PR #20)](https://github.com/BenCodez/VotingPlugin-Control/pull/20)
+- [Proxy and named reward Full YAML targets (Control PR #23)](https://github.com/BenCodez/VotingPlugin-Control/pull/23)
+- [Verified Jenkins artifact source (Control PR #24)](https://github.com/BenCodez/VotingPlugin-Control/pull/24)
+- [Network-aware General Settings (Control PR #25)](https://github.com/BenCodez/VotingPlugin-Control/pull/25)
 - [Named reward-file connector capability (VotingPlugin PR #1612)](https://github.com/BenCodez/VotingPlugin/pull/1612)
 - [VotingPlugin deployment capability (VotingPlugin PR #1609)](https://github.com/BenCodez/VotingPlugin/pull/1609)
 - [VotingPlugin HTTP and deployment capabilities (PR #1594)](https://github.com/BenCodez/VotingPlugin/pull/1594)
