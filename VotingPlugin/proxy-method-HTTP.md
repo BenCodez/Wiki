@@ -148,9 +148,9 @@ To roll back, select the previous method on the proxy and every backend, restore
 
 ## Control WebUI compatibility
 
-The current public Control release, **v1.0.0**, includes negotiated `config.proxy-method.v2` support for HTTP. The latest public VotingPlugin release, 7.1.1, does not advertise that capability and cannot use HTTP. Configure this development transport manually unless every selected node runs a development build containing merged commit `46088736` or later.
+The current public Control release, **v1.0.2**, includes negotiated `config.proxy-method.v2` support for HTTP. The latest public VotingPlugin release, 7.1.1, does not advertise that capability and cannot use HTTP. Configure this development transport manually unless every selected node runs a development build containing merged commit `46088736` or later.
 
-Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) is included in v1.0.0, while the merged-but-unreleased VotingPlugin commit `46088736` provides the node-side `config.proxy-method.v2` workflow for HTTP. The proxy-method workflow previews the change and then asks for browser confirmation before applying it. Verify that the proxy and every selected backend advertise v2 before using the WebUI. For production networks, wait for a compatible public VotingPlugin release. Retain console access and external backups for rollback.
+Control [PR #13](https://github.com/BenCodez/VotingPlugin-Control/pull/13) has been included since v1.0.0 and remains available in v1.0.2, while the merged-but-unreleased VotingPlugin commit `46088736` provides the node-side `config.proxy-method.v2` workflow for HTTP. The proxy-method workflow previews the change and then asks for browser confirmation before applying it. Verify that the proxy and every selected backend advertise v2 before using the WebUI. For production networks, wait for a compatible public VotingPlugin release. Retain console access and external backups for rollback.
 
 ## Troubleshooting
 
