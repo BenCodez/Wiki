@@ -162,7 +162,10 @@ Each node receives a separate credential bound to its stable node ID. A credenti
 
 When the proxy hosts Control and enrolls itself through the same local listener, VotingPlugin can generate the proxy credential and install only its SHA-256 verifier into Control automatically.
 
-For backend automatic enrollment through plugin messaging, each backend uses:
+> **Development builds only:** Cross-transport backend enrollment requires merged VotingPlugin commit [`0b90ca3e`](https://github.com/BenCodez/VotingPlugin/commit/0b90ca3e9b5bc133927d40fc5c0b63d68f061329) or later. VotingPlugin 7.1.1 does not include automatic Control enrollment.
+{.is-warning}
+
+Automatic backend enrollment can use the selected `BungeeMethod`: `PLUGINMESSAGING`, `HTTP`, `REDIS`, `MQTT`, `SOCKETS`, or `MYSQL`. Each backend uses:
 
 ```yaml
 Control:
@@ -176,9 +179,13 @@ Control:
     RequestTimeoutMillis: 10000
 ```
 
-The backend keeps the raw credential locally and sends only its verifier through the proxy. `Endpoint` must be reachable **from the backend**. Do not use `localhost` for a Control process running on a different machine.
+The backend keeps the raw credential locally and sends only its verifier through the proxy. The proxy installs that verifier into its hosted Control only after proving that the configured route reaches that Control instance. Enrollment retries do not replace an existing nonblank credential.
 
-Automatic backend enrollment requires the normal plugin-message relationship and a node identity matching `BungeeSettings.Server`. External Control installations, custom node IDs, and other proxy transports use manual enrollment in the WebUI or owner tooling.
+Automatic enrollment requires a stable node identity matching `BungeeSettings.Server`. Plugin Messaging and HTTP bind the backend identity through their transport paths. Redis, MQTT, sockets, and MySQL additionally require the same private `secretkey.key` on the proxy and backend so enrollment messages can be authenticated.
+
+For automatic backend enrollment, `Endpoint` must address the hosted listener directly as `http://<non-loopback-host>:<Control.Hosted.Port>/`. It cannot use HTTPS, a loopback address such as `localhost` or `127.0.0.1`, a reverse-proxy path, a query, or a fragment. When `Control.Hosted.Host` is a specific interface instead of a wildcard, the endpoint host must match that configured value exactly. The endpoint must also be reachable **from the backend**.
+
+Use manual enrollment in the WebUI or owner tooling for an external Control installation, a custom node ID, an existing credential, an HTTPS or reverse-proxy endpoint, or another topology that cannot use the direct hosted-listener address.
 
 Do not copy one credential file between servers. Keep every credential file inside its node's VotingPlugin data directory and exclude it from public backups, screenshots, and support bundles.
 
