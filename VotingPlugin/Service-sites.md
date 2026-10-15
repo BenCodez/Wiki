@@ -75,8 +75,22 @@ With `AutoCreateVoteSites: true`, VotingPlugin attempts to create a missing
 are converted to underscores for the internal vote-site key, while the
 original text is retained as `ServiceSite`.
 
-If automatic creation is disabled or fails, create the site through `/av gui`,
-VotingPluginEditor, or `VoteSites.yml`, then retry a vote.
+Use automatic creation while discovering the service-site values sent by your
+voting websites. Review every generated entry, replace its placeholder
+`VoteURL`, and configure its delay, display item, and rewards.
+
+After all intended sites are configured, set `AutoCreateVoteSites: false` in
+`Config.yml` and reload VotingPlugin. Existing configured sites continue to
+work, while a new, previously unmatched service identifier no longer generates
+another entry.
+
+If automatic creation fails, create the site through `/av gui`,
+VotingPluginEditor, or `VoteSites.yml`, then retry a vote. In release 7.1.1,
+`/av gui` uses the same `AutoCreateVoteSites` gate when creating a site. To add
+one through the GUI after disabling the setting, temporarily enable it and
+reload, create the site, then disable it and reload again. Directly editing
+`VoteSites.yml` does not require enabling automatic creation, but reload
+VotingPlugin (or restart the server) before retrying the vote.
 
 ## Enforce the vote delay
 

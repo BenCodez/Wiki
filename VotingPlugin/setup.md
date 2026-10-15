@@ -65,6 +65,14 @@ VoteSites:
 
 Use `/av servicesites` or the console output from a received vote to confirm the service name.
 
+Once every intended site is configured and tested, set
+`AutoCreateVoteSites: false` in `Config.yml` and reload VotingPlugin. This keeps
+the configured sites while preventing unexpected service identifiers from
+automatically creating additional entries. In release 7.1.1, temporarily
+re-enable the setting and reload before creating another site through
+`/av gui`; see [Service Sites](/VotingPlugin/Service-sites) for the complete
+workflow.
+
 ## 4. Configure rewards
 
 Rewards can be created with `/av gui`, directly in a vote-site or special-reward section, or in files under `/plugins/VotingPlugin/Rewards/`.
