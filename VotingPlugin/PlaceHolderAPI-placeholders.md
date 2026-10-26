@@ -61,8 +61,10 @@ You can modify placeholder behavior using suffixes:
 UsePrimaryAccountForPlaceholders: false
 
 # Cache levels:
-# AUTO - Auto cache after use (recommended)
-# SPECIFIC - Cache only listed placeholders
+# AUTO - Auto-select placeholders; online-player caching (recommended)
+# AUTOALL - Auto-select placeholders; retain offline-player cache entries
+# SPECIFIC - Cache listed placeholders for online players
+# SPECIFICALL - Cache listed placeholders; retain offline-player cache entries
 # NONE - Disable caching entirely
 PlaceholderCacheLevel: AUTO
 
@@ -72,6 +74,10 @@ PlaceholderCacheLevel: AUTO
 CachedPlaceholders: []
 # - Total_AllTime
 ```
+
+All five modes are accepted by VotingPlugin 7.1.1. The `ALL` variants retain
+cached player entries after logout; they do not force live processing on every
+request or mean a value is already cached. `AUTO` is the release default.
 
 ---
 
