@@ -65,8 +65,9 @@ can claim those names.
 
 ## Generated command reference
 
-Use `/av perms` or `/av perms <player>` to view the permissions available to
-the sender or a specific player.
+Use `/av perms` to view the sender's permissions, or `/av permsplayer <player>`
+to view a specific player's permissions. For another page, use
+`/av perms <number>` or `/av permsplayer <player> <number>`.
 
 | splits permissions up, meaning it can be either one before/after the |
 
