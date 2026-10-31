@@ -42,8 +42,13 @@ You can modify placeholder behavior using suffixes:
 
 | Suffix | Effect |
 |---|---|
-| `_process` | Forces the placeholder to process live and return a value instead of `.` or `..`. *(Avoid on main thread.)* |
-| `_nocache` | Skips cache and retrieves a live value directly from MySQL. *(Avoid on main thread.)* |
+| `_process` | Processes the placeholder when no cached result is available; an existing cached result can still be returned. *(Use only asynchronously.)* |
+| `_nocache` | Bypasses the placeholder-result cache and calls the matching placeholder directly. *(Use only asynchronously.)* |
+
+These suffixes are available in VotingPlugin 7.1.1. Neither guarantees a fresh
+storage query: the matching placeholder can still read cached user data or
+precomputed totals and leaderboard data. Do not use a suffix as a substitute
+for diagnosing stale underlying data.
 
 ---
 
