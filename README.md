@@ -52,3 +52,20 @@ slug.
 
 Repository-maintenance files such as this README are excluded from the
 published wiki copies.
+
+## Pull-request validation
+
+The workflow in .github/workflows/validate-wiki.yml runs on documentation PRs.
+It checks Wiki.js navigation targets, changed Markdown front matter and internal
+links, and performs a strict MkDocs backup build after running the existing
+source-link rewriting and attribute-stripping scripts.
+
+To run locally:
+
+    python3 -m unittest discover -s .github/scripts/tests -p 'test_validate_wiki.py' -v
+    python3 .github/scripts/validate_wiki.py --all
+
+The --base option checks only changed Markdown to avoid unrelated legacy-link
+debt, while still checking the entire navigation JSON. External links are not
+fetched; this is intentionally an internal consistency check, not a website
+uptime monitor.
