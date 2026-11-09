@@ -10,6 +10,8 @@ dateCreated: 2025-08-30T22:18:10.405Z
 
 # ❓ VotingPlugin — Quick FAQ
 
+For failures spanning listener, storage, proxy forwarding, and rewards, use [Advanced Troubleshooting](/VotingPlugin/Troubleshooting-Advanced).
+
 ## 1) `/vote` says “vote here: www.votelinkhere.com”
 
 This is usually **VentureChat** intercepting `/vote`. Remove or change VentureChat's `/vote` alias, restart or reload VentureChat, and test again.

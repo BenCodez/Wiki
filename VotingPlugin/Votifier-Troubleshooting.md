@@ -10,6 +10,8 @@ dateCreated: 2025-08-30T22:18:29.993Z
 
 # Votifier Troubleshooting
 
+**Advanced problems?** Use the [end-to-end troubleshooting guide](/VotingPlugin/Troubleshooting-Advanced) for duplicate rewards, SQL errors, proxy forwarding, offline deliveries, identity mismatches, and period resets.
+
 ## Verify the listener path
 
 A healthy real or listener-generated test normally produces both:
