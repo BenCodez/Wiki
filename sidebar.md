@@ -68,6 +68,7 @@ dateCreated: 2026-01-27T00:14:29.606Z
 ---
 
 ## 🎁 Rewards
+- [Rewards Cookbook — Copyable Recipes](https://github.com/BenCodez/VotingPlugin/wiki/Reward-Cookbook)
 - [Rewards Overview — Start Here](https://github.com/BenCodez/VotingPlugin/wiki/Rewards)
 - [Special Rewards](https://github.com/BenCodez/VotingPlugin/wiki/Special-Rewards)
 - [Reward System Concepts](https://github.com/BenCodez/VotingPlugin/wiki/reward-system)

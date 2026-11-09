@@ -14,6 +14,7 @@ VotingPlugin uses the bundled AdvancedCore reward system. The same reward effect
 
 Start with:
 
+- [Rewards Cookbook — copyable examples](/VotingPlugin/Reward-Cookbook)
 - [Where to Set Rewards](/VotingPlugin/Where-to-set-rewards)
 - [All Reward Possibilities](/VotingPlugin/All-Reward-Possibilities)
 - [Reward File Format](/VotingPlugin/Reward-File)
