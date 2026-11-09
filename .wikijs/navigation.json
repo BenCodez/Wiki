@@ -46,6 +46,75 @@
           "visibilityGroups": []
         },
         {
+          "id": "12ceaa03-7dc9-4914-9399-278c14edb00f",
+          "kind": "header",
+          "label": "Getting Started",
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "12ceaa03-7dc9-4914-9399-278c14edb010",
+          "kind": "link",
+          "label": "Start Here",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Getting-Started",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "12ceaa03-7dc9-4914-9399-278c14edb011",
+          "kind": "link",
+          "label": "Standalone Quick Start",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Getting-Started-Standalone",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "12ceaa03-7dc9-4914-9399-278c14edb012",
+          "kind": "link",
+          "label": "Proxy Network Quick Start",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Getting-Started-Proxy",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "12ceaa03-7dc9-4914-9399-278c14edb013",
+          "kind": "link",
+          "label": "Verify Your First Vote",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Getting-Started-Verification",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "12ceaa03-7dc9-4914-9399-278c14edb014",
+          "kind": "divider",
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
+          "id": "12ceaa03-7dc9-4914-9399-278c14edb015",
+          "kind": "header",
+          "label": "Configuration & Reference",
+          "icon": null,
+          "targetType": null,
+          "target": null,
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
           "id": "29f95073-c44c-4781-82cb-7d5daa1b380b",
           "kind": "link",
           "label": "Setup",

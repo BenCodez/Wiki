@@ -10,6 +10,9 @@ dateCreated: 2025-08-31T03:20:39.536Z
 
 # Setup VotingPlugin
 
+> **New to VotingPlugin?** Follow the dedicated [Getting Started](/VotingPlugin/Getting-Started) guides first: [Standalone](/VotingPlugin/Getting-Started-Standalone), [Proxy Network](/VotingPlugin/Getting-Started-Proxy), and [First-vote Verification](/VotingPlugin/Getting-Started-Verification). This page remains a configuration reference.
+{.is-info}
+
 > **Release baseline:** This guide targets VotingPlugin **7.1.1**, released July 23, 2026. The 7.1.1 plugin and proxy artifacts are compiled for **Java 21**.
 {.is-info}
 
@@ -40,7 +43,7 @@ See [Proxy Setups](/VotingPlugin/Proxy-Setups).
 
 ## 3. Configure vote sites
 
-VotingPlugin can create vote sites automatically from received votes when `AutoCreateVoteSites: true`, or they can be added through `/av gui`, VotingPluginEditor, or `VoteSites.yml`.
+VotingPlugin can create vote sites automatically from received votes when `AutoCreateVoteSites: true`, or they can be added through `/av gui`, VotingPluginEditor, or `VoteSites.yml`. For sites with maintained presets, an operator can run `/av VotePresets` **in game** (or `/av VotePresets https://your-listing.example/vote`) for guided setup; see [VotingPlugin Presets](/VotingPlugin/VotingPlugin-Presets).
 
 ```yaml
 VoteSites:
@@ -48,7 +51,10 @@ VoteSites:
     Enabled: true
     ServiceSite: MinecraftServers.org
     VoteURL: https://minecraftservers.org/vote/example
-    VoteDelay: 24
+    VoteDelay: 24h
+    DisplayItem:
+      Material: DIAMOND
+      Amount: 1
     Rewards:
       Messages:
         Player: '&aThanks for voting on %ServiceSite%!'

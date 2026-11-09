@@ -15,7 +15,15 @@ dateCreated: 2026-01-27T00:14:29.606Z
 
 ---
 
-## 🚀 Setup & Configuration
+## 🚀 Getting Started (Server Administrators)
+- [Start Here](https://github.com/BenCodez/VotingPlugin/wiki/Getting-Started)
+- [Standalone Server Quick Start](https://github.com/BenCodez/VotingPlugin/wiki/Getting-Started-Standalone)
+- [Proxy Network Quick Start](https://github.com/BenCodez/VotingPlugin/wiki/Getting-Started-Proxy)
+- [Verify Your First Vote](https://github.com/BenCodez/VotingPlugin/wiki/Getting-Started-Verification)
+
+---
+
+## ⚙️ Setup & Configuration
 - [Setup](https://github.com/BenCodez/VotingPlugin/wiki/setup)
 - [File Layout](https://github.com/BenCodez/VotingPlugin/wiki/File-Layout)
 - [Online / Offline Mode](https://github.com/BenCodez/VotingPlugin/wiki/Online-Offline-Mode)

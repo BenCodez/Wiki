@@ -59,14 +59,13 @@ Path: `/plugins/VotingPlugin/`
 
 ## Quick Start
 
-1. Install **VotifierPlus** or another compatible vote listener.
-2. Place VotingPlugin in the server's `/plugins/` directory.
-3. Configure `/plugins/VotingPlugin/VoteSites.yml`.
-4. Configure rewards and other preferences.
-5. Restart and send a test vote.
+**New server administrators:** Start with the dedicated [Getting Started](/VotingPlugin/Getting-Started) section rather than configuring everything at once.
 
-> Proxy networks must also configure `bungeeconfig.yml`, `BungeeSettings.yml`, and a shared MySQL database.
-{.is-info}
+- [Standalone Server Quick Start](/VotingPlugin/Getting-Started-Standalone) — install VotingPlugin and VotifierPlus on one Paper/Spigot server, add your first site and reward.
+- [Proxy Network Quick Start](/VotingPlugin/Getting-Started-Proxy) — connect Velocity/BungeeCord, shared SQL storage, and backend rewards.
+- [Verify Your First Vote](/VotingPlugin/Getting-Started-Verification) — test VotingPlugin processing separately from the public vote listener and website.
+
+For individual settings, the [existing Setup reference](/VotingPlugin/setup) and [File Layout](/VotingPlugin/File-Layout) are still available. The current stable release is 7.1.1 (Java 21).
 
 ## How a Vote Is Processed
 
