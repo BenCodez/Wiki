@@ -16,6 +16,8 @@ dateCreated: 2025-08-31T03:20:39.536Z
 > **Release baseline:** This guide targets VotingPlugin **7.1.1**, released July 23, 2026. The 7.1.1 plugin and proxy artifacts are compiled for **Java 21**.
 {.is-info}
 
+**Upgrading an existing server?** Follow [Upgrading and Rollback](/VotingPlugin/Upgrade-and-Rollback) before replacing JARs or migrating data.
+
 ## 1. Install a vote listener
 
 Use a compatible listener such as:

@@ -13,6 +13,8 @@ dateCreated: 2025-08-30T22:18:28.333Z
 VotingPlugin stores player votes, totals, and statistics in SQLite or an
 external SQL database. Back up the source and destination before converting.
 
+If you are also replacing the VotingPlugin JAR, treat that as a separate procedure and follow [Upgrade and Rollback](/VotingPlugin/Upgrade-and-Rollback) first.
+
 ---
 
 ## Select storage
