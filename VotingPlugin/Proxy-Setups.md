@@ -31,6 +31,8 @@ dateCreated: 2025-08-30T22:18:02.764Z
 
 # Proxy Methods
 
+**Looking for a worked example?** [Single proxy + survival/skyblock network configuration](/VotingPlugin/Proxy-Examples) shows matching proxy and backend YAML, routing policies, listener setup, and first-vote tests for 7.1.1.
+
 VotingPlugin supports multiple communication methods between your **proxy (BungeeCord/Velocity)** and backend servers. Select one `BungeeMethod` and configure it consistently on the proxy and participating backends.
 
 | Method | Description |
