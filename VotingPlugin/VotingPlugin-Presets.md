@@ -16,6 +16,9 @@ VotingPlugin downloads the available definitions from the
 asks for the values required by the selected site, writes the result to
 `VoteSites.yml`, and reloads the vote sites.
 
+> **Important:** A preset is a configuration *starting point*, not an authoritative or current site identifier. The maintained preset metadata can have `"verified": false`, which means you must verify its suggested `ServiceSite` against the actual incoming vote. See [Minecraft Server Lists](/VotingPlugin/Minecraft-Server-Lists) for historical suggestions and preset links.
+{.is-warning}
+
 ## Requirements
 
 - Run the command as a player; the setup uses in-game prompts or dialogs.

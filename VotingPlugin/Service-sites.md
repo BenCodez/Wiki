@@ -17,6 +17,8 @@ process the vote.
 Most voting websites use a domain-like value, but the website controls the
 actual value. Do not guess it from the public vote URL.
 
+The [Minecraft Server Lists reference](/VotingPlugin/Minecraft-Server-Lists) contains historical suggestions and links to presets, but neither should override a service name observed in a real incoming vote.
+
 ## Find the received value
 
 Send a real or administrative test vote and check the console for messages like:
