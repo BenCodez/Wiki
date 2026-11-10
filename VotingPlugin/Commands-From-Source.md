@@ -24,8 +24,8 @@ For the released-version reference, see
 ## Administrator commands (`/av`)
 
 | Command | Permission | Description |
-|---|---|
-| `/av ` | `VotingPlugin.Commands.AdminVote\|VotingPlugin.Admin` | Base command |
+|---|---|---|
+| `/av` | `VotingPlugin.Commands.AdminVote\|VotingPlugin.Admin` | Base command |
 | `/av BackgroundUpdate` | `VotingPlugin.Commands.AdminVote.BackgroundUpdate\|VotingPlugin.Admin` | Force a background update |
 | `/av CheckVoteCoolDownRewards` | `VotingPlugin.Commands.AdminVote.VoteSite.CheckVoteCoolDownRewards\|VotingPlugin.Admin` | Force check all vote cooldown rewards |
 | `/av ClearDiscordMessageID (topvoter)` | `VotingPlugin.Commands.AdminVote.ClearDiscordMessageID` | Clear discord message ID for top voter |
@@ -136,8 +136,8 @@ For the released-version reference, see
 ## Voting commands (`/vote`)
 
 | Command | Permission | Description |
-|---|---|
-| `/vote ` | `VotingPlugin.Commands.Vote\|VotingPlugin.Player` | See voting URLs |
+|---|---|---|
+| `/vote` | `VotingPlugin.Commands.Vote\|VotingPlugin.Player` | See voting URLs |
 | `/vote Best` | `VotingPlugin.Commands.Vote.Best\|VotingPlugin.Player` | View your best voting |
 | `/vote Best (player)` | `VotingPlugin.Commands.Vote.Best.Other\|VotingPlugin.Mod` | View someone's best voting |
 | `/vote DateEvents` | `VotingPlugin.Commands.Vote.DateEvents\|VotingPlugin.Player` | View date-window vote milestone progress |
