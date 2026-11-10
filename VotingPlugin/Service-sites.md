@@ -17,7 +17,7 @@ process the vote.
 Most voting websites use a domain-like value, but the website controls the
 actual value. Do not guess it from the public vote URL.
 
-The [Minecraft Server Lists reference](/VotingPlugin/Minecraft-Server-Lists) contains historical suggestions and links to presets, but neither should override a service name observed in a real incoming vote.
+The [Minecraft Server Lists reference](/VotingPlugin/Minecraft-Server-Lists) is also consumed by VotingPlugin at runtime. Read [Vote-site catalog and preset verification](/VotingPlugin/Vote-Site-Catalog-Notes) for explanation; do not edit its parser-consumed list format.
 
 ## Find the received value
 
