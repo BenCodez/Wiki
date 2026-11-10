@@ -2,7 +2,7 @@
 title: Minecraft Server Lists
 description: 
 published: true
-date: 2026-10-03T14:48:58.566Z
+date: 2026-11-10T23:32:52.872Z
 tags: 
 editor: markdown
 dateCreated: 2025-08-30T22:18:13.937Z
@@ -44,3 +44,4 @@ Domain - Service site
 * top-mcservers.com - TOPMCSERVERS
 * 9minecraftserver.com - 9minecraftserver.com
 * craftvote.com - CraftVote
+* radarmc.org - RadarMC
