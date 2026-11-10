@@ -17,6 +17,8 @@ from urllib.parse import unquote, urlsplit
 
 LINK = re.compile(r"!?\[[^\]\n]*\]\((?P<target><[^>]+>|[^)\s]+)(?:\s+['\"][^'\"]+['\"])?\)")
 FENCE = re.compile(r"^\s*((?:\x60){3,}|~{3,})")
+INLINE_CODE = re.compile(r"(?<!\\)(`+)(.*?)\\1", re.DOTALL)
+REFERENCE_DEFINITION = re.compile(r"(?m)^[ \\t]{0,3}\\[([^\\]\\n]+)\\]:[ \\t]*(?:<([^>\\n]+)>|([^\\s]+))")
 FRONT = re.compile(r"\A---\r?\n(?P<fields>.*?)\r?\n---\r?\n", re.DOTALL)
 
 
@@ -73,8 +75,12 @@ def check_page(root: Path, path: Path) -> list[str]:
             for key in ("title:", "published:", "editor:"):
                 if not any(line.startswith(key) for line in fields):
                     problems.append(relative + ": missing field " + key)
-    for match in LINK.finditer(without_fences(content)):
-        target = match.group("target")
+    rendered = INLINE_CODE.sub(lambda match: " " * len(match.group(0)), without_fences(content))
+    # Reference links use [label][id] plus [id]: destination. Check every
+    # definition (including images) even when it is currently unused.
+    references = [match.group(2) or match.group(3) for match in REFERENCE_DEFINITION.finditer(rendered)]
+    inline = [match.group("target") for match in LINK.finditer(rendered)]
+    for target in inline + references:
         try:
             path_ref = resolve_link(root, path, target)
         except ValueError as exc:
