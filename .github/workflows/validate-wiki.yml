@@ -1,0 +1,55 @@
+name: Validate Wiki Documentation
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '.wikijs/navigation.json'
+      - '.github/scripts/**'
+      - '.github/workflows/validate-wiki.yml'
+      - 'mkdocs.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Unit tests
+        run: python3 -m unittest discover -s .github/scripts/tests -p 'test_validate_wiki.py' -v
+      - name: Validate changed pages and all Wiki.js navigation
+        run: python3 .github/scripts/validate_wiki.py --base "${{ github.event.pull_request.base.sha }}"
+
+  mkdocs-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+      - name: Install MkDocs
+        run: pip install mkdocs mkdocs-material
+      - name: Build source with mirror rewrite
+        run: |
+          set -euo pipefail
+          rm -rf docs site
+          mkdir -p docs
+          rsync -a --delete \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude '.wikijs/' \
+            --exclude 'site/' \
+            --exclude 'docs/' \
+            --exclude 'mkdocs.yml' \
+            --exclude 'README.md' \
+            ./ docs/
+          python3 .github/scripts/strip-wikijs-attributes.py docs
+          python3 .github/scripts/rewrite-mkdocs-links.py docs
+          if [ ! -f docs/index.md ]; then
+            printf '# BenCodez Wiki\n\nBackup site for wiki.bencodez.com\n' > docs/index.md
+          fi
+          mkdocs build --strict
