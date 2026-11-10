@@ -52,6 +52,19 @@ class WikiValidationTest(unittest.TestCase):
         self.page.write_text("# No metadata\n")
         self.assertTrue(any("missing YAML front matter" in e for e in validate(self.root, [self.page])))
 
+    def test_inline_code_link_example_is_not_validated(self):
+        self.page.write_text(HEADER + "[Home](/) and `[sample](/missing)` as literal syntax\n")
+        self.assertEqual([], validate(self.root, [self.page]))
+
+    def test_reference_link_destination_is_checked(self):
+        self.page.write_text(HEADER + "[Missing][target]\n\n[target]: /VotingPlugin/Does-Not-Exist\n")
+        self.assertTrue(any("broken internal link" in e for e in validate(self.root, [self.page])))
+
+    def test_valid_reference_link_and_code_span_definition(self):
+        self.page.write_text(HEADER + "[Home][home]\n\n[home]: /\n" +
+                             "Syntax: `[x]: /VotingPlugin/Does-Not-Exist`\n")
+        self.assertEqual([], validate(self.root, [self.page]))
+
     def test_reject_outside_repository(self):
         self.page.write_text(HEADER + "[Escape](../../../etc/passwd)\n")
         self.assertTrue(any("escapes repository" in e for e in validate(self.root, [self.page])))
