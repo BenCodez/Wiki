@@ -17,8 +17,8 @@ from urllib.parse import unquote, urlsplit
 
 LINK = re.compile(r"!?\[[^\]\n]*\]\((?P<target><[^>]+>|[^)\s]+)(?:\s+['\"][^'\"]+['\"])?\)")
 FENCE = re.compile(r"^\s*((?:\x60){3,}|~{3,})")
-INLINE_CODE = re.compile(r"(?<!\\)(`+)(.*?)\\1", re.DOTALL)
-REFERENCE_DEFINITION = re.compile(r"(?m)^[ \\t]{0,3}\\[([^\\]\\n]+)\\]:[ \\t]*(?:<([^>\\n]+)>|([^\\s]+))")
+INLINE_CODE = re.compile(r"(?<!\\)(`+)(.*?)\1", re.DOTALL)
+REFERENCE_DEFINITION = re.compile(r"(?m)^[ \t]{0,3}\[([^\]\n]+)\]:[ \t]*(?:<([^>\n]+)>|([^\s]+))")
 FRONT = re.compile(r"\A---\r?\n(?P<fields>.*?)\r?\n---\r?\n", re.DOTALL)
 
 
