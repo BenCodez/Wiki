@@ -95,48 +95,68 @@ def extract(source, filename, root):
 
 
 def cell(text):
-    return text.replace("|", "\\|").replace("\n", " ").replace("§", "&#96;")
+    return text.replace("|", "\\|").replace("\n", " ").replace(chr(96), "&#96;")
 
 
 def render(rows):
-    lines = ["---", "title: Commands from VotingPlugin Source",
-             "description: Java source-derived command and permission inventory for admins",
-             "published: true", "date: 2026-11-09T00:00:00.000Z",
-             "tags:", "editor: markdown", "dateCreated: 2026-11-09T00:00:00.000Z",
-             "---", "", "# Commands from VotingPlugin source (development)", "",
-             "These commands come from Java §CommandHandler§ constructor sites in VotingPlugin's §master§ branch.",
-             "This is **static source analysis**, not an in-game registry or a stable-release promise.",
-             "See [Commands & Permissions](/VotingPlugin/Commands-&-Permissions) for stable-release guidance.",
-             "",
-             "> **Dynamic** means the registration contains values created by loops, enums, or configuration.",
-             "> Confirm such commands, feature gates, and alternate labels against the relevant source.",
-             "{.is-warning}", ""]
-    for root in ["/av", "/vote"]:
-        lines += ["## " + root + " handlers", "",
-                  "| Command or template | Permission expression | Description | Source |",
-                  "|---|---|---|---|"]
-        entries = sorted((r for r in rows if r["root"] == root),
-                         key=lambda r: (r["args"].casefold(), r["line"]))
+    """Generate user-facing administrator tables without implementation links."""
+    visible = [row for row in rows if not row["dynamic"]]
+    omitted = len(rows) - len(visible)
+    marker = chr(96)
+    lines = [
+        "---",
+        "title: VotingPlugin Commands & Permissions (Development)",
+        "description: Automatically generated command and permission reference for server administrators",
+        "published: true",
+        "date: 2026-11-09T00:00:00.000Z",
+        "tags:",
+        "editor: markdown",
+        "dateCreated: 2026-11-09T00:00:00.000Z",
+        "---",
+        "",
+        "# Commands & Permissions — Development",
+        "",
+        "These command tables are automatically maintained from VotingPlugin's development",
+        "command definitions. They are intended for **server administrators**, not for",
+        "players learning how to vote. The latest stable release may have different commands.",
+        "For the released-version reference, see",
+        "[Commands & Permissions](/VotingPlugin/Commands-&-Permissions).",
+        "",
+        "> **Availability:** Some commands depend on server settings, permissions, or",
+        "> optional features. Use `/av help`, `/av perms` and `/vote help` on your server",
+        "> to confirm what your installed version actually supports.",
+        "{.is-info}",
+        "",
+    ]
+    for root, heading in (("/av", "Administrator commands (`/av`)"),
+                          ("/vote", "Voting commands (`/vote`)")):
+        lines.extend(["## " + heading, "",
+                      "| Command | Permission | Description |",
+                      "|---|---|---|"])
+        entries = sorted((row for row in visible if row["root"] == root),
+                         key=lambda row: (row["args"].casefold(), row["permission"].casefold()))
         for row in entries:
-            filename = row["filename"]
-            directory = "commands" if filename == "CommandLoader.java" else "streaks"
-            url = ("https://github.com/BenCodez/VotingPlugin/blob/master/"
-                   "VotingPlugin/src/main/java/com/bencodez/votingplugin/" + directory
-                   + "/" + filename + "#L" + str(row["line"]))
             syntax = root + (" " + row["args"] if row["args"] else "")
-            lines.append("| §" + cell(syntax) + "§" + (" **Dynamic**" if row["dynamic"] else "")
-                         + " | §" + cell(row["permission"]) + "§ | "
-                         + cell(row["description"]) + " | [source](" + url + ") |")
+            lines.append("| " + marker + cell(syntax) + marker
+                         + " | " + marker + cell(row["permission"]) + marker
+                         + " | " + cell(row["description"]) + " |")
         lines.append("")
-    lines += ["## Beyond these constructor sites", "",
-              "Additional registrations from §DateVoteMilestoneCommands.register§,",
-              "§AdvancedCore.command.CommandLoader.getBasicCommands§, and configuration-defined",
-              "custom commands are not expanded into concrete entries by this static pass.",
-              "Proxy-side §/votingpluginproxy§ commands use a different dispatcher.",
-              "",
-              "The Wiki workflow can refresh this page whenever upstream source changes.",
-              "It opens a documentation PR for review and requires no server runtime changes.", ""]
-    return "\n".join(lines).replace("§", chr(96))
+    lines.extend([
+        "## Optional and dynamically configured commands",
+        "",
+        "The tables show command names that can be determined directly. This generated",
+        "snapshot omits " + str(omitted) + " dynamically constructed command templates",
+        "rather than displaying Java expressions as usable commands.",
+        "Commands registered through configuration, optional integrations, and",
+        "other command dispatchers can also differ from these tables.",
+        "",
+        "For proxy administration (`/votingpluginproxy`), see",
+        "[Proxy Setups](/VotingPlugin/Proxy-Setups).",
+        "For command access on a running server, use `/av perms` or",
+        "`/av permsplayer <player>`.",
+        "",
+    ])
+    return "\n".join(lines)
 
 
 def generate(loader, streak):
