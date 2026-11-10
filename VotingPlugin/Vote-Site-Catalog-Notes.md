@@ -24,14 +24,7 @@ The mapping list is a convenience reference, not a guarantee that a voting websi
 
 ## Presets are starting points
 
-The [VotingPlugin-Presets repository](https://github.com/BenCodez/VotingPlugin-Presets/tree/main/presets/votesites) maintains configuration templates. Some template metadata includes `"verified": false`. For example:
-
-| Website | Preset metadata |
-|---|---|
-| MinecraftServers.org | [Preset JSON](https://github.com/BenCodez/VotingPlugin-Presets/blob/main/presets/votesites/minecraftservers-org.meta.json) |
-| Minecraft Server List | [Preset JSON](https://github.com/BenCodez/VotingPlugin-Presets/blob/main/presets/votesites/minecraft-server-list-com.meta.json) |
-| PlanetMinecraft | [Preset JSON](https://github.com/BenCodez/VotingPlugin-Presets/blob/main/presets/votesites/planetminecraft-com.meta.json) |
-| CraftVote | [Preset JSON](https://github.com/BenCodez/VotingPlugin-Presets/blob/main/presets/votesites/craftvote_com.meta.json) |
+The [VotingPlugin-Presets repository](https://github.com/BenCodez/VotingPlugin-Presets/tree/main/presets/votesites) maintains the complete set of available site templates. Some preset metadata has `"verified": false`, so a suggested service name should always be checked against an actual incoming vote.
 
 Neither a preset nor a historical wiki mapping takes precedence over an actual received vote.
 
