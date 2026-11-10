@@ -275,6 +275,16 @@
           "visibilityGroups": []
         },
         {
+          "id": "e0e61f48-430b-4000-ad10-eae9ca000001",
+          "kind": "link",
+          "label": "Rewards Cookbook",
+          "icon": "mdi-chevron-right",
+          "targetType": "page",
+          "target": "/en/VotingPlugin/Reward-Cookbook",
+          "visibilityMode": "all",
+          "visibilityGroups": []
+        },
+        {
           "id": "c0300230-6ba5-4994-9162-b09b71649438",
           "kind": "link",
           "label": "Reward System",
