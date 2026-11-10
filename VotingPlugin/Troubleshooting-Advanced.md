@@ -154,7 +154,7 @@ See [Proxy Setups](/VotingPlugin/Proxy-Setups) and [PLUGINMESSAGING](/VotingPlug
 | Different totals across a proxy network | Verify shared SQL, proxy `BungeeManageTotals: true`, server names, and forwarding; do not switch to unsupported per-backend total handling |
 | Shared user data is temporarily loading | Inspect the exact API caller and storage/cache logs; don't interpret a transient unavailable value as proof of an actual balance or completed reward |
 
-Before attempting any reset, SQL conversion, or rollback, back up storage and follow [Upgrade and Rollback](/VotingPlugin/Upgrade-and-Rollback) and [Data Storage Migration](/VotingPlugin/Transferring-data-storage-within-plugin).
+Before attempting a reset, SQL conversion, or rollback, **stop all affected data writers** (not just vote intake), make a coordinated backup of SQL/SQLite data and related plugin files, and follow the existing [Data Storage Migration](/VotingPlugin/Transferring-data-storage-within-plugin) guide. For JAR upgrades, keep the previous artifacts and a verified restore point. This page does not require a separate, not-yet-merged upgrade guide.
 
 ## 10. Player identity, offline, and Bedrock mismatches
 
