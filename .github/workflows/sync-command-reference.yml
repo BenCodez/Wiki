@@ -1,0 +1,68 @@
+name: Sync VotingPlugin source command reference
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/scripts/generate_command_reference.py"
+      - ".github/scripts/tests/test_generate_command_reference.py"
+      - ".github/workflows/sync-command-reference.yml"
+      - "VotingPlugin/Commands-From-Source.md"
+  schedule:
+    # 18:45 in Saskatchewan (UTC-6)
+    - cron: "45 0 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: wiki-command-source-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Test source parser
+        run: python -m unittest discover -s .github/scripts/tests -p test_generate_command_reference.py -v
+      - name: Fetch source code
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/vp"
+          BASE=https://raw.githubusercontent.com/BenCodez/VotingPlugin/master/VotingPlugin/src/main/java/com/bencodez/votingplugin
+          curl -fsSL --retry 3 "$BASE/commands/CommandLoader.java" -o "$RUNNER_TEMP/vp/CommandLoader.java"
+          curl -fsSL --retry 3 "$BASE/streaks/VoteStreaksCommand.java" -o "$RUNNER_TEMP/vp/VoteStreaksCommand.java"
+      - name: Generate source documentation
+        run: |
+          python .github/scripts/generate_command_reference.py \
+            --loader "$RUNNER_TEMP/vp/CommandLoader.java" \
+            --streak "$RUNNER_TEMP/vp/VoteStreaksCommand.java" \
+            --output VotingPlugin/Commands-From-Source.md
+      - name: Propose update only if changed
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- VotingPlugin/Commands-From-Source.md; then
+            echo "No changes in command registrations"
+            exit 0
+          fi
+          BRANCH=automation/votingplugin-command-source
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "refs/heads/$BRANCH:refs/remotes/origin/$BRANCH" || true
+          git checkout -B "$BRANCH"
+          git add VotingPlugin/Commands-From-Source.md
+          git commit -m "docs: update source-derived command reference"
+          git push --force-with-lease origin HEAD:refs/heads/"$BRANCH"
+          if ! gh pr list --head "$BRANCH" --base main --state open --json number --jq 'length > 0' | grep -qx true; then
+            gh pr create --base main --head "$BRANCH" \
+              --title "docs: update command handlers from VotingPlugin source" \
+              --body "Generated from VotingPlugin master Java CommandHandler definitions; please review dynamic registrations and feature gates."
+          fi

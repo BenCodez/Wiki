@@ -63,6 +63,8 @@ command-map implementation prevented VotingPlugin from releasing them. Check
 the complete warning and any command conflicts before assuming another plugin
 can claim those names.
 
+> **Development commands:** The [source-derived command reference](/VotingPlugin/Commands-From-Source) is automatically generated from VotingPlugin's Java `CommandHandler` definitions, without adding a runtime exporter.
+
 ## Generated command reference
 
 Use `/av perms` to view the sender's permissions, or `/av permsplayer <player>`
