@@ -30,7 +30,7 @@ Neither a preset nor a historical wiki mapping takes precedence over an actual r
 
 ## Editing the machine-readable list
 
-The original list contains **26 mappings** as of this review. Preserve one plain Markdown bullet per mapping, without extra links, labels, or metadata on the mapping line:
+The mapping list changes as sites are added. Preserve one plain Markdown bullet per mapping, without extra links, labels, or metadata on the mapping line:
 
 ```text
 * example.com - ExampleServiceName

@@ -20,7 +20,7 @@ New to VotingPlugin? Start here. These guides take you from a new installation t
 | Your server | Start here | What you will configure |
 |---|---|---|
 | One Paper or Spigot server, without BungeeCord or Velocity | **[Standalone Server Quick Start](/VotingPlugin/Getting-Started-Standalone)** | VotingPlugin, a Votifier listener, one voting website, and a simple reward |
-| Velocity or BungeeCord network with two or more backend servers | **[Proxy Network Quick Start](/VotingPlugin/Getting-Started-Proxy)** | Vote listener on the proxy, VotingPlugin on proxy and backends, shared SQL storage, and vote routing |
+| Velocity or BungeeCord network with one or more backend servers | **[Proxy Network Quick Start](/VotingPlugin/Getting-Started-Proxy)** | Vote listener on the proxy, VotingPlugin on proxy and backends, shared SQL storage, and vote routing |
 | Already installed, but votes or rewards are not working | **[Verify Your First Vote](/VotingPlugin/Getting-Started-Verification)** | Separate internal command tests from real end-to-end vote delivery |
 
 **Follow the standalone path unless you actually run a Velocity/BungeeCord network.** A single Paper server does not need MySQL or proxy settings to get started.
