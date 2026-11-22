@@ -81,7 +81,7 @@ The exact path depends on whether the server is standalone or part of a proxy ne
 | Command | Description |
 |---|---|
 | `/vote` | Shows vote sites and player totals |
-| `/v` | Alias for `/vote` |
+| `/vgui` | Optional shortcut for `/vote gui` (enabled by default) |
 | `/adminvote` | Administration command root |
 | `/av` | Alias for `/adminvote` |
 
