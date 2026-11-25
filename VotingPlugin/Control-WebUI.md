@@ -68,6 +68,8 @@ Hosting and enrollment are separate:
 
 Control authentication does not encrypt traffic. Never expose a plaintext Control listener directly to the public internet.
 
+For agent-assisted vote-site previews, see [VotingPlugin Control MCP](/VotingPlugin/Control-MCP). That workflow uses Control v1.1.2 and a compatible VotingPlugin development build.
+
 ## Host Control on a proxy
 
 This is the simplest layout when all backends can reach the proxy's private address. In the hosting proxy's `bungeeconfig.yml`:
@@ -325,6 +327,8 @@ The read-only inspection lane can provide:
 These views do not allow SQL, arbitrary player enumeration, raw configuration or logs, command execution, reward execution, or writes.
 
 VoteLog views contain retained **logged events**, not a complete packet or command trace. A correlation timeline does not prove that every transport hop or reward command was recorded.
+
+On VotingPlugin development builds containing `241584e2` or later, the backend reports a VoteLog read failure during a summary, search, or trace as unavailable. If a source is unavailable, check database connectivity and whether the backend can read the VoteLog table before trusting the result. A successful empty search means no matching retained events for that query. A trace with unavailable sources can still show events from other nodes.
 
 > Changing `VoteLogging.Enabled` writes and reloads `Config.yml`, but the runtime VoteLog manager is created or closed only during plugin startup. Restart VotingPlugin after changing this setting. A newly enabled node can report enabled but unavailable until restart.
 {.is-warning}
