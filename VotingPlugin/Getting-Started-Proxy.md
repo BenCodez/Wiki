@@ -39,7 +39,7 @@ Paper/Spigot backend server(s)
 ## 1. Start with compatible artifacts and a shared database
 
 - Install the correct **proxy** VotingPlugin build on Velocity/BungeeCord and the **backend** VotingPlugin build on every participating Paper/Spigot server. Fully restart after installing.
-- Install VotifierPlus (or compatible NuVotifier) on the **proxy**. Set up its public address, separate TCP port, and public key/token as described in the [standalone listener instructions](/VotingPlugin/Getting-Started-Standalone). The address a voting website uses must reach the **proxy's** vote listener, not an internal backend.
+- Install VotifierPlus (or compatible NuVotifier) on the **proxy**. For VotifierPlus 1.4.2, edit the generated `bungeeconfig.yml` in the **VotifierPlus** data folder; VotingPlugin has a separate file with the same name. See the [VotifierPlus proxy example](/VotingPlugin/Proxy-Examples) for the port and key/token setup. The address a voting website uses must reach the **proxy's** vote listener, not an internal backend.
 - Create one **shared MySQL/MariaDB database** for VotingPlugin, reachable privately from the proxy and all backends. Use compatible credentials and database/table settings across nodes; do not expose the database port publicly.
 - Make sure the needed **JDBC driver** is available on **both proxy and backends**. If the platform does not provide it, use the documented [MySQLDriver build](https://bencodez.com/job/MySQLDriver/).
 

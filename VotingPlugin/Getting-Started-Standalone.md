@@ -28,20 +28,19 @@ If either plugin fails to load, resolve that before continuing. Check Java/serve
 
 VotifierPlus receives the notification that a server-list website sends. VotingPlugin does **not** listen for public Votifier connections itself.
 
-Open the **generated VotifierPlus listener** `config.yml` (not VotingPlugin's `Config.yml`). Common VotifierPlus defaults are:
+Open the **generated VotifierPlus listener** `config.yml` in the VotifierPlus data folder (not VotingPlugin's `Config.yml`). The [VotifierPlus 1.4.2 release](https://github.com/BenCodez/VotifierPlus/releases/tag/1.4.2) ships these listener defaults:
 
 ```yaml
 host: 0.0.0.0
 port: 8192
 TokenSupport: false
-DisableV1: false
 ```
 
 - `port` is the **listener's TCP port**, **not** the Minecraft game port (usually `25565`). On a managed host, use a port allocated to this server; `8192` is only an example/default.
 - `0.0.0.0` means **bind to local interfaces**; it is **never** the address to enter on a voting website.
 - Allow inbound TCP traffic to the chosen listener port in your hosting panel/firewall, and forward it if hosting behind a router.
 - For a website using **Votifier v1**, provide the public address, port, and contents of `rsa/public.key` from the listener's generated data folder. **Never share `rsa/private.key`.**
-- If the website supports **Votifier v2 tokens**, enable `TokenSupport`, restart the listener, and provide the appropriate generated/configured token instead of a public key. Use the protocol your installed listener and the website both support. Leave `DisableV1: false` if any site still requires v1.
+- If the website supports **Votifier v2 tokens**, set `TokenSupport: true`, restart the listener, and provide the generated or configured token to the voting website instead of a public key. Keep tokens private. If you use a mix of protocols, test each configured site after the change.
 
 **Restart** after listener changes. In your listing site's voting/Votifier settings, enter the server's **public hostname or IP**, the **actual Votifier port**, and the matching key/token. This may require a separate network allocation from your game server.
 
