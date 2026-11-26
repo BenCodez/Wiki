@@ -49,19 +49,18 @@ Never expose the SQL database directly to the public internet. Use a matching dr
 
 ## 1. VotifierPlus on the proxy
 
-Install **one** VotifierPlus/NuVotifier listener on the proxy. Its generated listener configuration commonly contains:
+Install **one** VotifierPlus or compatible NuVotifier listener on the proxy. This example uses [VotifierPlus 1.4.2](https://github.com/BenCodez/VotifierPlus/releases/tag/1.4.2) on Velocity or BungeeCord. Edit the generated `bungeeconfig.yml` in the **VotifierPlus** data folder. If you use NuVotifier, follow its own configuration format.
 
 ```yaml
 host: 0.0.0.0
 port: 8192
 TokenSupport: false
-DisableV1: false
 Forwarding:
   server1:
     Enabled: false
 ```
 
-Use the site-provided Votifier v1 public-key flow or a correctly enabled v2 token flow. The server-list site needs the proxy's **public hostname**, the assigned TCP port, and the matching public key/token.
+Enter the proxy's **public hostname** and assigned TCP port on the voting website. For Votifier v1, supply the public key from the listener. For a website using v2, set `TokenSupport: true`, restart the listener, and supply its generated or configured token to that website. Keep the token and private key private.
 
 **Keep VotifierPlus backend forwarding disabled** in the standard layout. VotingPlugin, not VotifierPlus, forwards the vote to eligible backends. Do not run duplicate listeners on the backends without a carefully designed custom topology.
 
